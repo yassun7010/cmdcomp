@@ -15,6 +15,7 @@ lint = "pyright cmdcomp/** tests/**"
 
 [tool.poetry.dependencies]
 python = "^3.11"
+pydantic = "^2.0"
 
 [tool.poetry.group.dev.dependencies]
 flake8 = "^6.0.0"
