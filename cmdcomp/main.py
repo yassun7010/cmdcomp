@@ -1,5 +1,9 @@
 from cmdcomp.cli.app import App
 
 
-def main():
+def main() -> None:
     App.run()
+
+
+if __name__ == "__main__":
+    main()
