@@ -5,6 +5,9 @@ description = ""
 authors = ["Yasutanium <yassun4dev@outlook.com>"]
 readme = "README.md"
 
+[tool.poetry.scripts]
+cmdcomp = "cmdcomp.main:main"
+
 [tool.taskipy.tasks]
 test = "pytest"
 format = "black --target-version py310 ."
