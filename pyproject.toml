@@ -5,10 +5,48 @@ description = ""
 authors = ["Yasutanium <yassun4dev@outlook.com>"]
 readme = "README.md"
 
+[tool.taskipy.tasks]
+test = "pytest"
+format = "black --target-version py310 ."
+lint = "pyright cmdcomp/** tests/**"
+
 [tool.poetry.dependencies]
 python = "^3.11"
 
+[tool.poetry.group.dev.dependencies]
+flake8 = "^6.0.0"
+black = "^23.1.0"
+isort = "^5.12.0"
+pytest = "^7.2.2"
+pyright = "^1.1.300"
+taskipy = "^1.10.4"
+pytest-asyncio = "^0.21.0"
+ipython = "^8.14.0"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 88
+
+[tool.isort]
+# make it compatible with black
+line_length = 88
+multi_line_output = 3
+profile = "black"
+
+[tool.flake8]
+max-line-length = 200
+ignore = ["E203"]
+extend-ignore = ["W503"]
+
+[tool.pyright]
+exclude = ["**/__pycache__"]
+reportPrivateImportUsage = "none"
+reportUnusedImport = true
+
+[tool.mypy]
+[[tool.mypy.overrides]]
+ignore_missing_imports = true
+module = ["colorama", "authlib"]
