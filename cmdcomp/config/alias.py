@@ -1,0 +1,1 @@
+Alias = str | list[str]
