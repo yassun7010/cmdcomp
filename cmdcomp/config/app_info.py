@@ -1,7 +1,9 @@
 from typing import Annotated
 
-from pydantic import BaseModel, Field
+from pydantic import Field
+
+from cmdcomp.config.model import Model
 
 
-class AppInfo(BaseModel):
+class AppInfo(Model):
     name: Annotated[str, Field(title="your cli app name.")]

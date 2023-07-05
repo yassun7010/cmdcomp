@@ -4,15 +4,16 @@ from typing import BinaryIO
 
 import tomllib
 import yaml
-from pydantic import BaseModel, ConfigDict
+from pydantic import ConfigDict
 
 from cmdcomp.config.app_info import AppInfo
 from cmdcomp.config.cmdcomp_info import CmdCompInfo
 from cmdcomp.config.command.command import Command
+from cmdcomp.config.model import Model
 
 
-class Config(BaseModel):
-    model_config = ConfigDict(arbitrary_types_allowed=True)
+class Config(Model):
+    model_config = ConfigDict(arbitrary_types_allowed=True, extra="forbid")
 
     cmdcomp: CmdCompInfo
     app: AppInfo

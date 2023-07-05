@@ -1,6 +1,7 @@
 {
     "$defs": {
         "AppInfo": {
+            "additionalProperties": false,
             "properties": {
                 "name": {
                     "title": "your cli app name.",
@@ -14,6 +15,7 @@
             "type": "object"
         },
         "CmdCompInfo": {
+            "additionalProperties": false,
             "description": "cmdcomp info.",
             "properties": {
                 "version": {
@@ -33,6 +35,7 @@
             "type": "object"
         },
         "CommandOption": {
+            "additionalProperties": false,
             "properties": {
                 "type": {
                     "const": "command",
@@ -51,6 +54,7 @@
             "type": "object"
         },
         "FileOption": {
+            "additionalProperties": false,
             "properties": {
                 "type": {
                     "const": "file",
@@ -69,6 +73,7 @@
             "type": "object"
         },
         "SpecificOptionsCommand": {
+            "additionalProperties": false,
             "properties": {
                 "alias": {
                     "anyOf": [
@@ -103,6 +108,7 @@
             "type": "object"
         },
         "StrOptionsCommand": {
+            "additionalProperties": false,
             "properties": {
                 "alias": {
                     "anyOf": [
@@ -151,6 +157,7 @@
             "type": "object"
         }
     },
+    "additionalProperties": false,
     "properties": {
         "cmdcomp": {
             "$ref": "#/$defs/CmdCompInfo"

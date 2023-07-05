@@ -1,9 +1,11 @@
 from typing import Annotated, Literal
 
-from pydantic import BaseModel, Field
+from pydantic import Field
+
+from cmdcomp.config.model import Model
 
 
-class CommandOption(BaseModel):
+class CommandOption(Model):
     type: Literal["command"]
 
     execute: Annotated[

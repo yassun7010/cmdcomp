@@ -2,7 +2,7 @@ from functools import reduce
 from operator import add
 from typing import Annotated, NewType, OrderedDict
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import ConfigDict, Field
 
 from cmdcomp.config.command.option import (
     OptionType,
@@ -12,6 +12,7 @@ from cmdcomp.config.command.option import (
 )
 from cmdcomp.config.command.option.command_option import CommandOption
 from cmdcomp.config.command.option.file_option import FileOption
+from cmdcomp.config.model import Model
 from cmdcomp.exception import NeverReach
 
 SubcommandName = NewType("SubcommandName", str)
@@ -22,7 +23,7 @@ Candidates = list[Candidate] | list[dict[OptionType, str]]
 Completions = Candidates | dict[str, "Completions"]  # type: ignore
 
 
-class StrOptionsCommand(BaseModel):
+class StrOptionsCommand(Model):
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
     alias: Annotated[
@@ -54,7 +55,7 @@ class StrOptionsCommand(BaseModel):
             return self.alias
 
 
-class SpecificOptionsCommand(BaseModel):
+class SpecificOptionsCommand(Model):
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
     alias: Annotated[

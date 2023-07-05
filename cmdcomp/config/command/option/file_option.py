@@ -1,9 +1,11 @@
 from typing import Annotated, Literal
 
-from pydantic import BaseModel, Field
+from pydantic import Field
+
+from cmdcomp.config.model import Model
 
 
-class FileOption(BaseModel):
+class FileOption(Model):
     type: Literal["file"]
 
     base_path: Annotated[
