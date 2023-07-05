@@ -2,6 +2,7 @@ from typing import Annotated, OrderedDict
 
 from pydantic import BaseModel, Field
 
+from cmdcomp.config.command.option import Options
 from cmdcomp.config.command.subcommand import Subcommand, SubcommandName
 
 
@@ -10,10 +11,10 @@ class RootCommand(BaseModel):
     Root command of the cli app.
     """
 
-    alias: Annotated[
-        str | list[str] | None,
+    options: Annotated[
+        Options,
         Field(
-            title="alias of the cli command.",
+            title="options of the command.",
             default_factory=list,
         ),
     ]

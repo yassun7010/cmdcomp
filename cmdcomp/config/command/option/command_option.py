@@ -3,7 +3,7 @@ from typing import Annotated, Literal
 from pydantic import BaseModel, Field
 
 
-class CommandOptions(BaseModel):
+class CommandOption(BaseModel):
     type: Literal["command"]
 
     execute: Annotated[

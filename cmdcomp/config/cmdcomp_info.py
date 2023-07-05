@@ -9,7 +9,7 @@ class CmdCompInfo(BaseModel):
     """
 
     version: Annotated[
-        Literal["1.0"],
+        Literal["1"],
         Field(title="cmdcomp config schema version."),
     ]
 

@@ -1,10 +1,9 @@
 [cmdcomp]
-version = "1.0"
+version = "1"
 repository = "https://github.com/yassun4dev/cmdcomp"
 
 [app]
 name = "your_cli_command_name"
-version = "x.x.x"              # 必須ではない
 
 [root]
 # ルートでは文字列の配列のオプションのみ取れる

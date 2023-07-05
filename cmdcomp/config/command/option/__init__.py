@@ -1,4 +1,10 @@
-from cmdcomp.config.command.option.command_options import CommandOptions
-from cmdcomp.config.command.option.file_options import FileOptions
+from typing import Literal
 
-Options = str | list[str] | FileOptions | CommandOptions
+from cmdcomp.config.command.option.command_option import CommandOption
+from cmdcomp.config.command.option.file_option import FileOption
+
+StrOption = str
+
+OptionType = Literal["command", "file"]
+
+Options = StrOption | list[StrOption] | FileOption | CommandOption
