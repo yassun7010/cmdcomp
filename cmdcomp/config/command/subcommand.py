@@ -7,6 +7,7 @@ from pydantic import BaseModel, ConfigDict, Field
 from cmdcomp.config.command.option import Options, OptionType, StrOption
 from cmdcomp.config.command.option.command_option import CommandOption
 from cmdcomp.config.command.option.file_option import FileOption
+from cmdcomp.exception import NeverReach
 
 SubcommandName = NewType("SubcommandName", str)
 
@@ -80,29 +81,4 @@ def get_candidates(
         return [{file: options.base_path}]
 
     else:
-        raise Exception("never reach.")
-
-
-class SubCommandDefineError(Exception):
-    def __init__(
-        self,
-        subcommands: Subcommands,
-        options: Options | None,
-    ):
-        self.subcommands = subcommands
-        self.options = options
-
-    def __str__(self):
-        return (
-            f"this 'options' and 'subcommand' cannot be used at the same time.\n"
-            f"    'options': {self.options}\n"
-            f"    'subcommand': {list(self.subcommands.keys())}"
-        )
-
-
-class CommandOptionNotFoundError(Exception):
-    def __init__(self, options: Options):
-        self._options = options
-
-    def __str__(self):
-        return f"Unknown command type: {self._options}"
+        raise NeverReach(options)
