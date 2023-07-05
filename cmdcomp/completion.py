@@ -4,6 +4,7 @@ from pathlib import Path
 from mergedeep import merge
 
 from cmdcomp.config.command.command import (
+    Candidates,
     Command,
     Completions,
     StrOptionsCommand,
@@ -56,7 +57,7 @@ def _update_completions_list(
 
         _update_completions_list(completions_list, subcommand, new_keys)
 
-        candidates = get_candidates(subcommand)
+        candidates: Candidates = get_candidates(subcommand)
 
         if len(candidates) == 0:
             continue
