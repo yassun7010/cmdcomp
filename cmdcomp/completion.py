@@ -3,9 +3,10 @@ from pathlib import Path
 
 from mergedeep import merge
 
-from cmdcomp.config.command.subcommand import (
+from cmdcomp.config.command.command import (
+    Command,
     Completions,
-    Subcommands,
+    StrOptionsCommand,
     get_candidates,
     get_targets,
 )
@@ -23,17 +24,17 @@ def generate(shell: ShellType, config: Config):
 
     return template.render(
         app_name=config.app.name,
-        app_aliases=config.app.aliases,
+        app_aliases=config.root.aliases,
         completions_list=generate_completions_list(config),
     )
 
 
 def generate_completions_list(config: Config):
-    completions_list = [get_candidates(config.root.subcommands, config.root.options)]
+    completions_list = [get_candidates(config.root)]
 
     _update_completions_list(
         completions_list,
-        config.root.subcommands,
+        config.root,
     )
 
     return completions_list
@@ -41,18 +42,21 @@ def generate_completions_list(config: Config):
 
 def _update_completions_list(
     completions_list: list[Completions],
-    subcommands: Subcommands,
+    command: Command,
     keys: list[str] | None = None,
 ):
     if keys is None:
         keys = []
 
-    for name, subcommand in subcommands.items():
+    if not isinstance(command, StrOptionsCommand):
+        return
+
+    for name, subcommand in command.subcommands.items():
         new_keys = keys + ["|".join(get_targets(name, subcommand))]
 
-        _update_completions_list(completions_list, subcommand.subcommands, new_keys)
+        _update_completions_list(completions_list, subcommand, new_keys)
 
-        candidates = get_candidates(subcommand.subcommands, subcommand.options)
+        candidates = get_candidates(subcommand)
 
         if len(candidates) == 0:
             continue
@@ -61,11 +65,11 @@ def _update_completions_list(
             completions_list.append({})
 
         merge(
-            completions_list[len(new_keys)],
+            completions_list[len(new_keys)],  # type: ignore
             reduce(
-                _swap_key_value,
+                _swap_key_value,  # type: ignore
                 reversed(new_keys),
-                candidates,
+                candidates,  # type: ignore
             ),
         )
 

@@ -6,9 +6,11 @@ _() {
 
     case $cword in
         1)
-            COMPREPLY=( $(compgen -W "welcome list ls execute restart shell log cd test and_normal_options_work" -- "$cur") ) ;;
+            COMPREPLY=( $(compgen -W "-h --help --version welcome list ls execute restart shell log cd test and_normal_options_work" -- "$cur") ) ;;
         2)
             case ${words[1]} in
+                list|ls)
+                    COMPREPLY=( $(compgen -W "-a" -- "$cur") ) ;;
                 execute|restart|shell|log)
                     COMPREPLY=( $(compgen -W "$(your_app_name ps -s)" -- "$cur") ) ;;
                 cd)
@@ -16,7 +18,15 @@ _() {
                 test)
                     COMPREPLY=( $(compgen -W "rubocop" -- "$cur") ) ;;
                 and_normal_options_work)
-                    COMPREPLY=( $(compgen -W "foo bar" -- "$cur") ) ;;
+                    COMPREPLY=( $(compgen -W "-h --help foo bar" -- "$cur") ) ;;
+            esac ;;
+        3)
+            case ${words[1]} in
+                test)
+                    case ${words[2]} in
+                        rubocop)
+                            COMPREPLY=( $(compgen -W "-A" -- "$cur") ) ;;
+                    esac ;;
             esac ;;
     esac
 }

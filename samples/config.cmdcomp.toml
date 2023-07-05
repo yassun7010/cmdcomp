@@ -36,13 +36,3 @@ options = ["-A"]
 [root.subcommands.and_normal_options_work]
 options = ["-h", "--help"]
 subcommands = { foo = {}, bar = {} }
-
-# あるサブコマンドに対して， subcommands と コマンド options は同時に利用できない
-# [root.subcommands.and_command_options_do_not_work]
-# options = {type = "command", execute = "your_app_name ps -s"}
-# subcommands = {foo = {}, bar = {}}
-
-# あるサブコマンドに対して， subcommands と ファイル options は同時に利用できない
-# [root.subcommands.and_file_options_do_not_work]
-# options = {type = "file", base_path = "$(cd $(dirname $0); pwd)/../apps"}
-# subcommands = {foo = {}, bar = {}}

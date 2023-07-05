@@ -5,9 +5,11 @@ _() {
 
     case "$(($CURRENT-1))" in
         1)
-            _values '' welcome list ls execute restart shell log cd test and_normal_options_work ;;
+            _values '' -h --help --version welcome list ls execute restart shell log cd test and_normal_options_work ;;
         2)
             case ${words[1]} in
+                list|ls)
+                    _values 'list|ls' -a ;;
                 execute|restart|shell|log)
                     _values 'execute|restart|shell|log' $(your_app_name ps -s) ;;
                 cd)
@@ -15,7 +17,15 @@ _() {
                 test)
                     _values 'test' rubocop ;;
                 and_normal_options_work)
-                    _values 'and_normal_options_work' foo bar ;;
+                    _values 'and_normal_options_work' -h --help foo bar ;;
+            esac ;;
+        3)
+            case ${words[1]} in
+                test)
+                    case ${words[2]} in
+                        rubocop)
+                            _values 'rubocop' -A ;;
+                    esac ;;
             esac ;;
     esac
 }

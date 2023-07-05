@@ -7,4 +7,6 @@ StrOption = str
 
 OptionType = Literal["command", "file"]
 
-Options = StrOption | list[StrOption] | FileOption | CommandOption
+StrOptions = StrOption | list[StrOption]
+SpecificOptions = FileOption | CommandOption
+Options = StrOptions | SpecificOptions

@@ -56,3 +56,8 @@ reportUnusedImport = true
 [[tool.mypy.overrides]]
 ignore_missing_imports = true
 module = ["colorama", "authlib"]
+
+[[tool.poetry.source]]
+name = "aliyun"
+url = "https://mirrors.aliyun.com/pypi/simple"
+default = true

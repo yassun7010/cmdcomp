@@ -5,7 +5,7 @@ from pydantic import BaseModel, ConfigDict
 
 from cmdcomp.config.app_info import AppInfo
 from cmdcomp.config.cmdcomp_info import CmdCompInfo
-from cmdcomp.config.command.root_command import RootCommand
+from cmdcomp.config.command.command import Command
 
 
 class Config(BaseModel):
@@ -13,7 +13,7 @@ class Config(BaseModel):
 
     cmdcomp: CmdCompInfo
     app: AppInfo
-    root: RootCommand
+    root: Command
 
 
 def load(file: BinaryIO) -> Config:
