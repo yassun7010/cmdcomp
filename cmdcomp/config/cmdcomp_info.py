@@ -12,8 +12,3 @@ class CmdCompInfo(Model):
         Literal["1"],
         Field(title="cmdcomp config schema version."),
     ]
-
-    repository: Annotated[
-        Literal["https://github.com/yassun4dev/cmdcomp"],
-        Field(title="cmdcomp repository url."),
-    ]

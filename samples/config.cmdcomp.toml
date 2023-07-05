@@ -1,6 +1,5 @@
 [cmdcomp]
 version = "1"
-repository = "https://github.com/yassun4dev/cmdcomp"
 
 [app]
 name = "your_cli_command_name"

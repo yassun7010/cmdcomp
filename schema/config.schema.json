@@ -22,15 +22,10 @@
                 "version": {
                     "const": "1",
                     "title": "cmdcomp config schema version."
-                },
-                "repository": {
-                    "const": "https://github.com/yassun4dev/cmdcomp",
-                    "title": "cmdcomp repository url."
                 }
             },
             "required": [
-                "version",
-                "repository"
+                "version"
             ],
             "title": "CmdCompInfo",
             "type": "object"
