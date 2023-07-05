@@ -1,4 +1,4 @@
-from cmdcomp.cli.app import App
+from cmdcomp.app import App
 
 
 def main() -> None:

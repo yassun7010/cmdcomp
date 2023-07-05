@@ -2,9 +2,9 @@ from argparse import BooleanOptionalAction, FileType
 from logging import getLogger
 
 from cmdcomp import __version__
-from cmdcomp.cli.subcommand.completion import generate
+from cmdcomp.completion import generate
 from cmdcomp.config.config import load
-from cmdcomp.generator.shell_type import ShellType
+from cmdcomp.shell_type import ShellType
 
 logger = getLogger(__name__)
 

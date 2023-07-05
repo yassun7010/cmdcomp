@@ -5,7 +5,7 @@ from cmdcomp.config.command.option.option import Option
 from cmdcomp.config.command.option.option_type import OptionType
 from cmdcomp.config.command.subcommand import Subcommand
 from cmdcomp.config.config import Config
-from cmdcomp.generator.shell_type import ShellType
+from cmdcomp.shell_type import ShellType
 
 SubCommandName = NewType("SubCommandName", str)
 Candidate = SubCommandName | Option
@@ -18,7 +18,7 @@ def generate(shell: ShellType, config: Config):
     from jinja2 import Environment, FileSystemLoader
 
     env = Environment(
-        loader=FileSystemLoader(Path(__file__).parent.parent.parent / "templates"),
+        loader=FileSystemLoader(Path(__file__).parent / "templates"),
     )
     template = env.get_template(f"{shell.value}.sh.jinja")
 
