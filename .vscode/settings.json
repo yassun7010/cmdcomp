@@ -50,6 +50,6 @@
         "files.trimTrailingWhitespace": false
     },
     "files.associations": {
-        "*.sh.jinja": "jinja-shell-script"
+        "*.sh.jinja": "jinja-shell"
     },
 }

@@ -1,19 +1,19 @@
 from typing import Annotated, Literal
 
-from pydantic import Field
+from pydantic import BaseModel, Field
 
 
-class CmdCompInfo:
+class CmdCompInfo(BaseModel):
     """
     cmdcomp info.
     """
 
-    repository: Annotated[
-        Literal["https://github.com/yassun4dev/cmdcomp"],
-        Field(title="cmdcomp repository url."),
-    ]
-
     version: Annotated[
         Literal["1.0"],
         Field(title="cmdcomp config schema version."),
+    ]
+
+    repository: Annotated[
+        Literal["https://github.com/yassun4dev/cmdcomp"],
+        Field(title="cmdcomp repository url."),
     ]

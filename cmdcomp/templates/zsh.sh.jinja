@@ -1,0 +1,34 @@
+#!/bin/zsh
+
+_{{ appname|replace("-","_") }}() {
+    shift words
+
+    case "$(($CURRENT-1))" in
+        1)
+            _values '{{ appname }}' {{ completions_list[0]|join(" ") }} ;;
+{%- for completions in completions_list[1:] %}
+        {{ loop.index + 1 }})
+            case ${words[{{ loop.depth }}]} in
+{%- for name, completion in completions.items() recursive %}
+                {{ name }})
+{%- if completion is mapping %}
+                    case ${words[{{ loop.depth + 1 }}]} in
+{{- loop(completion.items())|indent(width=8) }}
+                    esac ;;
+{%- elif completion|first is mapping and 'command' in completion|first %}
+                    _values '{{ name }}' {{ (completion|first).command }} ;;
+{%- elif completion|first is mapping and 'file' in completion|first %}
+                    _files -W "{{ (completion|first).file }}" ;;
+{%- else %}
+                    _values '{{ name }}' {{ completion|join(" ") }} ;;
+{%- endif %}
+{%- endfor %}
+            esac ;;
+{%- endfor %}
+    esac
+}
+
+compdef _{{ appname|replace("-","_") }} {{ appname }}
+{%- for app_alias in app_aliases %}
+compdef _{{ appname|replace("-","_") }} {{ app_alias }}
+{%- endfor %}

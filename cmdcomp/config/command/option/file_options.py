@@ -4,7 +4,7 @@ from typing import Annotated, Literal
 from pydantic import BaseModel, Field
 
 
-class FileCommandOptions(BaseModel):
+class FileOptions(BaseModel):
     type: Literal["file"]
 
     base_path: Annotated[
