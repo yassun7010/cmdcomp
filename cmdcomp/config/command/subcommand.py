@@ -47,10 +47,6 @@ class Subcommand(BaseModel):
         else:
             return self.alias
 
-    @property
-    def candidates(self) -> Candidates:
-        return get_candidates(self.subcommands, self.options)
-
 
 Subcommands = OrderedDict[SubcommandName, Subcommand]
 

@@ -21,37 +21,40 @@ def generate(shell: ShellType, config: Config):
     )
     template = env.get_template(f"{shell.value}.sh.jinja")
 
-    return template.render(parse_config(config))
+    return template.render(
+        app_name=config.app.name,
+        app_aliases=config.app.aliases,
+        completions_list=generate_completions_list(config),
+    )
 
 
-def parse_config(config: Config):
-    completions_list: list[Completions] = [
-        get_candidates(config.root.subcommands, config.root.options)
-    ]
+def generate_completions_list(config: Config):
+    completions_list = [get_candidates(config.root.subcommands, config.root.options)]
 
-    update_completions_list(completions_list, config.root.subcommands)
+    _update_completions_list(
+        completions_list,
+        config.root.subcommands,
+    )
 
-    return {
-        "appname": config.app.name,
-        "app_aliases": config.app.aliases,
-        "completions_list": completions_list,
-    }
+    return completions_list
 
 
-def update_completions_list(
+def _update_completions_list(
     completions_list: list[Completions],
     subcommands: Subcommands,
     keys: list[str] | None = None,
-) -> None:
+):
     if keys is None:
         keys = []
 
     for name, subcommand in subcommands.items():
         new_keys = keys + ["|".join(get_targets(name, subcommand))]
 
-        update_completions_list(completions_list, subcommand.subcommands, new_keys)
+        _update_completions_list(completions_list, subcommand.subcommands, new_keys)
 
-        candidates: Completions = subcommand.candidates
+        candidates: Completions = get_candidates(
+            subcommand.subcommands, subcommand.options
+        )
 
         if len(candidates) == 0:
             continue
