@@ -6,6 +6,8 @@ from cmdcomp.config.model import Model
 
 
 class FileOption(Model):
+    """a: complete with a relative path from the directory specified by base_path."""
+
     type: Literal["file"]
 
     base_path: Annotated[

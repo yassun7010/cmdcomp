@@ -13,6 +13,8 @@ from cmdcomp.config.model import Model
 
 
 class Config(Model):
+    """cmdcomp config."""
+
     model_config = ConfigDict(arbitrary_types_allowed=True, extra="forbid")
 
     cmdcomp: CmdCompInfo

@@ -6,4 +6,6 @@ from cmdcomp.config.model import Model
 
 
 class AppInfo(Model):
+    """your cli app info."""
+
     name: Annotated[str, Field(title="your cli app name.")]
