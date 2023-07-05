@@ -1,0 +1,29 @@
+cmdcomp:
+  version: "1"
+  repository: "https://github.com/yassun4dev/cmdcomp"
+app:
+  name: "your_cli_command_name"
+
+root:
+  options: ["-h", "--help", "--version"]
+  subcommands:
+    welcome: {}
+    list:
+      options: ["-a"]
+      alias: "ls"
+    execute:
+      options:
+        type: "command"
+        execute: "your_app_name ps -s"
+      alias: ["restart", "shell", "log"]
+    cd:
+      options: { type: "file", base_path: "$(cd $(dirname $0); pwd)/../apps" }
+    test:
+      subcommands:
+        rubocop:
+          options: ["-A"]
+    and_normal_options_work:
+      options: ["-h", "--help"]
+      subcommands:
+        foo: {}
+        bar: {}

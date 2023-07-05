@@ -6,33 +6,24 @@ repository = "https://github.com/yassun4dev/cmdcomp"
 name = "your_cli_command_name"
 
 [root]
-# ルートでは文字列の配列のオプションのみ取れる
 options = ["-h", "--help", "--version"]
 
-# 何もオプションのないサブコマンドの場合
 [root.subcommands.welcome]
 
-# オプションがあるコマンドの場合
 [root.subcommands.list]
 options = ["-a"]
-# エイリアスを設定できる
 alias = "ls"
 
-# 補完候補を Shell コマンドから求めたい場合
 [root.subcommands.execute]
 options = { type = "command", execute = "your_app_name ps -s" }
-# エイリアスは複数設定できる
 alias = ["restart", "shell", "log"]
 
-# 補完候補を あるディレクトリ起点のファイルから求めたい場合
 [root.subcommands.cd]
 options = { type = "file", base_path = "$(cd $(dirname $0); pwd)/../apps" }
 
-# サブコマンドがさらにあるコマンドの場合，連結することができる
 [root.subcommands.test.subcommands.rubocop]
 options = ["-A"]
 
-# サブコマンドと通常のオプションは併用できる
 [root.subcommands.and_normal_options_work]
 options = ["-h", "--help"]
 subcommands = { foo = {}, bar = {} }
