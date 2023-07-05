@@ -52,9 +52,7 @@ def _update_completions_list(
 
         _update_completions_list(completions_list, subcommand.subcommands, new_keys)
 
-        candidates: Completions = get_candidates(
-            subcommand.subcommands, subcommand.options
-        )
+        candidates = get_candidates(subcommand.subcommands, subcommand.options)
 
         if len(candidates) == 0:
             continue
