@@ -2,6 +2,7 @@
     "$defs": {
         "AppInfo": {
             "additionalProperties": false,
+            "description": "your cli app info.",
             "properties": {
                 "name": {
                     "title": "your cli app name.",
@@ -36,6 +37,7 @@
         },
         "CommandOption": {
             "additionalProperties": false,
+            "description": "complete with the result of executing the command in the Shell command.",
             "properties": {
                 "type": {
                     "const": "command",
@@ -55,6 +57,7 @@
         },
         "FileOption": {
             "additionalProperties": false,
+            "description": "a: complete with a relative path from the directory specified by base_path.",
             "properties": {
                 "type": {
                     "const": "file",
@@ -158,6 +161,7 @@
         }
     },
     "additionalProperties": false,
+    "description": "cmdcomp config.",
     "properties": {
         "cmdcomp": {
             "$ref": "#/$defs/CmdCompInfo"
