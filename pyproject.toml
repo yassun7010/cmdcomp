@@ -9,6 +9,7 @@ readme = "README.md"
 cmdcomp = "cmdcomp.main:main"
 
 [tool.taskipy.tasks]
+generate-json-schema = "python schema/generate.py > schema/config.schema.json"
 test = "pytest"
 format = "black --target-version py310 ."
 lint = "pyright cmdcomp/** tests/**"

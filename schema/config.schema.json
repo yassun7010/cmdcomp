@@ -1,0 +1,180 @@
+{
+    "$defs": {
+        "AppInfo": {
+            "properties": {
+                "name": {
+                    "title": "your cli app name.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name"
+            ],
+            "title": "AppInfo",
+            "type": "object"
+        },
+        "CmdCompInfo": {
+            "description": "cmdcomp info.",
+            "properties": {
+                "version": {
+                    "const": "1",
+                    "title": "cmdcomp config schema version."
+                },
+                "repository": {
+                    "const": "https://github.com/yassun4dev/cmdcomp",
+                    "title": "cmdcomp repository url."
+                }
+            },
+            "required": [
+                "version",
+                "repository"
+            ],
+            "title": "CmdCompInfo",
+            "type": "object"
+        },
+        "CommandOption": {
+            "properties": {
+                "type": {
+                    "const": "command",
+                    "title": "Type"
+                },
+                "execute": {
+                    "title": "command to execute.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "type",
+                "execute"
+            ],
+            "title": "CommandOption",
+            "type": "object"
+        },
+        "FileOption": {
+            "properties": {
+                "type": {
+                    "const": "file",
+                    "title": "Type"
+                },
+                "base_path": {
+                    "title": "path of the directory from which to base filename completion.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "type",
+                "base_path"
+            ],
+            "title": "FileOption",
+            "type": "object"
+        },
+        "SpecificOptionsCommand": {
+            "properties": {
+                "alias": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        }
+                    ],
+                    "title": "alias of the command."
+                },
+                "options": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/FileOption"
+                        },
+                        {
+                            "$ref": "#/$defs/CommandOption"
+                        }
+                    ],
+                    "title": "options of the command."
+                }
+            },
+            "required": [
+                "options"
+            ],
+            "title": "SpecificOptionsCommand",
+            "type": "object"
+        },
+        "StrOptionsCommand": {
+            "properties": {
+                "alias": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        }
+                    ],
+                    "title": "alias of the command."
+                },
+                "options": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        }
+                    ],
+                    "title": "options of the command."
+                },
+                "subcommands": {
+                    "additionalProperties": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/$defs/StrOptionsCommand"
+                            },
+                            {
+                                "$ref": "#/$defs/SpecificOptionsCommand"
+                            }
+                        ]
+                    },
+                    "title": "subcommands of the command.",
+                    "type": "object"
+                }
+            },
+            "title": "StrOptionsCommand",
+            "type": "object"
+        }
+    },
+    "properties": {
+        "cmdcomp": {
+            "$ref": "#/$defs/CmdCompInfo"
+        },
+        "app": {
+            "$ref": "#/$defs/AppInfo"
+        },
+        "root": {
+            "anyOf": [
+                {
+                    "$ref": "#/$defs/StrOptionsCommand"
+                },
+                {
+                    "$ref": "#/$defs/SpecificOptionsCommand"
+                }
+            ],
+            "title": "Root"
+        }
+    },
+    "required": [
+        "cmdcomp",
+        "app",
+        "root"
+    ],
+    "title": "Config",
+    "type": "object"
+}

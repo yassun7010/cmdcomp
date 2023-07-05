@@ -4,9 +4,7 @@ from pydantic import BaseModel, Field
 
 
 class CmdCompInfo(BaseModel):
-    """
-    cmdcomp info.
-    """
+    """cmdcomp info."""
 
     version: Annotated[
         Literal["1"],
