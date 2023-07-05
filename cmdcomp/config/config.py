@@ -1,6 +1,9 @@
+import json
+import os
 from typing import BinaryIO
 
 import tomllib
+import yaml
 from pydantic import BaseModel, ConfigDict
 
 from cmdcomp.config.app_info import AppInfo
@@ -17,4 +20,15 @@ class Config(BaseModel):
 
 
 def load(file: BinaryIO) -> Config:
-    return Config.model_validate(tomllib.load(file))
+    _, extention = os.path.splitext(file.name)
+    match extention:
+        case ".json":
+            data = json.load(file)
+        case ".yaml":
+            data = yaml.full_load(file)
+        case ".toml":
+            data = tomllib.load(file)
+        case _:
+            raise Exception(f"Unsupported config file type `{extention}`.")
+
+    return Config.model_validate(data)
