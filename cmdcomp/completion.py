@@ -7,7 +7,7 @@ from cmdcomp.config.command.command import (
     Candidates,
     Command,
     Completions,
-    StrOptionsCommand,
+    SubCommandsCommand,
     get_candidates,
     get_targets,
 )
@@ -49,7 +49,7 @@ def _update_completions_list(
     if keys is None:
         keys = []
 
-    if not isinstance(command, StrOptionsCommand):
+    if not isinstance(command, SubCommandsCommand):
         return
 
     for name, subcommand in command.subcommands.items():

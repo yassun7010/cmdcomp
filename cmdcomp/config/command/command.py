@@ -23,7 +23,9 @@ Candidates = list[Candidate] | list[dict[OptionType, str]]
 Completions = Candidates | dict[str, "Completions"]  # type: ignore
 
 
-class StrOptionsCommand(Model):
+class SubCommandsCommand(Model):
+    """A command that can specify a subcommand."""
+
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
     alias: Annotated[
@@ -56,6 +58,8 @@ class StrOptionsCommand(Model):
 
 
 class SpecificOptionsCommand(Model):
+    """A command that can specify options."""
+
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
     alias: Annotated[
@@ -81,7 +85,7 @@ class SpecificOptionsCommand(Model):
             return self.alias
 
 
-Command = StrOptionsCommand | SpecificOptionsCommand
+Command = SubCommandsCommand | SpecificOptionsCommand
 
 Subcommands = OrderedDict[SubcommandName, Command]
 
@@ -92,7 +96,7 @@ def get_targets(name: SubcommandName, subcommand: Command) -> list[str]:
 
 def get_candidates(command: Command) -> Candidates:
     match command:
-        case StrOptionsCommand():
+        case SubCommandsCommand():
             return (
                 [command.options]
                 if isinstance(command.options, str)

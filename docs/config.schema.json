@@ -72,6 +72,7 @@
         },
         "SpecificOptionsCommand": {
             "additionalProperties": false,
+            "description": "A command that can specify options.",
             "properties": {
                 "alias": {
                     "anyOf": [
@@ -105,8 +106,9 @@
             "title": "SpecificOptionsCommand",
             "type": "object"
         },
-        "StrOptionsCommand": {
+        "SubCommandsCommand": {
             "additionalProperties": false,
+            "description": "A command that can specify a subcommand.",
             "properties": {
                 "alias": {
                     "anyOf": [
@@ -140,7 +142,7 @@
                     "additionalProperties": {
                         "anyOf": [
                             {
-                                "$ref": "#/$defs/StrOptionsCommand"
+                                "$ref": "#/$defs/SubCommandsCommand"
                             },
                             {
                                 "$ref": "#/$defs/SpecificOptionsCommand"
@@ -151,7 +153,7 @@
                     "type": "object"
                 }
             },
-            "title": "StrOptionsCommand",
+            "title": "SubCommandsCommand",
             "type": "object"
         }
     },
@@ -167,7 +169,7 @@
         "root": {
             "anyOf": [
                 {
-                    "$ref": "#/$defs/StrOptionsCommand"
+                    "$ref": "#/$defs/SubCommandsCommand"
                 },
                 {
                     "$ref": "#/$defs/SpecificOptionsCommand"
