@@ -1,6 +1,6 @@
 #!/bin/bash
 
-_() {
+_your_cli_command_name() {
     local cur prev words cword split
     _init_completion || return
 
@@ -42,5 +42,5 @@ file_completion() {
     fi
 }
 
-complete -F _ 
-complete -F _ cli_alias_name
+complete -F _your_cli_command_name your_cli_command_name
+complete -F _your_cli_command_name cli_alias_name

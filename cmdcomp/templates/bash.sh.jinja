@@ -1,6 +1,6 @@
 #!/bin/bash
 
-_{{ appname|replace("-","_") }}() {
+_{{ app_name|replace("-","_") }}() {
     local cur prev words cword split
     _init_completion || return
 
@@ -40,7 +40,7 @@ file_completion() {
     fi
 }
 
-complete -F _{{ appname|replace("-","_") }} {{ appname }}
+complete -F _{{ app_name|replace("-","_") }} {{ app_name }}
 {%- for app_alias in app_aliases %}
-complete -F _{{ appname|replace("-","_") }} {{ app_alias }}
+complete -F _{{ app_name|replace("-","_") }} {{ app_alias }}
 {%- endfor %}
