@@ -1,11 +1,11 @@
 #!/bin/zsh
 
-_{{ appname|replace("-","_") }}() {
+_{{ app_name|replace("-","_") }}() {
     shift words
 
     case "$(($CURRENT-1))" in
         1)
-            _values '{{ appname }}' {{ completions_list[0]|join(" ") }} ;;
+            _values '{{ app_name }}' {{ completions_list[0]|join(" ") }} ;;
 {%- for completions in completions_list[1:] %}
         {{ loop.index + 1 }})
             case ${words[{{ loop.depth }}]} in
@@ -28,7 +28,7 @@ _{{ appname|replace("-","_") }}() {
     esac
 }
 
-compdef _{{ appname|replace("-","_") }} {{ appname }}
+compdef _{{ app_name|replace("-","_") }} {{ app_name }}
 {%- for app_alias in app_aliases %}
-compdef _{{ appname|replace("-","_") }} {{ app_alias }}
+compdef _{{ app_name|replace("-","_") }} {{ app_alias }}
 {%- endfor %}

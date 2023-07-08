@@ -57,3 +57,29 @@ def test_sample_yaml_zsh(capsys: CaptureFixture) -> None:
     )
 
     assert capsys.readouterr().out == open(SAMPLES_DIR / "output.zsh").read()
+
+
+def test_sample_output_bash(capsys: CaptureFixture) -> None:
+    App.run(
+        [
+            "--file",
+            str(SAMPLES_DIR / "config.cmdcomp.yaml"),
+            "--shell-type",
+            "bash",
+            "--output",
+            str(SAMPLES_DIR / "output.bash"),
+        ]
+    )
+
+
+def test_sample_output_zsh(capsys: CaptureFixture) -> None:
+    App.run(
+        [
+            "--file",
+            str(SAMPLES_DIR / "config.cmdcomp.yaml"),
+            "--shell-type",
+            "zsh",
+            "--output",
+            str(SAMPLES_DIR / "output.zsh"),
+        ]
+    )

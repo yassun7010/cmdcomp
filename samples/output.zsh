@@ -1,11 +1,11 @@
 #!/bin/zsh
 
-_() {
+_your_cli_command_name() {
     shift words
 
     case "$(($CURRENT-1))" in
         1)
-            _values '' -h --help --version welcome list ls execute restart shell log cd test and_normal_options_work ;;
+            _values 'your_cli_command_name' -h --help --version welcome list ls execute restart shell log cd test and_normal_options_work ;;
         2)
             case ${words[1]} in
                 list|ls)
@@ -30,4 +30,5 @@ _() {
     esac
 }
 
-compdef _ 
+compdef _your_cli_command_name your_cli_command_name
+compdef _your_cli_command_name cli_alias_name

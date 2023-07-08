@@ -43,3 +43,4 @@ file_completion() {
 }
 
 complete -F _ 
+complete -F _ cli_alias_name
