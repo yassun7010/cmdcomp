@@ -1,8 +1,8 @@
 import json
 import os
+import tomllib
 from typing import BinaryIO
 
-import tomllib
 import yaml
 from pydantic import ConfigDict
 
@@ -27,7 +27,7 @@ def load(file: BinaryIO) -> Config:
     match extention:
         case ".json":
             data = json.load(file)
-        case ".yaml":
+        case ".yaml" | ".yml":
             data = yaml.full_load(file)
         case ".toml":
             data = tomllib.load(file)
