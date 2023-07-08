@@ -1,0 +1,6 @@
+[[rule]]
+include = ["samples/**/*.toml"]
+
+[rule.schema]
+path = "./docs/config.schema.json"
+enabled = true
