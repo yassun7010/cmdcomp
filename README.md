@@ -24,13 +24,13 @@ pip install cmdcomp
 
 ### Local
 ```shell
-cmdcomp --file ${YOUR_CONFIG_TOML_FILE} --shell-type bash
+cmdcomp --file ${YOUR_CONFIG_FILE} --shell-type bash
 ```
 
 ### Docker
 
 ```shell
-docker run --rm -itv $(pwd):/apps/cmdcomp yassun4dev/cmdcomp --file ${YOUR_CONFIG_TOML_FILE} --shell-type bash
+docker run --rm -itv $(pwd):/apps/cmdcomp yassun4dev/cmdcomp --file ${YOUR_CONFIG_FILE} --shell-type bash
 ```
 
 ## JSON Schema
