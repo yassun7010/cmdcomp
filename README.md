@@ -8,7 +8,7 @@
         <img src="https://badge.fury.io/py/cmdcomp.svg" alt="PIP Version">
     </a>
     <a href="https://hub.docker.com/r/yassun4dev/cmdcomp">
-        <img src="https://img.shields.io/docker/v/yassun4dev/cmdcomp/latest?label=Docker%20version" alt="Docker Version">
+        <img src="https://img.shields.io/docker/v/yassun4dev/cmdcomp/latest?label=docker%20version" alt="Docker Version">
     </a>
 </p>
 
