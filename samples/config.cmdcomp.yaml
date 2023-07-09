@@ -2,8 +2,8 @@ cmdcomp:
   version: "1"
 app:
   name: "your_cli_command_name"
-root:
   alias: "cli_alias_name"
+root:
   options: ["-h", "--help", "--version"]
   subcommands:
     welcome: {}

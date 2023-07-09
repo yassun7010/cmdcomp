@@ -43,9 +43,9 @@ version = "1"
 
 [app]
 name = "mycli"
+alias = "my-cli"
 
 [root]
-alias = "my-cli"
 options = ["-h", "--help", "--version"]
 
 [root.subcommands.list]

@@ -25,7 +25,7 @@ def generate(shell: ShellType, config: Config):
 
     return template.render(
         app_name=config.app.name,
-        app_aliases=config.root.aliases,
+        app_aliases=config.app.aliases + config.root.aliases,
         completions_list=generate_completions_list(config),
     )
 

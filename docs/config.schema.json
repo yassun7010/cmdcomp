@@ -7,6 +7,20 @@
                 "name": {
                     "title": "your cli app name.",
                     "type": "string"
+                },
+                "alias": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        }
+                    ],
+                    "title": "alias of the cli app name."
                 }
             },
             "required": [
