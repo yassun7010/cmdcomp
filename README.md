@@ -21,6 +21,8 @@ cmdcomp --file ${YOUR_CONFIG_TOML_FILE} --shell-type bash
 docker run --rm -itv $(pwd):/apps/cmdcomp yassun4dev/cmdcomp --file ${YOUR_CONFIG_TOML_FILE} --shell-type bash
 ```
 
-### JSON Schema
+## JSON Schema
+
+### Config
 
 https://raw.githubusercontent.com/yassun4dev/cmdcomp/main/docs/config.schema.json
