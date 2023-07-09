@@ -4,8 +4,11 @@
     <a href="https://github.com/yassun4dev/cmdcomp/actions">
         <img src="https://github.com/yassun4dev/cmdcomp/actions/workflows/test-suite.yml/badge.svg" alt="Test Suite">
     </a>
-    <a href="https://pypi.org/project/cmdcomp/">
-        <img src="https://badge.fury.io/py/cmdcomp.svg" alt="Package version">
+    <a href="https://pypi.org/project/cmdcomp">
+        <img src="https://badge.fury.io/py/cmdcomp.svg" alt="PIP Version">
+    </a>
+    <a href="https://hub.docker.com/r/yassun4dev/cmdcomp">
+        <img src="https://img.shields.io/docker/v/yassun4dev/cmdcomp/latest" alt="Docker Version">
     </a>
 </p>
 
