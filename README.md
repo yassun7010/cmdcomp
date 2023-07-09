@@ -33,6 +33,32 @@ cmdcomp --file ${YOUR_CONFIG_FILE} --shell-type bash
 docker run --rm -itv $(pwd):/apps/cmdcomp yassun4dev/cmdcomp --file ${YOUR_CONFIG_FILE} --shell-type bash
 ```
 
+## Config
+
+```toml
+[cmdcomp]
+version = "1"
+
+[app]
+name = "mycli"
+
+[root]
+alias = "my-cli"
+options = ["-h", "--help", "--version"]
+
+[root.subcommands.list]
+options = ["-a"]
+alias = "ls"
+
+[root.subcommands.execute]
+options = { type = "command", execute = "your_app_name ps -s" }
+alias = ["restart", "shell", "log"]
+
+[root.subcommands.cd]
+options = { type = "file", base_path = "$(cd $(dirname $0); pwd)/../apps" }
+
+```
+
 ## JSON Schema
 
 ### Config
