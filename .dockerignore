@@ -16,4 +16,3 @@ tests/
 .gitignore
 Dockerfile
 install.sh
-README.md
