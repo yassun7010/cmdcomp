@@ -30,7 +30,7 @@ cmdcomp --file ${YOUR_CONFIG_FILE} --shell-type bash
 ### Docker
 
 ```shell
-docker run --rm -itv $(pwd):/apps/cmdcomp yassun4dev/cmdcomp --file ${YOUR_CONFIG_FILE} --shell-type bash
+docker run --rm -itv $(pwd):/app/cmdcomp yassun4dev/cmdcomp --file ${YOUR_CONFIG_FILE} --shell-type bash
 ```
 
 ## Config
