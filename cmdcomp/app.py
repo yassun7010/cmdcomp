@@ -10,6 +10,7 @@ class App:
         from argparse import ArgumentParser, BooleanOptionalAction, FileType
         from logging import getLogger
 
+        from rich.console import Console
         from rich.logging import RichHandler
 
         from cmdcomp import __version__
@@ -59,10 +60,14 @@ class App:
             help="output verbose log.",
         )
 
+        space = parser.parse_args(args)
+
         logging.basicConfig(
             format="%(message)s",
             handlers=[
                 RichHandler(
+                    level=logging.DEBUG if space.verbose else logging.INFO,
+                    console=Console(stderr=True),
                     show_time=False,
                     show_path=False,
                     rich_tracebacks=True,
@@ -70,8 +75,6 @@ class App:
             ],
         )
         logger = getLogger(__name__)
-
-        space = parser.parse_args(args)
 
         try:
             print(
