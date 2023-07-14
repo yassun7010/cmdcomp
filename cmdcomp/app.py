@@ -87,3 +87,8 @@ class App:
                 logger.exception(e)
             else:
                 logger.error(e)
+
+            if throw_exception:
+                raise e
+            else:
+                exit(1)
