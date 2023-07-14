@@ -37,6 +37,8 @@ docker run --rm -itv $(pwd):/app/cmdcomp yassun4dev/cmdcomp --file ${YOUR_CONFIG
 
 Configuration can be written in JSON, YAML, and TOML file formats.
 
+### Sample
+
 ```toml
 [cmdcomp]
 version = "1"
@@ -61,8 +63,6 @@ options = { type = "file", base_path = "$(cd $(dirname $0); pwd)/../apps" }
 
 ```
 
-## JSON Schema
-
-### Config
+### JSON Schema
 
 https://raw.githubusercontent.com/yassun4dev/cmdcomp/main/docs/config.schema.json
