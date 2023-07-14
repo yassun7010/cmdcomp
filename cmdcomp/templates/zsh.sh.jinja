@@ -1,6 +1,7 @@
+{%- set func_name = "_" + app_name|replace("-","_") -%}
 #!/bin/zsh
 
-_{{ app_name|replace("-","_") }}() {
+{{ func_name }}() {
     shift words
 
     case "$(($CURRENT-1))" in
@@ -34,7 +35,7 @@ _{{ app_name|replace("-","_") }}() {
     esac
 }
 
-compdef _{{ app_name|replace("-","_") }} {{ app_name }}
+compdef {{ func_name }} {{ app_name }}
 {%- for app_alias in app_aliases %}
-compdef _{{ app_name|replace("-","_") }} {{ app_alias }}
+compdef {{ func_name}} {{ app_alias }}
 {%- endfor %}
