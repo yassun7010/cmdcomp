@@ -6,7 +6,8 @@ _{{ app_name|replace("-","_") }}() {
 
     case $cword in
         1)
-            COMPREPLY=( $(compgen -W "{{ completions_list[0]|join(" ") }}" -- "$cur") ) ;;
+            COMPREPLY=( $(compgen -W "{{ completions_list[0]|join(" ") }}" -- "$cur") )
+            ;;
 {%- for completions in completions_list[1:] %}
         {{ loop.index + 1 }})
             case ${words[{{ loop.depth }}]} in
@@ -15,16 +16,21 @@ _{{ app_name|replace("-","_") }}() {
 {%- if completion is mapping %}
                     case ${words[{{ loop.depth + 1 }}]} in
 {{- loop(completion.items())|indent(width=8) }}
-                    esac ;;
+                    esac
+                    ;;
 {%- elif completion|first is mapping and 'command' in completion|first %}
-                    COMPREPLY=( $(compgen -W "{{ (completion|first).command }}" -- "$cur") ) ;;
+                    COMPREPLY=( $(compgen -W "{{ (completion|first).command }}" -- "$cur") )
+                    ;;
 {%- elif completion|first is mapping and 'file' in completion|first %}
-                    file_completion "{{ (completion|first).file }}" ;;
+                    file_completion "{{ (completion|first).file }}"
+                    ;;
 {%- else %}
-                    COMPREPLY=( $(compgen -W "{{ completion|join(" ") }}" -- "$cur") ) ;;
+                    COMPREPLY=( $(compgen -W "{{ completion|join(" ") }}" -- "$cur") )
+                    ;;
 {%- endif %}
 {%- endfor %}
-            esac ;;
+            esac
+            ;;
 {%- endfor %}
     esac
 }

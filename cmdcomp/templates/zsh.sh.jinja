@@ -5,7 +5,8 @@ _{{ app_name|replace("-","_") }}() {
 
     case "$(($CURRENT-1))" in
         1)
-            _values '{{ app_name }}' {{ completions_list[0]|join(" ") }} ;;
+            _values '{{ app_name }}' {{ completions_list[0]|join(" ") }}
+            ;;
 {%- for completions in completions_list[1:] %}
         {{ loop.index + 1 }})
             case ${words[{{ loop.depth }}]} in
@@ -14,16 +15,21 @@ _{{ app_name|replace("-","_") }}() {
 {%- if completion is mapping %}
                     case ${words[{{ loop.depth + 1 }}]} in
 {{- loop(completion.items())|indent(width=8) }}
-                    esac ;;
+                    esac
+                    ;;
 {%- elif completion|first is mapping and 'command' in completion|first %}
-                    _values '{{ name }}' {{ (completion|first).command }} ;;
+                    _values '{{ name }}' {{ (completion|first).command }}
+                    ;;
 {%- elif completion|first is mapping and 'file' in completion|first %}
-                    _files -W "{{ (completion|first).file }}" ;;
+                    _files -W "{{ (completion|first).file }}"
+                    ;;
 {%- else %}
-                    _values '{{ name }}' {{ completion|join(" ") }} ;;
+                    _values '{{ name }}' {{ completion|join(" ") }}
+                    ;;
 {%- endif %}
 {%- endfor %}
-            esac ;;
+            esac
+            ;;
 {%- endfor %}
     esac
 }
