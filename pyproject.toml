@@ -21,7 +21,7 @@ classifiers = [
 cmdcomp = "cmdcomp.main:main"
 
 [tool.taskipy.tasks]
-generate-json-schema = "python docs/generate.py > docs/config.schema.json"
+generate-json-schema = "python tasks/generate_json_schema.py > docs/config.schema.json"
 test = "pytest"
 format = "black --target-version py310 ."
 lint = "pyright cmdcomp/** tests/**"
