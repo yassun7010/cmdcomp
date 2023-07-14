@@ -51,7 +51,7 @@ class App:
             "-o",
             metavar="OUTPUT_FILE",
             type=FileType("w"),
-            help="output file (Default='stdout').",
+            help="output file (Default=stdout).",
         )
 
         parser.add_argument(
