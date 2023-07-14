@@ -50,3 +50,4 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: yassun4dev/cmdcomp
+          enable-url-completion: true
