@@ -24,14 +24,15 @@ class App:
         )
 
         parser.add_argument(
-            "--version", action="version", version=f"%(prog)s {__version__}"
+            "--version",
+            action="version",
+            version=f"%(prog)s {__version__}",
         )
 
         parser.add_argument(
             "--file",
             "-f",
             required=True,
-            metavar="FILE",
             type=FileType("rb"),
             help="config file ('.json', '.yaml', '.toml' support).",
         )
@@ -39,7 +40,6 @@ class App:
         parser.add_argument(
             "--shell-type",
             required=True,
-            metavar="SHELL_TYPE",
             type=ShellType,
             choices=list(ShellType),
             help="target shell type.",
@@ -48,7 +48,6 @@ class App:
         parser.add_argument(
             "--output-file",
             "-o",
-            metavar="OUTPUT_FILE",
             type=FileType("w"),
             help="output file (Default=stdout).",
         )
