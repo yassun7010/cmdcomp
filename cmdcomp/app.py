@@ -1,14 +1,3 @@
-from argparse import BooleanOptionalAction, FileType
-from logging import getLogger
-
-from cmdcomp import __version__
-from cmdcomp.completion import generate
-from cmdcomp.config.config import load
-from cmdcomp.shell_type import ShellType
-
-logger = getLogger(__name__)
-
-
 class App:
     @classmethod
     def run(
@@ -17,7 +6,16 @@ class App:
         *,
         throw_exception: bool = True,
     ) -> None:
-        from argparse import ArgumentParser
+        import logging
+        from argparse import ArgumentParser, BooleanOptionalAction, FileType
+        from logging import getLogger
+
+        from rich.logging import RichHandler
+
+        from cmdcomp import __version__
+        from cmdcomp.completion import generate
+        from cmdcomp.config.config import load
+        from cmdcomp.shell_type import ShellType
 
         parser = ArgumentParser(
             prog="cmdcomp",
@@ -61,6 +59,18 @@ class App:
             help="output verbose log.",
         )
 
+        logging.basicConfig(
+            format="%(message)s",
+            handlers=[
+                RichHandler(
+                    show_time=False,
+                    show_path=False,
+                    rich_tracebacks=True,
+                )
+            ],
+        )
+        logger = getLogger(__name__)
+
         space = parser.parse_args(args)
 
         try:
@@ -70,15 +80,7 @@ class App:
             )
 
         except Exception as e:
-            import colorama
-
-            colorama.init()
-            message = colorama.Back.RED + " Error " + colorama.Back.RESET + f": {e}"
-
             if space.verbose:
-                logger.exception(message)
+                logger.exception(e)
             else:
-                logger.error(message)
-
-            if throw_exception:
-                raise e
+                logger.error(e)
