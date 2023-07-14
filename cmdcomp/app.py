@@ -34,7 +34,7 @@ class App:
             required=True,
             metavar="FILE",
             type=FileType("rb"),
-            help="config file (`*.json`, `*.yaml`, `*.toml` support).",
+            help="config file ('*.json', '*.yaml', '*.toml' support).",
         )
 
         parser.add_argument(
