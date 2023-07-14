@@ -12,7 +12,7 @@ from cmdcomp.config.command.command import (
     get_targets,
 )
 from cmdcomp.config.config import Config
-from cmdcomp.shell_type import ShellType
+from cmdcomp.shell import ShellType
 
 
 def generate(shell: ShellType, config: Config):
