@@ -55,7 +55,6 @@ class App:
 
         parser.add_argument(
             "--verbose",
-            "-v",
             action=BooleanOptionalAction,
             help="output verbose log.",
         )
