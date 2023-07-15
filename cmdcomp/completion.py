@@ -52,7 +52,9 @@ def _update_completions_list(
     if not isinstance(command, SubCommandsCommand):
         return
 
-    for name, subcommand in command.subcommands.items():
+    for name, optional_subcommand in command.subcommands.items():
+        subcommand = optional_subcommand or SubCommandsCommand.model_validate({})
+
         new_keys = keys + ["|".join(get_targets(name, subcommand))]
 
         _update_completions_list(completions_list, subcommand, new_keys)

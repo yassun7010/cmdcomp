@@ -6,7 +6,7 @@ app:
 root:
   options: ["-h", "--help", "--version"]
   subcommands:
-    welcome: {}
+    welcome:
     list:
       alias: "ls"
       options: ["-a"]
@@ -26,5 +26,5 @@ root:
     and_normal_options_work:
       options: ["-h", "--help"]
       subcommands:
-        foo: {}
-        bar: {}
+        foo:
+        bar:

@@ -44,7 +44,7 @@ class SubCommandsCommand(Model):
         ),
     ]
 
-    subcommands: OrderedDict[SubcommandName, "Command"] = Field(
+    subcommands: OrderedDict[SubcommandName, "Command | None"] = Field(
         title="subcommands of the command.",
         default_factory=OrderedDict,
     )
@@ -87,7 +87,7 @@ class SpecificOptionsCommand(Model):
 
 Command = SubCommandsCommand | SpecificOptionsCommand
 
-Subcommands = OrderedDict[SubcommandName, Command]
+Subcommands = OrderedDict[SubcommandName, Command | None]
 
 
 def get_targets(name: SubcommandName, subcommand: Command) -> list[str]:
@@ -104,7 +104,10 @@ def get_candidates(command: Command) -> Candidates:
             ) + reduce(
                 add,
                 [
-                    get_targets(name, subcommand)
+                    get_targets(
+                        name,
+                        subcommand or SubCommandsCommand.model_validate({}),
+                    )
                     for name, subcommand in command.subcommands.items()
                 ],
                 [],

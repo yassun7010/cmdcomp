@@ -160,6 +160,9 @@
                             },
                             {
                                 "$ref": "#/$defs/SpecificOptionsCommand"
+                            },
+                            {
+                                "type": "null"
                             }
                         ]
                     },
