@@ -1,0 +1,64 @@
+{
+    "$defs": {
+        "V2AppInfo": {
+            "additionalProperties": false,
+            "description": "your cli app info.",
+            "properties": {
+                "name": {
+                    "title": "your cli app name.",
+                    "type": "string"
+                },
+                "alias": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        }
+                    ],
+                    "title": "alias of the cli app name."
+                }
+            },
+            "required": [
+                "name"
+            ],
+            "title": "V2AppInfo",
+            "type": "object"
+        },
+        "V2CmdCompInfo": {
+            "additionalProperties": false,
+            "description": "cmdcomp info.",
+            "properties": {
+                "version": {
+                    "const": "2",
+                    "title": "cmdcomp config schema version."
+                }
+            },
+            "required": [
+                "version"
+            ],
+            "title": "V2CmdCompInfo",
+            "type": "object"
+        }
+    },
+    "additionalProperties": false,
+    "description": "cmdcomp config v2.",
+    "properties": {
+        "cmdcomp": {
+            "$ref": "#/$defs/V2CmdCompInfo"
+        },
+        "app": {
+            "$ref": "#/$defs/V2AppInfo"
+        }
+    },
+    "required": [
+        "cmdcomp",
+        "app"
+    ],
+    "title": "V2Config",
+    "type": "object"
+}

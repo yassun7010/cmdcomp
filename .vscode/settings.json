@@ -37,7 +37,8 @@
     "python.linting.pylintEnabled": false,
     "python.testing.pytestEnabled": true,
     "yaml.schemas": {
-        "docs/config.schema.json": "samples/**/*.yaml",
+        "docs/config.schema.json": "samples/v1/**/*.yaml",
+        "docs/v2_config.schema.json": "samples/v2/**/*.yaml",
     },
     "[python]": {
         "editor.codeActionsOnSave": {

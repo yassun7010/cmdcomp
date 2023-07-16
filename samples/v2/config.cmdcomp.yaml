@@ -1,0 +1,5 @@
+cmdcomp:
+  version: "2"
+app:
+  name: "cliname"
+  alias: "cliname2"
