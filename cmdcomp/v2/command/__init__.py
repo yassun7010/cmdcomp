@@ -1,4 +1,4 @@
-from typing import Annotated, OrderedDict
+from typing import Annotated, OrderedDict, TypeAlias
 
 from pydantic import ConfigDict, Field
 
@@ -13,13 +13,17 @@ from cmdcomp.v2.command.argument.values_argument import (
 
 from .argument import V2Argument
 
+Position: TypeAlias = int
+Keyword: TypeAlias = str
+SubcommandName: TypeAlias = str
+
 
 class V2Command(Model):
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
     arguments__: Annotated[
         OrderedDict[
-            str | int,
+            Position | Keyword,
             str
             | list[str | V2ValueArgument]
             | V2FileArgument
@@ -33,8 +37,13 @@ class V2Command(Model):
         ),
     ]
 
+    subcommands: OrderedDict[SubcommandName, "V2Command"] = Field(
+        title="subcommands of the command.",
+        default_factory=OrderedDict,
+    )
+
     @property
-    def arguments(self) -> OrderedDict[str | int, V2Argument]:
+    def arguments(self) -> OrderedDict[Position | Keyword, V2Argument]:
         return OrderedDict(
             [(k, _convert_argument(v)) for k, v in self.arguments__.items()]
         )
