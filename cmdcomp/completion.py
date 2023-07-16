@@ -3,7 +3,8 @@ from pathlib import Path
 
 from mergedeep import merge
 
-from cmdcomp.config.v1.command.command import (
+from cmdcomp.shell import ShellType
+from cmdcomp.v1.config.command.command import (
     Candidates,
     Command,
     Completions,
@@ -11,8 +12,7 @@ from cmdcomp.config.v1.command.command import (
     get_candidates,
     get_targets,
 )
-from cmdcomp.config.v1.config import Config
-from cmdcomp.shell import ShellType
+from cmdcomp.v1.config.config import Config
 
 
 def generate(shell: ShellType, config: Config):

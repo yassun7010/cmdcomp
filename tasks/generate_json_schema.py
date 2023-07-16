@@ -1,6 +1,6 @@
 import json
 
-from cmdcomp.config.v1.config import Config
+from cmdcomp.v1.config.config import Config
 
 if __name__ == "__main__":
     print(

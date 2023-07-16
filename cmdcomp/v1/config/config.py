@@ -6,10 +6,10 @@ from typing import BinaryIO
 import yaml
 from pydantic import ConfigDict
 
-from cmdcomp.config.v1.app_info import AppInfo
-from cmdcomp.config.v1.cmdcomp_info import CmdCompInfo
-from cmdcomp.config.v1.command.command import Command
-from cmdcomp.config.v1.model import Model
+from cmdcomp.v1.config.app_info import AppInfo
+from cmdcomp.v1.config.cmdcomp_info import CmdCompInfo
+from cmdcomp.v1.config.command.command import Command
+from cmdcomp.v1.config.model import Model
 
 
 class Config(Model):
