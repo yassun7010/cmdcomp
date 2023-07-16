@@ -3,7 +3,7 @@ from typing import Annotated, OrderedDict
 from pydantic import ConfigDict, Field
 
 from cmdcomp.model import Model
-from cmdcomp.v2.command.argument.normal_argument import V2NormalArgument
+from cmdcomp.v2.command.argument.values_argument import V2ValuesArgument
 
 from .argument import V2Argument
 
@@ -29,8 +29,8 @@ class V2Command(Model):
 
 def _convert_argument(value: str | list[str] | V2Argument) -> V2Argument:
     if isinstance(value, str):
-        return V2NormalArgument(candidates=[value])
+        return V2ValuesArgument(candidates=[value])
     elif isinstance(value, list):
-        return V2NormalArgument(candidates=value)
+        return V2ValuesArgument(candidates=value)
     else:
         return value

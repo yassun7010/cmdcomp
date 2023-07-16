@@ -60,10 +60,13 @@
                                 "type": "array"
                             },
                             {
-                                "$ref": "#/$defs/V2NormalArgument"
+                                "$ref": "#/$defs/V2ValuesArgument"
                             },
                             {
                                 "$ref": "#/$defs/V2FileArgument"
+                            },
+                            {
+                                "$ref": "#/$defs/V2CommandArgument"
                             }
                         ]
                     },
@@ -77,12 +80,56 @@
             "title": "V2Command",
             "type": "object"
         },
+        "V2CommandArgument": {
+            "additionalProperties": false,
+            "description": "complete with the result of executing the command in the Shell command.",
+            "properties": {
+                "type": {
+                    "const": "command",
+                    "title": "Type"
+                },
+                "description": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "description of the argument."
+                },
+                "execute": {
+                    "title": "command to execute.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "type",
+                "execute"
+            ],
+            "title": "V2CommandArgument",
+            "type": "object"
+        },
         "V2FileArgument": {
             "additionalProperties": false,
             "properties": {
                 "type": {
                     "const": "file",
                     "title": "Type"
+                },
+                "description": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "description of the argument."
                 },
                 "base_path": {
                     "title": "path of the directory from which to base filename completion.",
@@ -96,13 +143,13 @@
             "title": "V2FileArgument",
             "type": "object"
         },
-        "V2NormalArgument": {
+        "V2ValuesArgument": {
             "additionalProperties": false,
             "properties": {
                 "type": {
                     "anyOf": [
                         {
-                            "const": "normal"
+                            "const": "values"
                         },
                         {
                             "type": "null"
@@ -135,13 +182,13 @@
                             "type": "array"
                         }
                     ],
-                    "title": "candidates of the argument."
+                    "title": "values of the argument."
                 }
             },
             "required": [
                 "candidates"
             ],
-            "title": "V2NormalArgument",
+            "title": "V2ValuesArgument",
             "type": "object"
         }
     },

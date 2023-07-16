@@ -5,8 +5,8 @@ from pydantic import Field
 from cmdcomp.model import Model
 
 
-class V2NormalArgument(Model):
-    type: Literal["normal"] | None = None
+class V2ValuesArgument(Model):
+    type: Literal["values"] | None = None
 
     description: str | None = Field(
         title="description of the argument.",
@@ -15,5 +15,5 @@ class V2NormalArgument(Model):
 
     candidates: Annotated[
         str | list[str],
-        Field(title="candidates of the argument."),
+        Field(title="values of the argument."),
     ]
