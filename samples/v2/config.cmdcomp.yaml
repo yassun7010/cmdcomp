@@ -16,3 +16,6 @@ root:
       type: file
       alias: "-f"
       base_path: "~"
+    --verbose:
+      description: "verbose description"
+    --no-verbose:

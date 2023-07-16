@@ -5,6 +5,7 @@ from pydantic import ConfigDict, Field
 from cmdcomp.model import Model
 from cmdcomp.v2.command.argument.command_argument import V2CommandArgument
 from cmdcomp.v2.command.argument.file_argument import V2FileArgument
+from cmdcomp.v2.command.argument.flag_argument import V2FlagArgument
 from cmdcomp.v2.command.argument.values_argument import (
     V2ValueArgument,
     V2ValuesArgument,
@@ -19,7 +20,12 @@ class V2Command(Model):
     arguments__: Annotated[
         OrderedDict[
             str | int,
-            str | list[str | V2ValueArgument] | V2FileArgument | V2CommandArgument,
+            str
+            | list[str | V2ValueArgument]
+            | V2FileArgument
+            | V2CommandArgument
+            | V2FlagArgument
+            | None,
         ],
         Field(
             title="arguments of the command.",
@@ -35,7 +41,12 @@ class V2Command(Model):
 
 
 def _convert_argument(
-    value: str | list[str | V2ValueArgument] | V2FileArgument | V2CommandArgument,
+    value: str
+    | list[str | V2ValueArgument]
+    | V2FileArgument
+    | V2CommandArgument
+    | V2FlagArgument
+    | None,
 ) -> V2Argument:
     match value:
         case str():
@@ -48,6 +59,9 @@ def _convert_argument(
                     V2ValueArgument(value=v) if isinstance(v, str) else v for v in value
                 ],
             )
+
+        case None:
+            return V2FlagArgument(type="flag")
 
         case _:
             return value

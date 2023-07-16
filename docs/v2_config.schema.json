@@ -71,6 +71,12 @@
                             },
                             {
                                 "$ref": "#/$defs/V2CommandArgument"
+                            },
+                            {
+                                "$ref": "#/$defs/V2FlagArgument"
+                            },
+                            {
+                                "type": "null"
                             }
                         ]
                     },
@@ -181,6 +187,48 @@
                 "base_path"
             ],
             "title": "V2FileArgument",
+            "type": "object"
+        },
+        "V2FlagArgument": {
+            "additionalProperties": false,
+            "properties": {
+                "type": {
+                    "const": "flag",
+                    "default": "flag",
+                    "title": "Type"
+                },
+                "description": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "description of the argument."
+                },
+                "alias": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "alias of the argument."
+                }
+            },
+            "title": "V2FlagArgument",
             "type": "object"
         },
         "V2ValueArgument": {
