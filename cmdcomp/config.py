@@ -6,9 +6,9 @@ from typing import BinaryIO
 import yaml
 from pydantic import RootModel
 
-from cmdcomp.v1.config_v1.config_v1 import ConfigV1
+from cmdcomp.v1.v1_config.v1_config import V1Config
 
-Config = RootModel[ConfigV1]
+Config = RootModel[V1Config]
 
 
 def load(file: BinaryIO) -> Config:
