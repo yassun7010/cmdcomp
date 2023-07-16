@@ -4,15 +4,15 @@ from typing import Annotated, NewType, OrderedDict
 
 from pydantic import ConfigDict, Field
 
-from cmdcomp.config.command.option import (
+from cmdcomp.config.v1.command.option import (
     OptionType,
     SpecificOptions,
     StrOption,
     StrOptions,
 )
-from cmdcomp.config.command.option.command_option import CommandOption
-from cmdcomp.config.command.option.file_option import FileOption
-from cmdcomp.config.model import Model
+from cmdcomp.config.v1.command.option.command_option import CommandOption
+from cmdcomp.config.v1.command.option.file_option import FileOption
+from cmdcomp.config.v1.model import Model
 from cmdcomp.exception import NeverReach
 
 SubcommandName = NewType("SubcommandName", str)

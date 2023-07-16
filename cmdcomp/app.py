@@ -15,7 +15,7 @@ class App:
 
         from cmdcomp import __version__
         from cmdcomp.completion import generate
-        from cmdcomp.config.config import load
+        from cmdcomp.config.v1.config import load
         from cmdcomp.shell import ShellType
 
         parser = ArgumentParser(

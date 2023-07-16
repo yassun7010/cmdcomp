@@ -3,7 +3,7 @@ from pathlib import Path
 
 from mergedeep import merge
 
-from cmdcomp.config.command.command import (
+from cmdcomp.config.v1.command.command import (
     Candidates,
     Command,
     Completions,
@@ -11,7 +11,7 @@ from cmdcomp.config.command.command import (
     get_candidates,
     get_targets,
 )
-from cmdcomp.config.config import Config
+from cmdcomp.config.v1.config import Config
 from cmdcomp.shell import ShellType
 
 
