@@ -2,7 +2,7 @@ from typing import Annotated, Literal
 
 from pydantic import Field
 
-from cmdcomp.v1.v1_config.model import Model
+from cmdcomp.v1_config.model import Model
 
 
 class CmdCompInfo(Model):

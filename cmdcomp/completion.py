@@ -5,7 +5,7 @@ from mergedeep import merge
 
 from cmdcomp.config import Config
 from cmdcomp.shell import ShellType
-from cmdcomp.v1.v1_config.command.command import (
+from cmdcomp.v1_config.command.command import (
     Candidates,
     Command,
     Completions,
