@@ -6,6 +6,10 @@ app:
 root:
   arguments:
     1: "arg1"
+    2:
+      candidates:
+        - "cand1"
+        - "cand2"
     --file:
       type: file
       base_path: "~"

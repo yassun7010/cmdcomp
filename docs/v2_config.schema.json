@@ -60,10 +60,10 @@
                                 "type": "array"
                             },
                             {
-                                "$ref": "#/$defs/V2FileArgument"
+                                "$ref": "#/$defs/V2NormalArgument"
                             },
                             {
-                                "type": "null"
+                                "$ref": "#/$defs/V2FileArgument"
                             }
                         ]
                     },
@@ -94,6 +94,54 @@
                 "base_path"
             ],
             "title": "V2FileArgument",
+            "type": "object"
+        },
+        "V2NormalArgument": {
+            "additionalProperties": false,
+            "properties": {
+                "type": {
+                    "anyOf": [
+                        {
+                            "const": "normal"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Type"
+                },
+                "description": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "description of the argument."
+                },
+                "candidates": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        }
+                    ],
+                    "title": "candidates of the argument."
+                }
+            },
+            "required": [
+                "candidates"
+            ],
+            "title": "V2NormalArgument",
             "type": "object"
         }
     },
