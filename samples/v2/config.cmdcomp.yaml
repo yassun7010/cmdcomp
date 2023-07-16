@@ -17,5 +17,6 @@ root:
       alias: "-f"
       base_path: "~"
     --verbose:
+      type: flag
       description: "verbose description"
     --no-verbose:

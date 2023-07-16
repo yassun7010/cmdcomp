@@ -6,7 +6,7 @@ from cmdcomp.model import Model
 
 
 class V2FlagArgument(Model):
-    type: Literal["flag"] = "flag"
+    type: Literal["flag"]
     description: str | None = Field(
         title="description of the argument.",
         default=None,

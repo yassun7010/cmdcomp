@@ -194,7 +194,6 @@
             "properties": {
                 "type": {
                     "const": "flag",
-                    "default": "flag",
                     "title": "Type"
                 },
                 "description": {
@@ -228,6 +227,9 @@
                     "title": "alias of the argument."
                 }
             },
+            "required": [
+                "type"
+            ],
             "title": "V2FlagArgument",
             "type": "object"
         },
