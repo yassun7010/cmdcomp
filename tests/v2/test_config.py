@@ -13,6 +13,9 @@ class TestV2Config:
             [app]
             name = "cliname"
             alias = "clialias"
+
+            [root.arguments]
+            1 = "arg1"
             """
         )
         V2Config.model_validate(data)

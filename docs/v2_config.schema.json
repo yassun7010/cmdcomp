@@ -43,6 +43,58 @@
             ],
             "title": "V2CmdCompInfo",
             "type": "object"
+        },
+        "V2Command": {
+            "additionalProperties": false,
+            "properties": {
+                "arguments": {
+                    "additionalProperties": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            },
+                            {
+                                "$ref": "#/$defs/V2FileArgument"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "title": "arguments of the command.",
+                    "type": "object"
+                }
+            },
+            "required": [
+                "arguments"
+            ],
+            "title": "V2Command",
+            "type": "object"
+        },
+        "V2FileArgument": {
+            "additionalProperties": false,
+            "properties": {
+                "type": {
+                    "const": "file",
+                    "title": "Type"
+                },
+                "base_path": {
+                    "title": "path of the directory from which to base filename completion.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "type",
+                "base_path"
+            ],
+            "title": "V2FileArgument",
+            "type": "object"
         }
     },
     "additionalProperties": false,
@@ -53,11 +105,15 @@
         },
         "app": {
             "$ref": "#/$defs/V2AppInfo"
+        },
+        "root": {
+            "$ref": "#/$defs/V2Command"
         }
     },
     "required": [
         "cmdcomp",
-        "app"
+        "app",
+        "root"
     ],
     "title": "V2Config",
     "type": "object"

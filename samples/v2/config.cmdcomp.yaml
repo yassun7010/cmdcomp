@@ -3,3 +3,9 @@ cmdcomp:
 app:
   name: "cliname"
   alias: "cliname2"
+root:
+  arguments:
+    1: "arg1"
+    --file:
+      type: file
+      base_path: "~"
