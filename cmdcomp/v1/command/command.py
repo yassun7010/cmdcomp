@@ -6,14 +6,14 @@ from pydantic import ConfigDict, Field
 
 from cmdcomp.exception import NeverReach
 from cmdcomp.model import Model
-from cmdcomp.v1.v1_command.v1_option import (
+from cmdcomp.v1.command.option import (
     V1OptionType,
     V1SpecificOptions,
     V1StrOption,
     V1StrOptions,
 )
-from cmdcomp.v1.v1_command.v1_option.v1_command_option import V1CommandOption
-from cmdcomp.v1.v1_command.v1_option.v1_file_option import V1FileOption
+from cmdcomp.v1.command.option.command_option import V1CommandOption
+from cmdcomp.v1.command.option.file_option import V1FileOption
 
 V1SubcommandName = NewType("V1SubcommandName", str)
 
