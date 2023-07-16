@@ -14,4 +14,5 @@ root:
         description: "arg2 description"
     --file:
       type: file
+      alias: "-f"
       base_path: "~"

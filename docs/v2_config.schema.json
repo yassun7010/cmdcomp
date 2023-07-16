@@ -104,6 +104,24 @@
                     "default": null,
                     "title": "description of the argument."
                 },
+                "alias": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "alias of the argument."
+                },
                 "execute": {
                     "title": "command to execute.",
                     "type": "string"
@@ -134,6 +152,24 @@
                     ],
                     "default": null,
                     "title": "description of the argument."
+                },
+                "alias": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "alias of the argument."
                 },
                 "base_path": {
                     "title": "path of the directory from which to base filename completion.",
