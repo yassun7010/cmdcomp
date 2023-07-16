@@ -29,8 +29,8 @@ class V2Command(Model):
 
 def _convert_argument(value: str | list[str] | V2Argument) -> V2Argument:
     if isinstance(value, str):
-        return V2ValuesArgument(candidates=[value])
+        return V2ValuesArgument(candidates__=[value])
     elif isinstance(value, list):
-        return V2ValuesArgument(candidates=value)
+        return V2ValuesArgument(candidates__=value)
     else:
         return value

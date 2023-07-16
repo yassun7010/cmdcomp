@@ -11,6 +11,12 @@ root:
       candidates:
         - "cand1"
         - "cand2"
+    3:
+      candidates:
+        cand3:
+          description: "cand3 description"
+          value: "cand3"
+        cand4: "cand4"
     --file:
       type: file
       base_path: "~"
