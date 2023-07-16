@@ -18,12 +18,16 @@ class Config(RootModel):
 def load(file: BinaryIO) -> Config:
     _, extention = os.path.splitext(file.name)
     match extention:
+        # TODO: In v2, we will remove support for json.
         case ".json":
             data = json.load(file)
+
         case ".yaml" | ".yml":
             data = yaml.full_load(file)
+
         case ".toml":
             data = tomllib.load(file)
+
         case _:
             raise Exception(f"Unsupported config file type `{extention}`.")
 
