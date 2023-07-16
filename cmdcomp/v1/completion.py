@@ -4,7 +4,6 @@ from pathlib import Path
 from mergedeep import merge
 
 from cmdcomp.shell import ShellType
-from cmdcomp.v1 import V1Config
 from cmdcomp.v1.command.command import (
     V1Candidates,
     V1Command,
@@ -13,6 +12,7 @@ from cmdcomp.v1.command.command import (
     get_candidates,
     get_targets,
 )
+from cmdcomp.v1.config import V1Config
 
 
 def generate_v1(shell: ShellType, config: V1Config):
