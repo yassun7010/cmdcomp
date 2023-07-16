@@ -1,9 +1,9 @@
 from pydantic import ConfigDict
 
+from cmdcomp.model import Model
 from cmdcomp.v1_config.app_info import AppInfo
 from cmdcomp.v1_config.cmdcomp_info import CmdCompInfo
 from cmdcomp.v1_config.command.command import Command
-from cmdcomp.v1_config.model import Model
 
 
 class V1Config(Model):

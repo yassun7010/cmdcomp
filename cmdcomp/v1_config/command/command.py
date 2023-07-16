@@ -5,6 +5,7 @@ from typing import Annotated, NewType, OrderedDict
 from pydantic import ConfigDict, Field
 
 from cmdcomp.exception import NeverReach
+from cmdcomp.model import Model
 from cmdcomp.v1_config.command.option import (
     OptionType,
     SpecificOptions,
@@ -13,7 +14,6 @@ from cmdcomp.v1_config.command.option import (
 )
 from cmdcomp.v1_config.command.option.command_option import CommandOption
 from cmdcomp.v1_config.command.option.file_option import FileOption
-from cmdcomp.v1_config.model import Model
 
 SubcommandName = NewType("SubcommandName", str)
 
