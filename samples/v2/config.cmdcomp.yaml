@@ -6,17 +6,12 @@ app:
 root:
   arguments:
     1: "arg1"
-    2:
-      type: values
-      candidates:
-        - "cand1"
-        - "cand2"
+    2: ["arg1", "arg2", "arg3"]
     3:
-      candidates:
-        cand3:
-          description: "cand3 description"
-          value: "cand3"
-        cand4: "cand4"
+      - value: "arg1"
+        description: "arg1 description"
+      - value: "arg2"
+        description: "arg2 description"
     --file:
       type: file
       base_path: "~"

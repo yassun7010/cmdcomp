@@ -55,12 +55,16 @@
                             },
                             {
                                 "items": {
-                                    "type": "string"
+                                    "anyOf": [
+                                        {
+                                            "type": "string"
+                                        },
+                                        {
+                                            "$ref": "#/$defs/V2ValueArgument"
+                                        }
+                                    ]
                                 },
                                 "type": "array"
-                            },
-                            {
-                                "$ref": "#/$defs/V2ValuesArgument"
                             },
                             {
                                 "$ref": "#/$defs/V2FileArgument"
@@ -146,6 +150,10 @@
         "V2ValueArgument": {
             "additionalProperties": false,
             "properties": {
+                "value": {
+                    "title": "value of the argument.",
+                    "type": "string"
+                },
                 "description": {
                     "anyOf": [
                         {
@@ -157,77 +165,12 @@
                     ],
                     "default": null,
                     "title": "description of the argument."
-                },
-                "value": {
-                    "title": "value of the argument.",
-                    "type": "string"
                 }
             },
             "required": [
                 "value"
             ],
             "title": "V2ValueArgument",
-            "type": "object"
-        },
-        "V2ValuesArgument": {
-            "additionalProperties": false,
-            "properties": {
-                "type": {
-                    "anyOf": [
-                        {
-                            "const": "values"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "title": "Type"
-                },
-                "description": {
-                    "anyOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "title": "description of the argument."
-                },
-                "candidates": {
-                    "anyOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "items": {
-                                "type": "string"
-                            },
-                            "type": "array"
-                        },
-                        {
-                            "additionalProperties": {
-                                "anyOf": [
-                                    {
-                                        "type": "string"
-                                    },
-                                    {
-                                        "$ref": "#/$defs/V2ValueArgument"
-                                    }
-                                ]
-                            },
-                            "type": "object"
-                        }
-                    ],
-                    "title": "values of the argument."
-                }
-            },
-            "required": [
-                "candidates"
-            ],
-            "title": "V2ValuesArgument",
             "type": "object"
         }
     },

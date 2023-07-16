@@ -8,58 +8,45 @@ from cmdcomp.model import Model
 
 
 class V2ValueArgument(Model):
-    description: str | None = Field(
-        title="description of the argument.",
-        default=None,
-    )
-
     value: Annotated[
         str,
         Field(title="value of the argument."),
     ]
 
-
-class V2ValuesArgument(Model):
-    type: Literal["values"] | None = None
-
     description: str | None = Field(
         title="description of the argument.",
         default=None,
     )
 
-    candidates__: Annotated[
-        str | list[str] | OrderedDict[str, str | V2ValueArgument],
+
+class V2ValuesArgument(Model):
+    type: Literal["values"]
+
+    values__: Annotated[
+        str | list[str | V2ValueArgument] | OrderedDict[str, str | V2ValueArgument],
         Field(
             title="values of the argument.",
-            alias="candidates",
+            alias="values",
         ),
     ]
 
     @property
-    def candidates(self) -> OrderedDict[str, V2ValueArgument]:
-        match self.candidates__:
+    def values(self) -> list[V2ValueArgument]:
+        match self.values__:
             case str():
-                return OrderedDict(
-                    [(self.candidates__, V2ValueArgument(value=self.candidates__))]
-                )
+                return [V2ValueArgument(value=self.values__)]
 
             case list():
-                return OrderedDict(
-                    [(v, V2ValueArgument(value=v)) for v in self.candidates__]
-                )
+                return [
+                    v if isinstance(v, V2ValueArgument) else V2ValueArgument(value=v)
+                    for v in self.values__
+                ]
 
             case OrderedDict():
-                return OrderedDict(
-                    [
-                        (
-                            k,
-                            v
-                            if isinstance(v, V2ValueArgument)
-                            else V2ValueArgument(value=v),
-                        )
-                        for k, v in self.candidates__.items()
-                    ]
-                )
+                return [
+                    V2ValueArgument(value=v) if isinstance(v, str) else v
+                    for v in self.values__.values()
+                ]
 
             case _:
-                raise NeverReach(self.candidates__)
+                raise NeverReach(self.values__)
