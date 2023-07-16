@@ -4,7 +4,7 @@ from pathlib import Path
 from mergedeep import merge
 
 from cmdcomp.shell import ShellType
-from cmdcomp.v1.command.command import (
+from cmdcomp.v1.command import (
     V1Candidates,
     V1Command,
     V1Completions,

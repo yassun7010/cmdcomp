@@ -7,6 +7,5 @@ V1StrOption = str
 
 V1OptionType = Literal["command", "file"]
 
-V1StrOptions = V1StrOption | list[V1StrOption]
 V1SpecificOptions = V1FileOption | V1CommandOption
-V1Options = V1StrOptions | V1SpecificOptions
+V1Options = V1StrOption | list[V1StrOption] | V1SpecificOptions
