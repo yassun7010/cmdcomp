@@ -21,7 +21,10 @@ class V2Command(Model):
             str | int,
             str | list[str | V2ValueArgument] | V2FileArgument | V2CommandArgument,
         ],
-        Field(title="arguments of the command.", alias="arguments"),
+        Field(
+            title="arguments of the command.",
+            alias="arguments",
+        ),
     ]
 
     @property
