@@ -18,18 +18,19 @@ class V2Command(Model):
 
     @property
     def arguments(self) -> OrderedDict[str | int, V2Argument]:
-        def to_argument(value: str | list[str] | V2Argument) -> V2Argument:
-            if isinstance(value, str):
-                return V2NormalArgument(candidates=[value])
-            elif isinstance(value, list):
-                return V2NormalArgument(candidates=value)
-            else:
-                return value
-
         return OrderedDict(
             [
-                (k, to_argument(v))
+                (k, _convert_argument(v))
                 for k, v in self.arguments__.items()
                 if isinstance(v, V2Argument)
             ]
         )
+
+
+def _convert_argument(value: str | list[str] | V2Argument) -> V2Argument:
+    if isinstance(value, str):
+        return V2NormalArgument(candidates=[value])
+    elif isinstance(value, list):
+        return V2NormalArgument(candidates=value)
+    else:
+        return value
