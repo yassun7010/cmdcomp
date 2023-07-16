@@ -9,7 +9,7 @@ from cmdcomp.v1.command.command import V1Command
 class V1Config(Model):
     """cmdcomp config."""
 
-    model_config = ConfigDict(arbitrary_types_allowed=True, extra="forbid")
+    model_config = ConfigDict(arbitrary_types_allowed=True)
 
     cmdcomp: V1CmdCompInfo
     app: V1AppInfo
