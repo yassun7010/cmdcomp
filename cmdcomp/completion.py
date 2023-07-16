@@ -3,8 +3,9 @@ from pathlib import Path
 
 from mergedeep import merge
 
+from cmdcomp.config import Config
 from cmdcomp.shell import ShellType
-from cmdcomp.v1.config.command.command import (
+from cmdcomp.v1.config_v1.command.command import (
     Candidates,
     Command,
     Completions,
@@ -12,7 +13,6 @@ from cmdcomp.v1.config.command.command import (
     get_candidates,
     get_targets,
 )
-from cmdcomp.v1.config.config import Config
 
 
 def generate(shell: ShellType, config: Config):
@@ -24,18 +24,18 @@ def generate(shell: ShellType, config: Config):
     template = env.get_template(f"{shell.value}.sh.jinja")
 
     return template.render(
-        app_name=config.app.name,
-        app_aliases=config.app.aliases + config.root.aliases,
+        app_name=config.root.app.name,
+        app_aliases=config.root.app.aliases + config.root.root.aliases,
         completions_list=generate_completions_list(config),
     )
 
 
 def generate_completions_list(config: Config):
-    completions_list = [get_candidates(config.root)]
+    completions_list = [get_candidates(config.root.root)]
 
     _update_completions_list(
         completions_list,
-        config.root,
+        config.root.root,
     )
 
     return completions_list

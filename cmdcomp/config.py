@@ -4,22 +4,11 @@ import tomllib
 from typing import BinaryIO
 
 import yaml
-from pydantic import ConfigDict
+from pydantic import RootModel
 
-from cmdcomp.v1.config.app_info import AppInfo
-from cmdcomp.v1.config.cmdcomp_info import CmdCompInfo
-from cmdcomp.v1.config.command.command import Command
-from cmdcomp.v1.config.model import Model
+from cmdcomp.v1.config_v1.config_v1 import ConfigV1
 
-
-class Config(Model):
-    """cmdcomp config."""
-
-    model_config = ConfigDict(arbitrary_types_allowed=True, extra="forbid")
-
-    cmdcomp: CmdCompInfo
-    app: AppInfo
-    root: Command
+Config = RootModel[ConfigV1]
 
 
 def load(file: BinaryIO) -> Config:
