@@ -6,24 +6,24 @@ from pydantic import ConfigDict, Field
 
 from cmdcomp.exception import NeverReach
 from cmdcomp.model import Model
-from cmdcomp.v1_config.command.option import (
-    OptionType,
-    SpecificOptions,
-    StrOption,
-    StrOptions,
+from cmdcomp.v1_config.v1_command.v1_option import (
+    V1OptionType,
+    V1SpecificOptions,
+    V1StrOption,
+    V1StrOptions,
 )
-from cmdcomp.v1_config.command.option.command_option import CommandOption
-from cmdcomp.v1_config.command.option.file_option import FileOption
+from cmdcomp.v1_config.v1_command.v1_option.v1_command_option import V1CommandOption
+from cmdcomp.v1_config.v1_command.v1_option.v1_file_option import V1FileOption
 
-SubcommandName = NewType("SubcommandName", str)
+V1SubcommandName = NewType("V1SubcommandName", str)
 
-Candidate = SubcommandName | StrOption
-Candidates = list[Candidate] | list[dict[OptionType, str]]
+V1Candidate = V1SubcommandName | V1StrOption
+V1Candidates = list[V1Candidate] | list[dict[V1OptionType, str]]
 
-Completions = Candidates | dict[str, "Completions"]  # type: ignore
+V1Completions = V1Candidates | dict[str, "V1Completions"]  # type: ignore
 
 
-class SubCommandsCommand(Model):
+class V1SubCommandsCommand(Model):
     """A command that can specify a subcommand."""
 
     model_config = ConfigDict(arbitrary_types_allowed=True)
@@ -37,14 +37,14 @@ class SubCommandsCommand(Model):
     ]
 
     options: Annotated[
-        StrOptions,
+        V1StrOptions,
         Field(
             title="options of the command.",
             default_factory=list,
         ),
     ]
 
-    subcommands: OrderedDict[SubcommandName, "Command | None"] = Field(
+    subcommands: OrderedDict[V1SubcommandName, "V1Command | None"] = Field(
         title="subcommands of the command.",
         default_factory=OrderedDict,
     )
@@ -57,7 +57,7 @@ class SubCommandsCommand(Model):
             return self.alias
 
 
-class SpecificOptionsCommand(Model):
+class V1SpecificOptionsCommand(Model):
     """A command that can specify options."""
 
     model_config = ConfigDict(arbitrary_types_allowed=True)
@@ -71,7 +71,7 @@ class SpecificOptionsCommand(Model):
     ]
 
     options: Annotated[
-        SpecificOptions,
+        V1SpecificOptions,
         Field(
             title="options of the command.",
         ),
@@ -85,18 +85,18 @@ class SpecificOptionsCommand(Model):
             return self.alias
 
 
-Command = SubCommandsCommand | SpecificOptionsCommand
+V1Command = V1SubCommandsCommand | V1SpecificOptionsCommand
 
-Subcommands = OrderedDict[SubcommandName, Command | None]
+Subcommands = OrderedDict[V1SubcommandName, V1Command | None]
 
 
-def get_targets(name: SubcommandName, subcommand: Command) -> list[str]:
+def get_targets(name: V1SubcommandName, subcommand: V1Command) -> list[str]:
     return [name] + subcommand.aliases
 
 
-def get_candidates(command: Command) -> Candidates:
+def get_candidates(command: V1Command) -> V1Candidates:
     match command:
-        case SubCommandsCommand():
+        case V1SubCommandsCommand():
             return (
                 [command.options]
                 if isinstance(command.options, str)
@@ -106,17 +106,17 @@ def get_candidates(command: Command) -> Candidates:
                 [
                     get_targets(
                         name,
-                        subcommand or SubCommandsCommand.model_validate({}),
+                        subcommand or V1SubCommandsCommand.model_validate({}),
                     )
                     for name, subcommand in command.subcommands.items()
                 ],
                 [],
             )
-        case SpecificOptionsCommand():
-            if isinstance(command.options, CommandOption):
+        case V1SpecificOptionsCommand():
+            if isinstance(command.options, V1CommandOption):
                 return [{"command": f"$({command.options.execute})"}]
 
-            elif isinstance(command.options, FileOption):
+            elif isinstance(command.options, V1FileOption):
                 return [{"file": command.options.base_path}]
             else:
                 raise NeverReach(command.options)

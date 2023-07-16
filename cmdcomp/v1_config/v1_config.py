@@ -1,9 +1,9 @@
 from pydantic import ConfigDict
 
 from cmdcomp.model import Model
-from cmdcomp.v1_config.app_info import AppInfo
-from cmdcomp.v1_config.cmdcomp_info import CmdCompInfo
-from cmdcomp.v1_config.command.command import Command
+from cmdcomp.v1_config.v1_app_info import V1AppInfo
+from cmdcomp.v1_config.v1_cmdcomp_info import V1CmdCompInfo
+from cmdcomp.v1_config.v1_command.v1_command import V1Command
 
 
 class V1Config(Model):
@@ -11,6 +11,6 @@ class V1Config(Model):
 
     model_config = ConfigDict(arbitrary_types_allowed=True, extra="forbid")
 
-    cmdcomp: CmdCompInfo
-    app: AppInfo
-    root: Command
+    cmdcomp: V1CmdCompInfo
+    app: V1AppInfo
+    root: V1Command

@@ -5,11 +5,11 @@ from mergedeep import merge
 
 from cmdcomp.config import Config
 from cmdcomp.shell import ShellType
-from cmdcomp.v1_config.command.command import (
-    Candidates,
-    Command,
-    Completions,
-    SubCommandsCommand,
+from cmdcomp.v1_config.v1_command.v1_command import (
+    V1Candidates,
+    V1Command,
+    V1Completions,
+    V1SubCommandsCommand,
     get_candidates,
     get_targets,
 )
@@ -42,24 +42,24 @@ def generate_completions_list(config: Config):
 
 
 def _update_completions_list(
-    completions_list: list[Completions],
-    command: Command,
+    completions_list: list[V1Completions],
+    command: V1Command,
     keys: list[str] | None = None,
 ):
     if keys is None:
         keys = []
 
-    if not isinstance(command, SubCommandsCommand):
+    if not isinstance(command, V1SubCommandsCommand):
         return
 
     for name, optional_subcommand in command.subcommands.items():
-        subcommand = optional_subcommand or SubCommandsCommand.model_validate({})
+        subcommand = optional_subcommand or V1SubCommandsCommand.model_validate({})
 
         new_keys = keys + ["|".join(get_targets(name, subcommand))]
 
         _update_completions_list(completions_list, subcommand, new_keys)
 
-        candidates: Candidates = get_candidates(subcommand)
+        candidates: V1Candidates = get_candidates(subcommand)
 
         if len(candidates) == 0:
             continue
@@ -77,5 +77,5 @@ def _update_completions_list(
         )
 
 
-def _swap_key_value(prev: Completions, key: str) -> Completions:
+def _swap_key_value(prev: V1Completions, key: str) -> V1Completions:
     return {key: prev}

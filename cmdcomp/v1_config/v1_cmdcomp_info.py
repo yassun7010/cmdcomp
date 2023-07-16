@@ -5,7 +5,7 @@ from pydantic import Field
 from cmdcomp.model import Model
 
 
-class CmdCompInfo(Model):
+class V1CmdCompInfo(Model):
     """cmdcomp info."""
 
     version: Annotated[

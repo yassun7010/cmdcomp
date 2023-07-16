@@ -1,205 +1,189 @@
 {
-    "$defs": {
-        "AppInfo": {
-            "additionalProperties": false,
-            "description": "your cli app info.",
-            "properties": {
-                "name": {
-                    "title": "your cli app name.",
-                    "type": "string"
-                },
-                "alias": {
-                    "anyOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "items": {
-                                "type": "string"
-                            },
-                            "type": "array"
-                        }
-                    ],
-                    "title": "alias of the cli app name."
-                }
-            },
-            "required": [
-                "name"
-            ],
-            "title": "AppInfo",
-            "type": "object"
+  "$defs": {
+    "V1AppInfo": {
+      "additionalProperties": false,
+      "description": "your cli app info.",
+      "properties": {
+        "name": {
+          "title": "your cli app name.",
+          "type": "string"
         },
-        "CmdCompInfo": {
-            "additionalProperties": false,
-            "description": "cmdcomp info.",
-            "properties": {
-                "version": {
-                    "const": "1",
-                    "title": "cmdcomp config schema version."
-                }
+        "alias": {
+          "anyOf": [
+            {
+              "type": "string"
             },
-            "required": [
-                "version"
-            ],
-            "title": "CmdCompInfo",
-            "type": "object"
-        },
-        "CommandOption": {
-            "additionalProperties": false,
-            "description": "complete with the result of executing the command in the Shell command.",
-            "properties": {
-                "type": {
-                    "const": "command",
-                    "title": "Type"
-                },
-                "execute": {
-                    "title": "command to execute.",
-                    "type": "string"
-                }
-            },
-            "required": [
-                "type",
-                "execute"
-            ],
-            "title": "CommandOption",
-            "type": "object"
-        },
-        "FileOption": {
-            "additionalProperties": false,
-            "description": "a: complete with a relative path from the directory specified by base_path.",
-            "properties": {
-                "type": {
-                    "const": "file",
-                    "title": "Type"
-                },
-                "base_path": {
-                    "title": "path of the directory from which to base filename completion.",
-                    "type": "string"
-                }
-            },
-            "required": [
-                "type",
-                "base_path"
-            ],
-            "title": "FileOption",
-            "type": "object"
-        },
-        "SpecificOptionsCommand": {
-            "additionalProperties": false,
-            "description": "A command that can specify options.",
-            "properties": {
-                "alias": {
-                    "anyOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "items": {
-                                "type": "string"
-                            },
-                            "type": "array"
-                        }
-                    ],
-                    "title": "alias of the command."
-                },
-                "options": {
-                    "anyOf": [
-                        {
-                            "$ref": "#/$defs/FileOption"
-                        },
-                        {
-                            "$ref": "#/$defs/CommandOption"
-                        }
-                    ],
-                    "title": "options of the command."
-                }
-            },
-            "required": [
-                "options"
-            ],
-            "title": "SpecificOptionsCommand",
-            "type": "object"
-        },
-        "SubCommandsCommand": {
-            "additionalProperties": false,
-            "description": "A command that can specify a subcommand.",
-            "properties": {
-                "alias": {
-                    "anyOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "items": {
-                                "type": "string"
-                            },
-                            "type": "array"
-                        }
-                    ],
-                    "title": "alias of the command."
-                },
-                "options": {
-                    "anyOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "items": {
-                                "type": "string"
-                            },
-                            "type": "array"
-                        }
-                    ],
-                    "title": "options of the command."
-                },
-                "subcommands": {
-                    "additionalProperties": {
-                        "anyOf": [
-                            {
-                                "$ref": "#/$defs/SubCommandsCommand"
-                            },
-                            {
-                                "$ref": "#/$defs/SpecificOptionsCommand"
-                            },
-                            {
-                                "type": "null"
-                            }
-                        ]
-                    },
-                    "title": "subcommands of the command.",
-                    "type": "object"
-                }
-            },
-            "title": "SubCommandsCommand",
-            "type": "object"
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          ],
+          "title": "alias of the cli app name."
         }
+      },
+      "required": ["name"],
+      "title": "V1AppInfo",
+      "type": "object"
     },
-    "additionalProperties": false,
-    "description": "cmdcomp config.",
-    "properties": {
-        "cmdcomp": {
-            "$ref": "#/$defs/CmdCompInfo"
+    "V1CmdCompInfo": {
+      "additionalProperties": false,
+      "description": "cmdcomp info.",
+      "properties": {
+        "version": {
+          "const": "1",
+          "title": "cmdcomp config schema version."
+        }
+      },
+      "required": ["version"],
+      "title": "V1CmdCompInfo",
+      "type": "object"
+    },
+    "V1CommandOption": {
+      "additionalProperties": false,
+      "description": "complete with the result of executing the command in the Shell command.",
+      "properties": {
+        "type": {
+          "const": "command",
+          "title": "Type"
         },
-        "app": {
-            "$ref": "#/$defs/AppInfo"
+        "execute": {
+          "title": "command to execute.",
+          "type": "string"
+        }
+      },
+      "required": ["type", "execute"],
+      "title": "V1CommandOption",
+      "type": "object"
+    },
+    "V1FileOption": {
+      "additionalProperties": false,
+      "description": "a: complete with a relative path from the directory specified by base_path.",
+      "properties": {
+        "type": {
+          "const": "file",
+          "title": "Type"
         },
-        "root": {
+        "base_path": {
+          "title": "path of the directory from which to base filename completion.",
+          "type": "string"
+        }
+      },
+      "required": ["type", "base_path"],
+      "title": "V1FileOption",
+      "type": "object"
+    },
+    "V1SpecificOptionsCommand": {
+      "additionalProperties": false,
+      "description": "A command that can specify options.",
+      "properties": {
+        "alias": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          ],
+          "title": "alias of the command."
+        },
+        "options": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/V1FileOption"
+            },
+            {
+              "$ref": "#/$defs/V1CommandOption"
+            }
+          ],
+          "title": "options of the command."
+        }
+      },
+      "required": ["options"],
+      "title": "V1SpecificOptionsCommand",
+      "type": "object"
+    },
+    "V1SubCommandsCommand": {
+      "additionalProperties": false,
+      "description": "A command that can specify a subcommand.",
+      "properties": {
+        "alias": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          ],
+          "title": "alias of the command."
+        },
+        "options": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          ],
+          "title": "options of the command."
+        },
+        "subcommands": {
+          "additionalProperties": {
             "anyOf": [
-                {
-                    "$ref": "#/$defs/SubCommandsCommand"
-                },
-                {
-                    "$ref": "#/$defs/SpecificOptionsCommand"
-                }
-            ],
-            "title": "Root"
+              {
+                "$ref": "#/$defs/V1SubCommandsCommand"
+              },
+              {
+                "$ref": "#/$defs/V1SpecificOptionsCommand"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "title": "subcommands of the command.",
+          "type": "object"
         }
+      },
+      "title": "V1SubCommandsCommand",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "cmdcomp config.",
+  "properties": {
+    "cmdcomp": {
+      "$ref": "#/$defs/V1CmdCompInfo"
     },
-    "required": [
-        "cmdcomp",
-        "app",
-        "root"
-    ],
-    "title": "Config",
-    "type": "object"
+    "app": {
+      "$ref": "#/$defs/V1AppInfo"
+    },
+    "root": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/V1SubCommandsCommand"
+        },
+        {
+          "$ref": "#/$defs/V1SpecificOptionsCommand"
+        }
+      ],
+      "title": "Root"
+    }
+  },
+  "required": ["cmdcomp", "app", "root"],
+  "title": "Config",
+  "type": "object"
 }

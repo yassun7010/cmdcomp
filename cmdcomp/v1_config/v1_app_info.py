@@ -5,7 +5,7 @@ from pydantic import Field
 from cmdcomp.model import Model
 
 
-class AppInfo(Model):
+class V1AppInfo(Model):
     """your cli app info."""
 
     name: Annotated[str, Field(title="your cli app name.")]

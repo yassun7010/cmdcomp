@@ -5,7 +5,7 @@ from pydantic import Field
 from cmdcomp.model import Model
 
 
-class FileOption(Model):
+class V1FileOption(Model):
     """a: complete with a relative path from the directory specified by base_path."""
 
     type: Literal["file"]
