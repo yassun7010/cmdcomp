@@ -8,6 +8,3 @@ Upgrade Plan.
 - Support Keywords and positional arguments.
 
 """
-from .config import V2Config
-
-__all__ = ["V2Config"]
