@@ -1,7 +1,7 @@
 from cmdcomp.config import Config
 from cmdcomp.shell import ShellType
-from cmdcomp.v1_config.completion import generate_v1
-from cmdcomp.v1_config.v1_config import V1Config
+from cmdcomp.v1.completion import generate_v1
+from cmdcomp.v1.v1_config import V1Config
 
 
 def generate(shell: ShellType, config: Config) -> str:

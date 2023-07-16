@@ -1,7 +1,7 @@
 from typing import Literal
 
-from cmdcomp.v1_config.v1_command.v1_option.v1_command_option import V1CommandOption
-from cmdcomp.v1_config.v1_command.v1_option.v1_file_option import V1FileOption
+from cmdcomp.v1.v1_command.v1_option.v1_command_option import V1CommandOption
+from cmdcomp.v1.v1_command.v1_option.v1_file_option import V1FileOption
 
 V1StrOption = str
 

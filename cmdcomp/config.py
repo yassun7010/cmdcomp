@@ -6,7 +6,7 @@ from typing import BinaryIO
 import yaml
 from pydantic import RootModel
 
-from cmdcomp.v1_config.v1_config import V1Config
+from cmdcomp.v1.v1_config import V1Config
 
 
 class Config(RootModel):
