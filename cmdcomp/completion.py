@@ -10,6 +10,8 @@ def generate(shell: ShellType, config: Config) -> str:
         case V1Config():
             return generate_v1(shell, config.root)
 
+        # TODO: V2Config is still in draft.
+        #
         # case V2Config():
         #     return generate_v2(shell, config.root)
 
