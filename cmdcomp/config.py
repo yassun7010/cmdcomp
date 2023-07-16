@@ -8,7 +8,11 @@ from pydantic import RootModel
 
 from cmdcomp.v1_config.v1_config import V1Config
 
-Config = RootModel[V1Config]
+
+class Config(RootModel):
+    """cmdcomp config."""
+
+    root: V1Config
 
 
 def load(file: BinaryIO) -> Config:
