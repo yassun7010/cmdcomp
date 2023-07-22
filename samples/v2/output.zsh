@@ -1,3 +1,5 @@
+#!/bin/zsh
+
 function _cliname () {
     local context curcontext=$curcontext state line
     declare -A opt_args
