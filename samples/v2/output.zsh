@@ -6,9 +6,6 @@ _cliname() {
     local ret=1
 
     _arguments -C \
-        '1[]' \
-        '2[]' \
-        '3[]' \
         '--file[config filepath.]' \
         '--verbose[verbose description]' \
         '--no-verbose' \

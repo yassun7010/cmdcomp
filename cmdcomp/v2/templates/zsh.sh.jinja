@@ -7,8 +7,8 @@
     local ret=1
 
     _arguments -C \
-{%- for key, argument in root.arguments.items() %}
-        '{{ key }}{%- if argument.description is not none -%}[{{ argument.description }}]{%- endif -%}' \
+{%- for key, keyword in root.keyword_arguments.items() %}
+        '{{ key }}{%- if keyword.description is not none -%}[{{ keyword.description }}]{%- endif -%}' \
 {%- endfor %}
         '*:: :->null' \
         && return 1

@@ -63,6 +63,26 @@ class V2Command(Model):
             [(k, _convert_argument(v)) for k, v in self.arguments__.items()]
         )
 
+    @property
+    def positional_arguments(self) -> OrderedDict[Position, V2Argument]:
+        return OrderedDict(
+            [
+                (k, _convert_argument(v))
+                for k, v in self.arguments__.items()
+                if isinstance(k, int)
+            ]
+        )
+
+    @property
+    def keyword_arguments(self) -> OrderedDict[Keyword, V2Argument]:
+        return OrderedDict(
+            [
+                (k, _convert_argument(v))
+                for k, v in self.arguments__.items()
+                if isinstance(k, str)
+            ]
+        )
+
 
 def _convert_argument(
     value: str
