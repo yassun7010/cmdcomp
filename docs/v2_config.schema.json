@@ -192,13 +192,20 @@
                     "title": "alias of the argument."
                 },
                 "base_path": {
-                    "title": "path of the directory from which to base filename completion.",
-                    "type": "string"
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "path of the directory from which to base filename completion."
                 }
             },
             "required": [
-                "type",
-                "base_path"
+                "type"
             ],
             "title": "V2FileArgument",
             "type": "object"

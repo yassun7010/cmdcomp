@@ -10,7 +10,7 @@
 {%- for key, keyword in root.keyword_arguments.items() %}
         '{{ key }}{%- if keyword.description is not none -%}[{{ keyword.description }}]{%- endif -%}
 {%- if keyword.type == 'file' -%}
-{{ ":file:_files" }}
+:file:_files{%- if keyword.base_path is not none %} -W "{{ keyword.base_path }}"{%- endif -%}
 {%- endif -%}
         ' \
 {%- endfor %}

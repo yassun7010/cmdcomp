@@ -15,7 +15,10 @@ root:
       type: file
       description: config filepath.
       alias: "-f"
-      base_path: "~"
+      base_path: "$HOME"
+    --output:
+      type: file
+      description: output filename.
     --verbose:
       type: flag
       description: "verbose description"

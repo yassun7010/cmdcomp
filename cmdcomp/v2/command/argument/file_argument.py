@@ -1,4 +1,4 @@
-from typing import Annotated, Literal
+from typing import Literal
 
 from pydantic import Field
 
@@ -18,10 +18,10 @@ class V2FileArgument(Model):
         default=None,
     )
 
-    base_path: Annotated[
-        str,
-        Field(title="path of the directory from which to base filename completion."),
-    ]
+    base_path: str | None = Field(
+        title="path of the directory from which to base filename completion.",
+        default=None,
+    )
 
     @property
     def aliases(self) -> list[str]:
