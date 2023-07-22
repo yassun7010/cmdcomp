@@ -19,6 +19,9 @@ root:
     --output:
       type: file
       description: output filename.
+    --ls:
+      type: command
+      execute: "ls | grep -e '\\.md$'"
     --verbose:
       type: flag
       description: "verbose description"
