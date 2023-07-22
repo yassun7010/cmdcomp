@@ -8,7 +8,11 @@
 
     _arguments -C \
 {%- for key, keyword in root.keyword_arguments.items() %}
-        '{{ key }}{%- if keyword.description is not none -%}[{{ keyword.description }}]{%- endif -%}' \
+        '{{ key }}{%- if keyword.description is not none -%}[{{ keyword.description }}]{%- endif -%}
+{%- if keyword.type == 'file' -%}
+{{ ":file:_files" }}
+{%- endif -%}
+        ' \
 {%- endfor %}
 {%- for key, positional in root.positional_arguments.items() %}
         '{{ key }}: arg:{{ "(" + positional.values|map("string")|join(" ") + ")" }}' \

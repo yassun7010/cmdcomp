@@ -6,7 +6,7 @@ _cliname() {
     local ret=1
 
     _arguments -C \
-        '--file[config filepath.]' \
+        '--file[config filepath.]:file:_files' \
         '--verbose[verbose description]' \
         '--no-verbose' \
         '1: arg:(arg1)' \
