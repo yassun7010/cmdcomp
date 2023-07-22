@@ -10,6 +10,9 @@
 {%- for key, keyword in root.keyword_arguments.items() %}
         '{{ key }}{%- if keyword.description is not none -%}[{{ keyword.description }}]{%- endif -%}' \
 {%- endfor %}
+{%- for key, positional in root.positional_arguments.items() %}
+        '{{ key }}: arg:{{ "(" + positional.values|map("string")|join(" ") + ")" }}' \
+{%- endfor %}
         '*:: :->null' \
         && return 1
 

@@ -9,6 +9,9 @@ _cliname() {
         '--file[config filepath.]' \
         '--verbose[verbose description]' \
         '--no-verbose' \
+        '1: arg:(arg1)' \
+        '2: arg:(arg1 arg2 arg3)' \
+        '3: arg:(arg1 arg2)' \
         '*:: :->null' \
         && return 1
 

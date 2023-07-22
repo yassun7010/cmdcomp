@@ -13,10 +13,8 @@ class V2ValueArgument(Model):
         Field(title="value of the argument."),
     ]
 
-    description: str | None = Field(
-        title="description of the argument.",
-        default=None,
-    )
+    def __str__(self) -> str:
+        return self.value
 
 
 class V2ValuesArgument(Model):

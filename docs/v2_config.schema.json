@@ -47,6 +47,20 @@
         "V2Command": {
             "additionalProperties": false,
             "properties": {
+                "alias": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        }
+                    ],
+                    "title": "alias of the command."
+                },
                 "arguments": {
                     "additionalProperties": {
                         "anyOf": [
@@ -55,14 +69,7 @@
                             },
                             {
                                 "items": {
-                                    "anyOf": [
-                                        {
-                                            "type": "string"
-                                        },
-                                        {
-                                            "$ref": "#/$defs/V2ValueArgument"
-                                        }
-                                    ]
+                                    "type": "string"
                                 },
                                 "type": "array"
                             },
@@ -81,6 +88,13 @@
                         ]
                     },
                     "title": "arguments of the command.",
+                    "type": "object"
+                },
+                "subcommands": {
+                    "additionalProperties": {
+                        "$ref": "#/$defs/V2Command"
+                    },
+                    "title": "subcommands of the command.",
                     "type": "object"
                 }
             },
@@ -231,32 +245,6 @@
                 "type"
             ],
             "title": "V2FlagArgument",
-            "type": "object"
-        },
-        "V2ValueArgument": {
-            "additionalProperties": false,
-            "properties": {
-                "value": {
-                    "title": "value of the argument.",
-                    "type": "string"
-                },
-                "description": {
-                    "anyOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "title": "description of the argument."
-                }
-            },
-            "required": [
-                "value"
-            ],
-            "title": "V2ValueArgument",
             "type": "object"
         }
     },

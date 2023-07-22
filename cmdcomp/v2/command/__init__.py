@@ -33,7 +33,7 @@ class V2Command(Model):
         OrderedDict[
             Position | Keyword,
             str
-            | list[str | V2ValueArgument]
+            | list[str]
             | V2FileArgument
             | V2CommandArgument
             | V2FlagArgument
@@ -85,12 +85,7 @@ class V2Command(Model):
 
 
 def _convert_argument(
-    value: str
-    | list[str | V2ValueArgument]
-    | V2FileArgument
-    | V2CommandArgument
-    | V2FlagArgument
-    | None,
+    value: str | list[str] | V2FileArgument | V2CommandArgument | V2FlagArgument | None,
 ) -> V2Argument:
     match value:
         case str():
@@ -99,9 +94,7 @@ def _convert_argument(
         case list():
             return V2ValuesArgument(
                 type="values",
-                values__=[
-                    V2ValueArgument(value=v) if isinstance(v, str) else v for v in value
-                ],
+                values__=[V2ValueArgument(value=v) for v in value],
             )
 
         case None:
