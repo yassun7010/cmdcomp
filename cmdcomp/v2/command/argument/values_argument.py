@@ -26,7 +26,7 @@ class V2ValuesArgument(Model):
         str | list[str | V2ValueArgument] | OrderedDict[str, str | V2ValueArgument],
         Field(
             title="values of the argument.",
-            alias="values",
+            serialization_alias="values",
         ),
     ]
 

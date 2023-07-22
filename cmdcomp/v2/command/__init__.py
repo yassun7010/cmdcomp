@@ -21,6 +21,14 @@ SubcommandName: TypeAlias = str
 class V2Command(Model):
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
+    alias: Annotated[
+        str | list[str],
+        Field(
+            title="alias of the command.",
+            default_factory=list,
+        ),
+    ]
+
     arguments__: Annotated[
         OrderedDict[
             Position | Keyword,
@@ -41,6 +49,13 @@ class V2Command(Model):
         title="subcommands of the command.",
         default_factory=OrderedDict,
     )
+
+    @property
+    def aliases(self) -> list[str]:
+        if isinstance(self.alias, str):
+            return [self.alias]
+        else:
+            return self.alias
 
     @property
     def arguments(self) -> OrderedDict[Position | Keyword, V2Argument]:

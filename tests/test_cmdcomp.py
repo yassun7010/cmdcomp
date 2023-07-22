@@ -1,10 +1,7 @@
-from pathlib import Path
-
 from pytest import CaptureFixture
 
 from cmdcomp.app import App
-
-SAMPLES_DIR = Path(__file__).parent.parent / "samples"
+from tests.conftest import SAMPLES_DIR
 
 
 def test_sample_toml_bash(capsys: CaptureFixture) -> None:

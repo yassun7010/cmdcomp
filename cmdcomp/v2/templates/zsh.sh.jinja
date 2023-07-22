@@ -1,0 +1,19 @@
+{%- set func_name = "_" + app_name|replace("-","_") -%}
+#!/bin/zsh
+
+{{ func_name }}() {
+    local context curcontext=$curcontext state line
+    declare -A opt_args
+    local ret=1
+
+    _arguments -C \
+{%- for key, argument in root.arguments.items() %}
+        '{{ key }}{%- if argument.description is not none -%}[{{ argument.description }}]{%- endif -%}' \
+{%- endfor %}
+        '*:: :->null' \
+        && return 1
+
+    return 0
+}
+
+compdef {{ func_name }} {{ ([app_name] + app_aliases)|join(" ") }}
