@@ -74,6 +74,9 @@
                                 "type": "array"
                             },
                             {
+                                "$ref": "#/$defs/V2ValuesArgument"
+                            },
+                            {
                                 "$ref": "#/$defs/V2FileArgument"
                             },
                             {
@@ -252,6 +255,81 @@
                 "type"
             ],
             "title": "V2FlagArgument",
+            "type": "object"
+        },
+        "V2ValueArgument": {
+            "additionalProperties": false,
+            "properties": {
+                "value": {
+                    "title": "value of the argument.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "value"
+            ],
+            "title": "V2ValueArgument",
+            "type": "object"
+        },
+        "V2ValuesArgument": {
+            "additionalProperties": false,
+            "properties": {
+                "type": {
+                    "const": "values",
+                    "title": "Type"
+                },
+                "description": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "description of the argument."
+                },
+                "items": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "items": {
+                                "anyOf": [
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "$ref": "#/$defs/V2ValueArgument"
+                                    }
+                                ]
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "additionalProperties": {
+                                "anyOf": [
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "$ref": "#/$defs/V2ValueArgument"
+                                    }
+                                ]
+                            },
+                            "type": "object"
+                        }
+                    ],
+                    "title": "values of the argument."
+                }
+            },
+            "required": [
+                "type",
+                "items"
+            ],
+            "title": "V2ValuesArgument",
             "type": "object"
         }
     },

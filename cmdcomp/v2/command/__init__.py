@@ -34,6 +34,7 @@ class V2Command(Model):
             Position | Keyword,
             str
             | list[str]
+            | V2ValuesArgument
             | V2FileArgument
             | V2CommandArgument
             | V2FlagArgument
@@ -85,16 +86,22 @@ class V2Command(Model):
 
 
 def _convert_argument(
-    value: str | list[str] | V2FileArgument | V2CommandArgument | V2FlagArgument | None,
+    value: str
+    | list[str]
+    | V2ValuesArgument
+    | V2FileArgument
+    | V2CommandArgument
+    | V2FlagArgument
+    | None,
 ) -> V2Argument:
     match value:
         case str():
-            return V2ValuesArgument(type="values", values__=[value])
+            return V2ValuesArgument(type="values", items=[value])
 
         case list():
             return V2ValuesArgument(
                 type="values",
-                values__=[V2ValueArgument(value=v) for v in value],
+                items=[V2ValueArgument(value=v) for v in value],
             )
 
         case None:

@@ -19,10 +19,19 @@ root:
     --output:
       type: file
       description: output filename.
+    --shell:
+      type: values
+      description: shell name.
+      items:
+        - bash
+        - zsh
     --ls:
       type: command
+      description: "ls command"
       execute: "ls | grep -e '\\.md$'"
     --verbose:
       type: flag
       description: "verbose description"
     --no-verbose:
+      type: flag
+      description: "no verbose description"

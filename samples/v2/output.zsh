@@ -8,9 +8,10 @@ _cliname() {
     _arguments -C \
         '--file[config filepath.]:file:_files -W "$HOME"' \
         '--output[output filename.]:file:_files' \
-        '--ls:result:_values 'ls' $(ls | grep -e '\.md$')' \
+        '--shell[shell name.]:values:(bash zsh)' \
+        '--ls[ls command]:command:_values 'ls' $(ls | grep -e '\.md$')' \
         '--verbose[verbose description]' \
-        '--no-verbose' \
+        '--no-verbose[no verbose description]' \
         '1: arg:(arg1)' \
         '2: arg:(arg1 arg2 arg3)' \
         '3: arg:(arg1 arg2)' \

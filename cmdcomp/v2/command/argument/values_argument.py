@@ -20,31 +20,33 @@ class V2ValueArgument(Model):
 class V2ValuesArgument(Model):
     type: Literal["values"]
 
-    values__: Annotated[
+    description: str | None = Field(
+        title="description of the argument.",
+        default=None,
+    )
+
+    items: Annotated[
         str | list[str | V2ValueArgument] | OrderedDict[str, str | V2ValueArgument],
-        Field(
-            title="values of the argument.",
-            serialization_alias="values",
-        ),
+        Field(title="values of the argument."),
     ]
 
     @property
     def values(self) -> list[V2ValueArgument]:
-        match self.values__:
+        match self.items:
             case str():
-                return [V2ValueArgument(value=self.values__)]
+                return [V2ValueArgument(value=self.items)]
 
             case list():
                 return [
                     v if isinstance(v, V2ValueArgument) else V2ValueArgument(value=v)
-                    for v in self.values__
+                    for v in self.items
                 ]
 
             case OrderedDict():
                 return [
                     V2ValueArgument(value=v) if isinstance(v, str) else v
-                    for v in self.values__.values()
+                    for v in self.items.values()
                 ]
 
             case _:
-                raise NeverReach(self.values__)
+                raise NeverReach(self.items)
