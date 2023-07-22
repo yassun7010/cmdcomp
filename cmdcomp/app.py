@@ -10,6 +10,7 @@ class App:
         from argparse import ArgumentParser, BooleanOptionalAction, FileType
         from logging import getLogger
 
+        import argcomplete
         from rich.console import Console
         from rich.logging import RichHandler
 
@@ -57,6 +58,8 @@ class App:
             action=BooleanOptionalAction,
             help="output verbose log.",
         )
+
+        argcomplete.autocomplete(parser)
 
         space = parser.parse_args(args)
 
