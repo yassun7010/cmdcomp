@@ -15,6 +15,7 @@ root:
         description: "arg2 description"
     --file:
       type: file
+      description: config filepath.
       alias: "-f"
       base_path: "~"
     --verbose:
