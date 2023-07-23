@@ -1,4 +1,4 @@
-from typing import Annotated, OrderedDict, TypeAlias
+from typing import Annotated, Literal, OrderedDict, TypeAlias
 
 from pydantic import ConfigDict, Field
 
@@ -31,7 +31,7 @@ class V2PoristionalArgumentsCommand(Model):
 
     arguments: Annotated[
         OrderedDict[
-            Position | Keyword,
+            Position | Literal["*"] | Keyword,
             str
             | list[str]
             | V2ValuesArgument
@@ -68,12 +68,19 @@ class V2PoristionalArgumentsCommand(Model):
         )
 
     @property
+    def positional_wildcard_argument(self) -> V2Argument | None:
+        if "*" in self.arguments:
+            return _convert_argument(self.arguments["*"])
+        else:
+            return None
+
+    @property
     def keyword_arguments(self) -> OrderedDict[Keyword, V2Argument]:
         return OrderedDict(
             [
                 (k, _convert_argument(v))
                 for k, v in self.arguments.items()
-                if isinstance(k, str)
+                if isinstance(k, str) and not "*"
             ]
         )
 
@@ -121,6 +128,10 @@ class V2SubcommandsCommand(Model):
     @property
     def positional_arguments(self) -> OrderedDict[Position, V2Argument]:
         return OrderedDict()
+
+    @property
+    def positional_wildcard_argument(self) -> V2Argument | None:
+        return None
 
     @property
     def keyword_arguments(self) -> OrderedDict[Keyword, V2Argument]:

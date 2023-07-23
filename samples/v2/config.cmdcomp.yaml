@@ -6,6 +6,17 @@ app:
   alias: "cliname2"
 root:
   arguments:
+    1: "arg1"
+    2: ["arg2", "arg21"]
+    3:
+      - "arg3"
+      - "arg31"
+      - "arg32"
+    "*":
+      - "arg4"
+      - "arg41"
+      - "arg42"
+      - "arg43"
     --file:
       type: file
       description: config filepath.
@@ -30,35 +41,41 @@ root:
     --no-verbose:
       type: flag
       description: "no verbose description"
-  subcommands:
-    a:
-      arguments:
-        1: "arg1"
-        2: ["arg1", "arg2", "arg3"]
-        3:
-          - "arg1"
-          - "arg2"
-        --file:
-          type: file
-          description: config filepath.
-          alias: "-f"
-          base_path: "$HOME"
-        --output:
-          type: file
-          description: output filename.
-        --shell:
-          type: values
-          description: shell name.
-          items:
-            - bash
-            - zsh
-        --ls:
-          type: command
-          description: "ls command"
-          execute: "ls | grep -e '\\.md$'"
-        --verbose:
-          type: flag
-          description: "verbose description"
-        --no-verbose:
-          type: flag
-          description: "no verbose description"
+  # subcommands:
+  #   a:
+  #     arguments:
+  #       1: "arg1"
+  #       2: ["arg1", "arg2"]
+  #       3:
+  #         - "arg1"
+  #         - "arg2"
+  #         - "arg3"
+  #       "*":
+  #         - "arg1"
+  #         - "arg2"
+  #         - "arg3"
+  #         - "arg4"
+  #       --file:
+  #         type: file
+  #         description: config filepath.
+  #         alias: "-f"
+  #         base_path: "$HOME"
+  #       --output:
+  #         type: file
+  #         description: output filename.
+  #       --shell:
+  #         type: values
+  #         description: shell name.
+  #         items:
+  #           - bash
+  #           - zsh
+  #       --ls:
+  #         type: command
+  #         description: "ls command"
+  #         execute: "ls | grep -e '\\.md$'"
+  #       --verbose:
+  #         type: flag
+  #         description: "verbose description"
+  #       --no-verbose:
+  #         type: flag
+  #         description: "no verbose description"

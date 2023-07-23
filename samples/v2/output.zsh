@@ -6,13 +6,10 @@ _cliname() {
     local ret=1
 
     _arguments -C \
-        '--file[config filepath.]:file:_files -W "$HOME"' \
-        '--output[output filename.]:file:_files' \
-        '--shell[shell name.]:values:(bash zsh)' \
-        '--ls[ls command]:command:_values 'ls' $(ls | grep -e '\.md$')' \
-        '--verbose[verbose description]' \
-        '--no-verbose[no verbose description]' \
-        '*:: :->null' \
+        '1: arg:(arg1)' \
+        '2: arg:(arg2 arg21)' \
+        '3: arg:(arg3 arg31 arg32)' \
+        '*: arg:(arg4 arg41 arg42 arg43)' \
         && return 1
 
     return 0

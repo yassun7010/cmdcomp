@@ -22,7 +22,11 @@
 {%- for key, positional in root.positional_arguments.items() %}
         '{{ key }}: arg:{{ "(" + positional.values|map("string")|join(" ") + ")" }}' \
 {%- endfor %}
+{%- if root.positional_wildcard_argument is not none %}
+        '*: arg:{{ "(" + root.positional_wildcard_argument.values|map("string")|join(" ") + ")" }}' \
+{%- else %}
         '*:: :->null' \
+{%- endif %}
         && return 1
 
     return 0
