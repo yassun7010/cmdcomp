@@ -38,7 +38,7 @@ _cliname() {
             cd)
 
               _arguments -C \
-                '1: arg:()' \
+                1':file:_files' \
                 && ret=0
 
               ;;
