@@ -18,5 +18,5 @@ def generate_v2(shell: ShellType, config: V2Config) -> str:
     return template.render(
         app_name=config.app.name,
         app_aliases=config.app.aliases + config.root.aliases,
-        root=config.root,
+        commands={config.app.name: config.root},
     )

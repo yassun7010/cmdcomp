@@ -1,61 +1,69 @@
 {%- set func_name = "_" + app_name|replace("-","_") -%}
+{%- set scope = "" -%}
 #!/bin/zsh
 
 {{ func_name }}() {
-    local context curcontext=$curcontext state line
-    declare -A opt_args
-    local ret=1
-    local -a _subcmds
-{%- if root.subcommands|length != 0 %}
-    _subcmds=(
-{%- for key, subcommand in root.subcommands.items() %}
-        '{{ key }}{% if subcommand.description is not none%}[{{ subcommand.description }}]{% endif %}'
+  local context curcontext=$curcontext state line
+  declare -A opt_args
+  local ret=1
+  local cmd_name={{ app_name }}
+
+  case $cmd_name in
+{%- for cmd_name, command in commands.items() recursive %}
+{%- set scope = scope + "_" + cmd_name %}
+    ({{ cmd_name }})
+{%- if command.subcommands|length != 0 %}
+      local -a _{{ scope }}_subcmds
+      _{{ scope }}_subcmds=(
+{%- for subcmd_name, subcommand in command.subcommands.items() %}
+        '{{ subcmd_name }}{% if subcommand.description is not none%}[{{ subcommand.description }}]{% endif %}'
 {%- endfor %}
-    )
+      )
 {%- endif %}
 
-    _arguments -C \
-{%- for key, keyword in root.keyword_arguments.items() %}
+      _arguments -C \
+{%- for kwd_name, keyword in command.keyword_arguments.items() %}
         {% if keyword.aliases|length == 0 -%}
-            {{ key }}
+          {{ kwd_name }}
         {%- else -%}
-            {{ "{" + ([key] + keyword.aliases)|join(",") + "}" }}
+          {{ "{" + ([kwd_name] + keyword.aliases)|join(",") + "}" }}
         {%- endif -%}
-            '{%- if keyword.description is not none -%}[{{ keyword.description }}]{%- endif -%}
+          '{%- if keyword.description is not none -%}[{{ keyword.description }}]{%- endif -%}
 {%- if keyword.type == 'values' -%}
         :values:{{ "(" + keyword.values|map("string")|join(" ") + ")" }}
 {%- elif keyword.type == 'file' -%}
         :file:_files{%- if keyword.base_path is not none %} -W "{{ keyword.base_path }}"{%- endif -%}
 {%- elif keyword.type == 'command' -%}
-        :command:_values '{{ key|trim("-") }}' $({{ keyword.execute }})
+        :command:_values '{{ kwd_name|trim("-") }}' $({{ keyword.execute }})
 {%- elif keyword.type == 'flag' -%}
 {%- endif -%}
         ' \
 {%- endfor %}
-{%- for key, positional in root.positional_arguments.items() %}
-        '{{ key }}: arg:{{ "(" + positional.values|map("string")|join(" ") + ")" }}' \
+{%- for pos_name, positional in command.positional_arguments.items() %}
+        '{{ pos_name }}: arg:{{ "(" + positional.values|map("string")|join(" ") + ")" }}' \
 {%- endfor %}
-{%- if root.positional_wildcard_argument is not none %}
-        '*: arg:{{ "(" + root.positional_wildcard_argument.values|map("string")|join(" ") + ")" }}' \
-{%- elif root.subcommands|length != 0 %}
-        1': :_values "subcommand" ${_subcmds[@]}' \
+{%- if command.positional_wildcard_argument is not none %}
+        '*: arg:{{ "(" + command.positional_wildcard_argument.values|map("string")|join(" ") + ")" }}' \
+{%- elif command.subcommands|length != 0 %}
+        1': :_values "subcommand" ${_{{ scope }}_subcmds[@]}' \
         '*:: :->args' \
 {%- endif %}
         && ret=0
-{% if root.subcommands|length != 0 %}
-    case $state in
+{% if command.subcommands|length != 0 %}
+      cmd_name=$words[1]
+      case $state in
         (args)
-            case $words[1] in
-{%- for key, subcommand in root.subcommands.items() %}
-                ({{ key }})
-                    _arguments '-s[sort output]' '--l[long output]' '-l[long output]' && ret=0
-                    ;;
+          case $cmd_name in
+{{- loop(command.subcommands.items())|indent(width=8) }}
+          esac
+          ;;
+      esac
+{%- endif %}
+      ;;
 {%- endfor %}
-            esac
-            ;;
-    esac
-{% endif %}
-    return ret
+  esac
+
+  return ret
 }
 
 compdef {{ func_name }} {{ ([app_name] + app_aliases)|join(" ") }}

@@ -50,6 +50,12 @@
         ],
         "editor.defaultFormatter": "ms-python.black-formatter"
     },
+    "[shellscript]": {
+        "editor.tabSize": 2
+    },
+    "[jinja-shell]": {
+        "editor.tabSize": 2
+    },
     "[markdown]": {
         "files.trimTrailingWhitespace": false
     },
