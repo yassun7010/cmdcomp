@@ -211,6 +211,18 @@
                     ],
                     "title": "alias of the command."
                 },
+                "description": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "description of the argument."
+                },
                 "arguments": {
                     "additionalProperties": {
                         "anyOf": [

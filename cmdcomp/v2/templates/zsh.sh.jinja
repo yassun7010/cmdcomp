@@ -5,6 +5,14 @@
     local context curcontext=$curcontext state line
     declare -A opt_args
     local ret=1
+    local -a _subcmds
+{%- if root.subcommands|length != 0 %}
+    _subcmds=(
+{%- for key, subcommand in root.subcommands.items() %}
+        '{{ key }}[{{ subcommand.description }}]'
+{%- endfor %}
+    )
+{%- endif %}
 
     _arguments -C \
 {%- for key, keyword in root.keyword_arguments.items() %}
@@ -29,12 +37,28 @@
 {%- endfor %}
 {%- if root.positional_wildcard_argument is not none %}
         '*: arg:{{ "(" + root.positional_wildcard_argument.values|map("string")|join(" ") + ")" }}' \
+{%- elif root.subcommands|length != 0 %}
+        1': :_values "subcommand" ${_subcmds[@]}' \
+        '*:: :->args' \
 {%- else %}
         '*:: :->null' \
 {%- endif %}
-        && return 1
+        && ret=0
 
-    return 0
+{% if root.subcommands|length != 0 %}
+    case $state in
+        (args)
+            case $words[1] in
+{%- for key, subcommand in root.subcommands.items() %}
+                ({{ key }})
+                    _arguments '-s[sort output]' '--l[long output]' '-l[long output]' && ret=0
+                    ;;
+{%- endfor %}
+            esac
+            ;;
+    esac
+{% endif %}
+    return ret
 }
 
 compdef {{ func_name }} {{ ([app_name] + app_aliases)|join(" ") }}

@@ -34,6 +34,7 @@ root:
     --help:
   subcommands:
     sub1:
+      description: "sub1 description"
       arguments:
         1: "arg1"
         2: ["arg2", "arg21"]
@@ -51,19 +52,9 @@ root:
           description: config filepath.
           alias: "-f"
           base_path: "$HOME"
-        --output:
-          type: file
-          description: output filename.
-        --shell:
-          type: values
-          description: shell name.
-          values:
-            - bash
-            - zsh
-        --ls:
-          type: command
-          description: "ls command"
-          execute: "ls | grep -e '\\.md$'"
+    sub2:
+      description: "sub2 description"
+      arguments:
         --verbose:
           type: flag
           description: "verbose description"
