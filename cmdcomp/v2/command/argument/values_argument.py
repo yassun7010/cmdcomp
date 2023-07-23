@@ -25,6 +25,11 @@ class V2ValuesArgument(Model):
         default=None,
     )
 
+    alias: str | list[str] | None = Field(
+        title="alias of the argument.",
+        default=None,
+    )
+
     values: Annotated[
         str | list[str | V2ValueArgument] | OrderedDict[str, str | V2ValueArgument],
         Field(title="values of the argument."),
@@ -50,3 +55,12 @@ class V2ValuesArgument(Model):
 
             case _:
                 raise NeverReach(self.values)
+
+    @property
+    def aliases(self) -> list[str]:
+        if isinstance(self.alias, str):
+            return [self.alias]
+        elif isinstance(self.alias, list):
+            return self.alias
+        else:
+            return []

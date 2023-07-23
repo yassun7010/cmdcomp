@@ -18,9 +18,9 @@ _cliname() {
       _arguments -C \
         --verbose'[verbose output.]' \
         --no-verbose'[no verbose output.]' \
-        --version'[print version.]' \
+        {--version,-V}'[print version.]' \
         --help'[print help.]' \
-        1': :_values "subcommand" ${__cliname_subcmds[@]}' \
+        '1: :_values "subcommand" ${__cliname_subcmds[@]}' \
         '*:: :->args' \
         && ret=0
 
@@ -30,13 +30,13 @@ _cliname() {
           case $cmd_name in
             list|ls)
               _arguments -C \
-                --all'[list all files.]' \
+                {--all,-a}'[list all files.]' \
                 && ret=0
               ;;
 
             cd)
               _arguments -C \
-                1':file:_files' \
+                '1:file:_files' \
                 && ret=0
               ;;
 
@@ -48,7 +48,7 @@ _cliname() {
               )
 
               _arguments -C \
-                1': :_values "subcommand" ${__test_subcmds[@]}' \
+                '1: :_values "subcommand" ${__test_subcmds[@]}' \
                 '*:: :->args' \
                 && ret=0
 
@@ -58,7 +58,7 @@ _cliname() {
                   case $cmd_name in
                     rubocop)
                       _arguments -C \
-                        --auto-correct'[auto correct.]' \
+                        {--auto-correct,-A}'[auto correct.]' \
                         && ret=0
                       ;;
 

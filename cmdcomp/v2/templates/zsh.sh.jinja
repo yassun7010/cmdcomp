@@ -49,12 +49,12 @@
         {{ candidate(kwd_name, keyword) }}'{{ description(keyword) }}{{ contents(kwd_name, keyword) }}' \
 {%- endfor %}
 {%- for pos_name, positional in command.positional_arguments.items() %}
-        {{ pos_name }}'{{ contents(pos_name, positional) }}' \
+        '{{ pos_name }}{{ contents(pos_name, positional) }}' \
 {%- endfor %}
 {%- if command.positional_wildcard_argument is not none %}
         '*: {{ contents("*", command.positional_wildcard_argument) }}' \
 {%- elif command.subcommands|length != 0 %}
-        1': :_values "subcommand" ${_{{ scope }}_subcmds[@]}' \
+        '1: :_values "subcommand" ${_{{ scope }}_subcmds[@]}' \
         '*:: :->args' \
 {%- endif %}
         && ret=0
