@@ -47,7 +47,12 @@ class V2PoristionalArgumentsCommand(Model):
         ],
         Field(
             title="arguments of the command.",
-            alias="arguments",
+            description=(
+                "argment key allow "
+                "positional integer (like `1` , `2`), "
+                'keyword string(like `"--f"`, `"-f"`), '
+                'wildcard string(`"*"`).'
+            ),
         ),
     ]
 
@@ -119,7 +124,7 @@ class V2SubcommandsCommand(Model):
         ],
         Field(
             title="arguments of the command.",
-            alias="arguments",
+            description='argment key allow keyword string (like "--f", "-f") only.',
             default_factory=OrderedDict,
         ),
     ]
