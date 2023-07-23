@@ -40,7 +40,7 @@
       local -a _{{ scope }}_subcmds
       _{{ scope }}_subcmds=(
 {%- for subcmd_name, subcommand in command.subcommands.items() %}
-        {{ candidate(subcmd_name, subcommand) }}'{% if subcommand.description is not none%}[{{ subcommand.description }}]{% endif %}'
+        {{ candidate(subcmd_name, subcommand) }}'{{ description(subcommand) }}'
 {%- endfor %}
       )
 {% endif %}
