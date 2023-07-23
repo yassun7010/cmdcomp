@@ -155,12 +155,12 @@ def _convert_argument(
 ) -> V2Argument:
     match value:
         case str():
-            return V2ValuesArgument(type="values", items=[value])
+            return V2ValuesArgument(type="values", values=[value])
 
         case list():
             return V2ValuesArgument(
                 type="values",
-                items=[V2ValueArgument(value=v) for v in value],
+                values=[V2ValueArgument(value=v) for v in value],
             )
 
         case None:

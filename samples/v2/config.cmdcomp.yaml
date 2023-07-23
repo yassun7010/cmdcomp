@@ -18,7 +18,7 @@ root:
     --shell:
       type: values
       description: shell name.
-      items:
+      values:
         - bash
         - zsh
     --ls:
@@ -57,7 +57,7 @@ root:
         --shell:
           type: values
           description: shell name.
-          items:
+          values:
             - bash
             - zsh
         --ls:

@@ -355,7 +355,7 @@
                     "default": null,
                     "title": "description of the argument."
                 },
-                "items": {
+                "values": {
                     "anyOf": [
                         {
                             "type": "string"
@@ -392,7 +392,7 @@
             },
             "required": [
                 "type",
-                "items"
+                "values"
             ],
             "title": "V2ValuesArgument",
             "type": "object"

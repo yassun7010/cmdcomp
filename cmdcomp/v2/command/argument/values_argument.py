@@ -25,28 +25,28 @@ class V2ValuesArgument(Model):
         default=None,
     )
 
-    items: Annotated[
+    values: Annotated[
         str | list[str | V2ValueArgument] | OrderedDict[str, str | V2ValueArgument],
         Field(title="values of the argument."),
     ]
 
     @property
-    def values(self) -> list[V2ValueArgument]:
-        match self.items:
+    def items(self) -> list[V2ValueArgument]:
+        match self.values:
             case str():
-                return [V2ValueArgument(value=self.items)]
+                return [V2ValueArgument(value=self.values)]
 
             case list():
                 return [
                     v if isinstance(v, V2ValueArgument) else V2ValueArgument(value=v)
-                    for v in self.items
+                    for v in self.values
                 ]
 
             case OrderedDict():
                 return [
                     V2ValueArgument(value=v) if isinstance(v, str) else v
-                    for v in self.items.values()
+                    for v in self.values.values()
                 ]
 
             case _:
-                raise NeverReach(self.items)
+                raise NeverReach(self.values)
