@@ -14,7 +14,6 @@ _cliname() {
         cd'[cd project directory.]'
         test'[test command.]'
       )
-
       _arguments -C \
         --verbose'[verbose output.]' \
         --no-verbose'[no verbose output.]' \
@@ -23,24 +22,19 @@ _cliname() {
         1': :_values "subcommand" ${__cliname_subcmds[@]}' \
         '*:: :->args' \
         && ret=0
-
       cmd_name=$words[1]
       case $state in
         args)
           case $cmd_name in
             list|ls)
-
               _arguments -C \
                 --all'[list all files.]' \
                 && ret=0
-
               ;;
             cd)
-
               _arguments -C \
                 1':file:_files' \
                 && ret=0
-
               ;;
             test)
               local -a __test_subcmds
@@ -48,28 +42,22 @@ _cliname() {
                 rubocop'[run rubocop.]'
                 pytest'[run pytest.]'
               )
-
               _arguments -C \
                 1': :_values "subcommand" ${__test_subcmds[@]}' \
                 '*:: :->args' \
                 && ret=0
-
               cmd_name=$words[1]
               case $state in
                 args)
                   case $cmd_name in
                     rubocop)
-
                       _arguments -C \
                         --auto-correct'[auto correct.]' \
                         && ret=0
-
                       ;;
                     pytest)
-
                       _arguments -C \
                         && ret=0
-
                       ;;
                   esac
                   ;;
