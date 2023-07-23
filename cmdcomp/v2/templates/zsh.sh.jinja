@@ -43,7 +43,7 @@
         {{ candidate(subcmd_name, subcommand) }}'{% if subcommand.description is not none%}[{{ subcommand.description }}]{% endif %}'
 {%- endfor %}
       )
-{%- endif %}
+{% endif %}
       _arguments -C \
 {%- for kwd_name, keyword in command.keyword_arguments.items() %}
         {{ candidate(kwd_name, keyword) }}'{{ description(keyword) }}{{ contents(kwd_name, keyword) }}' \
@@ -59,6 +59,7 @@
 {%- endif %}
         && ret=0
 {%- if command.subcommands|length != 0 %}
+
       cmd_name=$words[1]
       case $state in
         args)
@@ -66,10 +67,11 @@
 {{- loop(command.subcommands.items())|indent(width=8) }}
           esac
           ;;
+
       esac
 {%- endif %}
       ;;
-{%- endfor %}
+{% endfor %}
   esac
 
   return ret
