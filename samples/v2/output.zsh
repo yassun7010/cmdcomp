@@ -22,7 +22,6 @@ _cliname() {
         '*:: :->args' \
         && ret=0
 
-
     case $state in
         (args)
             case $words[1] in
