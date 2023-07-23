@@ -29,7 +29,7 @@ class V2Command(Model):
         ),
     ]
 
-    arguments__: Annotated[
+    arguments: Annotated[
         OrderedDict[
             Position | Keyword,
             str
@@ -59,17 +59,11 @@ class V2Command(Model):
             return self.alias
 
     @property
-    def arguments(self) -> OrderedDict[Position | Keyword, V2Argument]:
-        return OrderedDict(
-            [(k, _convert_argument(v)) for k, v in self.arguments__.items()]
-        )
-
-    @property
     def positional_arguments(self) -> OrderedDict[Position, V2Argument]:
         return OrderedDict(
             [
                 (k, _convert_argument(v))
-                for k, v in self.arguments__.items()
+                for k, v in self.arguments.items()
                 if isinstance(k, int)
             ]
         )
@@ -79,7 +73,7 @@ class V2Command(Model):
         return OrderedDict(
             [
                 (k, _convert_argument(v))
-                for k, v in self.arguments__.items()
+                for k, v in self.arguments.items()
                 if isinstance(k, str)
             ]
         )
