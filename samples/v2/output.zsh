@@ -13,10 +13,7 @@ _cliname() {
         --verbose'[verbose description]' \
         --no-verbose'[no verbose description]' \
         --help'' \
-        '1: arg:(arg1)' \
-        '2: arg:(arg2 arg21)' \
-        '3: arg:(arg3 arg31 arg32)' \
-        '*: arg:(arg4 arg41 arg42 arg43)' \
+        '*:: :->null' \
         && return 1
 
     return 0
