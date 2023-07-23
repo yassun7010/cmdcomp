@@ -11,12 +11,17 @@
   case $cmd_name in
 {%- for cmd_name, command in commands.items() recursive %}
 {%- set scope = scope + "_" + cmd_name %}
-    ({{ cmd_name }})
+    {{ ([cmd_name] + command.aliases)|join("|") }})
 {%- if command.subcommands|length != 0 %}
       local -a _{{ scope }}_subcmds
       _{{ scope }}_subcmds=(
 {%- for subcmd_name, subcommand in command.subcommands.items() %}
-        '{{ subcmd_name }}{% if subcommand.description is not none%}[{{ subcommand.description }}]{% endif %}'
+        {% if subcommand.aliases|length == 0 -%}
+          {{ subcmd_name }}
+        {%- else -%}
+          {{ "{" + ([subcmd_name] + subcommand.aliases)|join(",") + "}" }}
+        {%- endif -%}
+        '{% if subcommand.description is not none%}[{{ subcommand.description }}]{% endif %}'
 {%- endfor %}
       )
 {%- endif %}
@@ -52,7 +57,7 @@
 {% if command.subcommands|length != 0 %}
       cmd_name=$words[1]
       case $state in
-        (args)
+        args)
           case $cmd_name in
 {{- loop(command.subcommands.items())|indent(width=8) }}
           esac

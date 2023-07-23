@@ -30,7 +30,7 @@ class V2PoristionalArgumentsCommand(Model):
     ]
 
     description: str | None = Field(
-        title="description of the argument.",
+        title="description of the command.",
         default=None,
     )
 
@@ -93,6 +93,11 @@ class V2PoristionalArgumentsCommand(Model):
 class V2SubcommandsCommand(Model):
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
+    description: str | None = Field(
+        title="description of the command.",
+        default=None,
+    )
+
     alias: Annotated[
         str | list[str],
         Field(
@@ -115,6 +120,7 @@ class V2SubcommandsCommand(Model):
         Field(
             title="arguments of the command.",
             alias="arguments",
+            default_factory=OrderedDict,
         ),
     ]
 

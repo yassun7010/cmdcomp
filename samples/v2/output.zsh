@@ -7,47 +7,73 @@ _cliname() {
   local cmd_name=cliname
 
   case $cmd_name in
-    (cliname)
+    cliname)
       local -a __cliname_subcmds
       __cliname_subcmds=(
-        'sub1[sub1 description]'
-        'sub2[sub2 description]'
+        {list,ls}'[list project files.]'
+        cd'[cd project directory.]'
+        test'[test command.]'
       )
 
       _arguments -C \
-        {--file,-f}'[config filepath.]:file:_files -W "$HOME"' \
-        {--output,-o}'[output filename.]:file:_files' \
-        --shell'[shell name.]:values:(bash zsh)' \
-        --ls'[ls command]:command:_values 'ls' $(ls | grep -e '\.md$')' \
-        --verbose'[verbose description]' \
-        --no-verbose'[no verbose description]' \
-        --help'' \
+        --verbose'[verbose output.]' \
+        --no-verbose'[no verbose output.]' \
+        --version'[print version.]' \
+        --help'[print help.]' \
         1': :_values "subcommand" ${__cliname_subcmds[@]}' \
         '*:: :->args' \
         && ret=0
 
       cmd_name=$words[1]
       case $state in
-        (args)
+        args)
           case $cmd_name in
-            (sub1)
+            list|ls)
 
               _arguments -C \
-                {--file,-f}'[config filepath.]:file:_files -W "$HOME"' \
-                '1: arg:(arg1)' \
-                '2: arg:(arg2 arg21)' \
-                '3: arg:(arg3 arg31 arg32)' \
-                '*: arg:(arg4 arg41 arg42 arg43)' \
+                --all'[list all files.]' \
                 && ret=0
 
               ;;
-            (sub2)
+            cd)
 
               _arguments -C \
-                --verbose'[verbose description]' \
-                --no-verbose'[no verbose description]' \
+                '1: arg:()' \
                 && ret=0
 
+              ;;
+            test)
+              local -a __test_subcmds
+              __test_subcmds=(
+                rubocop'[run rubocop.]'
+                pytest'[run pytest.]'
+              )
+
+              _arguments -C \
+                1': :_values "subcommand" ${__test_subcmds[@]}' \
+                '*:: :->args' \
+                && ret=0
+
+              cmd_name=$words[1]
+              case $state in
+                args)
+                  case $cmd_name in
+                    rubocop)
+
+                      _arguments -C \
+                        --auto-correct'[auto correct.]' \
+                        && ret=0
+
+                      ;;
+                    pytest)
+
+                      _arguments -C \
+                        && ret=0
+
+                      ;;
+                  esac
+                  ;;
+              esac
               ;;
           esac
           ;;

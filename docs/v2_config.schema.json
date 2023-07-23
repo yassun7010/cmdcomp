@@ -221,7 +221,7 @@
                         }
                     ],
                     "default": null,
-                    "title": "description of the argument."
+                    "title": "description of the command."
                 },
                 "arguments": {
                     "additionalProperties": {
@@ -265,6 +265,18 @@
         "V2SubcommandsCommand": {
             "additionalProperties": false,
             "properties": {
+                "description": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "description of the command."
+                },
                 "alias": {
                     "anyOf": [
                         {
@@ -328,9 +340,6 @@
                     "type": "object"
                 }
             },
-            "required": [
-                "arguments"
-            ],
             "title": "V2SubcommandsCommand",
             "type": "object"
         },
