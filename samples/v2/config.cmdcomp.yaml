@@ -24,6 +24,7 @@ root:
       base_path: "$HOME"
     --output:
       type: file
+      alias: "-o"
       description: output filename.
     --shell:
       type: values
@@ -41,6 +42,7 @@ root:
     --no-verbose:
       type: flag
       description: "no verbose description"
+    --help:
   # subcommands:
   #   a:
   #     arguments:

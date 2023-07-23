@@ -80,7 +80,7 @@ class V2PoristionalArgumentsCommand(Model):
             [
                 (k, _convert_argument(v))
                 for k, v in self.arguments.items()
-                if isinstance(k, str) and not "*"
+                if isinstance(k, str) and k != "*"
             ]
         )
 

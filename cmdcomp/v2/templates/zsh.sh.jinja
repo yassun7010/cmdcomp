@@ -8,7 +8,12 @@
 
     _arguments -C \
 {%- for key, keyword in root.keyword_arguments.items() %}
-        '{{ key }}{%- if keyword.description is not none -%}[{{ keyword.description }}]{%- endif -%}
+        {% if keyword.aliases|length == 0 -%}
+            {{ key }}
+        {%- else -%}
+            {{ "{" + ([key] + keyword.aliases)|join(",") + "}" }}
+        {%- endif -%}
+            '{%- if keyword.description is not none -%}[{{ keyword.description }}]{%- endif -%}
 {%- if keyword.type == 'values' -%}
         :values:{{ "(" + keyword.values|map("string")|join(" ") + ")" }}
 {%- elif keyword.type == 'file' -%}
