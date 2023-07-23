@@ -29,6 +29,11 @@ class V2PoristionalArgumentsCommand(Model):
         ),
     ]
 
+    description: str | None = Field(
+        title="description of the argument.",
+        default=None,
+    )
+
     arguments: Annotated[
         OrderedDict[
             Position | Literal["*"] | Keyword,
