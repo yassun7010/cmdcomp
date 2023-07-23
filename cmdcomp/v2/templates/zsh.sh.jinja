@@ -40,8 +40,6 @@
 {%- elif root.subcommands|length != 0 %}
         1': :_values "subcommand" ${_subcmds[@]}' \
         '*:: :->args' \
-{%- else %}
-        '*:: :->null' \
 {%- endif %}
         && ret=0
 
