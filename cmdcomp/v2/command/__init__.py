@@ -1,6 +1,6 @@
 from typing import Annotated, OrderedDict, TypeAlias
 
-from pydantic import ConfigDict, Field, constr
+from pydantic import ConfigDict, Field
 
 from cmdcomp.model import Model
 from cmdcomp.v2.command.argument.command_argument import V2CommandArgument
@@ -14,7 +14,7 @@ from cmdcomp.v2.command.argument.values_argument import (
 from .argument import V2Argument
 
 Position: TypeAlias = int
-Keyword = Annotated[str, constr(pattern=r"^--?[a-zA-Z0-9_-]+$")]
+Keyword = Annotated[str, Field(pattern=r"^--?[a-zA-Z0-9_-]+$")]
 SubcommandName: TypeAlias = str
 
 
