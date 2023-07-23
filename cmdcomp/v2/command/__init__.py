@@ -14,7 +14,7 @@ from cmdcomp.v2.command.argument.values_argument import (
 from .argument import V2Argument
 
 Position: TypeAlias = int
-Keyword = Annotated[str, constr(pattern=r"^--?[a-zA-Z0-9_]+$")]
+Keyword = Annotated[str, constr(pattern=r"^--?[a-zA-Z0-9_-]+$")]
 SubcommandName: TypeAlias = str
 
 
