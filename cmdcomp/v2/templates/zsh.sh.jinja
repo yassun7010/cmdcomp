@@ -9,7 +9,7 @@
 {%- if root.subcommands|length != 0 %}
     _subcmds=(
 {%- for key, subcommand in root.subcommands.items() %}
-        '{{ key }}[{{ subcommand.description }}]'
+        '{{ key }}{% if subcommand.description is not none%}[{{ subcommand.description }}]{% endif %}'
 {%- endfor %}
     )
 {%- endif %}
