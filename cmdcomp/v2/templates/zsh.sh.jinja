@@ -52,7 +52,7 @@
         '{{ pos_name }}{{ contents(pos_name, positional) }}' \
 {%- endfor %}
 {%- if command.positional_wildcard_argument is not none %}
-        '*: {{ contents("*", command.positional_wildcard_argument) }}' \
+        '*{{ contents("*", command.positional_wildcard_argument) }}' \
 {%- elif command.subcommands|length != 0 %}
         '1: :_values "subcommand" ${_{{ scope }}_subcmds[@]}' \
         '*:: :->args' \

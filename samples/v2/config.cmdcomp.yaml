@@ -28,6 +28,9 @@ root:
           type: flag
           alias: "-a"
           description: "list all files."
+        "*":
+          type: file
+          description: "list files."
     cd:
       description: "cd project directory."
       arguments:

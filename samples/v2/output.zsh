@@ -31,6 +31,7 @@ _cliname() {
             list|ls)
               _arguments -C \
                 {--all,-a}'[list all files.]' \
+                '*:file:_files' \
                 && ret=0
               ;;
 
