@@ -1,6 +1,6 @@
 from typing import Annotated, OrderedDict, TypeAlias
 
-from pydantic import ConfigDict, Field
+from pydantic import ConfigDict, Field, constr
 
 from cmdcomp.model import Model
 from cmdcomp.v2.command.argument.command_argument import V2CommandArgument
@@ -14,11 +14,11 @@ from cmdcomp.v2.command.argument.values_argument import (
 from .argument import V2Argument
 
 Position: TypeAlias = int
-Keyword: TypeAlias = str
+Keyword = Annotated[str, constr(pattern=r"^--?[a-zA-Z0-9_]+$")]
 SubcommandName: TypeAlias = str
 
 
-class V2Command(Model):
+class V2PoristionalArgumentsCommand(Model):
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
     alias: Annotated[
@@ -32,6 +32,66 @@ class V2Command(Model):
     arguments: Annotated[
         OrderedDict[
             Position | Keyword,
+            str
+            | list[str]
+            | V2ValuesArgument
+            | V2FileArgument
+            | V2CommandArgument
+            | V2FlagArgument
+            | None,
+        ],
+        Field(
+            title="arguments of the command.",
+            alias="arguments",
+        ),
+    ]
+
+    @property
+    def aliases(self) -> list[str]:
+        if isinstance(self.alias, str):
+            return [self.alias]
+        else:
+            return self.alias
+
+    @property
+    def subcommands(self) -> OrderedDict[SubcommandName, "V2Command"]:
+        return OrderedDict()
+
+    @property
+    def positional_arguments(self) -> OrderedDict[Position, V2Argument]:
+        return OrderedDict(
+            [
+                (k, _convert_argument(v))
+                for k, v in self.arguments.items()
+                if isinstance(k, int)
+            ]
+        )
+
+    @property
+    def keyword_arguments(self) -> OrderedDict[Keyword, V2Argument]:
+        return OrderedDict(
+            [
+                (k, _convert_argument(v))
+                for k, v in self.arguments.items()
+                if isinstance(k, str)
+            ]
+        )
+
+
+class V2SubcommandsCommand(Model):
+    model_config = ConfigDict(arbitrary_types_allowed=True)
+
+    alias: Annotated[
+        str | list[str],
+        Field(
+            title="alias of the command.",
+            default_factory=list,
+        ),
+    ]
+
+    arguments: Annotated[
+        OrderedDict[
+            Keyword,
             str
             | list[str]
             | V2ValuesArgument
@@ -60,13 +120,7 @@ class V2Command(Model):
 
     @property
     def positional_arguments(self) -> OrderedDict[Position, V2Argument]:
-        return OrderedDict(
-            [
-                (k, _convert_argument(v))
-                for k, v in self.arguments.items()
-                if isinstance(k, int)
-            ]
-        )
+        return OrderedDict()
 
     @property
     def keyword_arguments(self) -> OrderedDict[Keyword, V2Argument]:
@@ -103,3 +157,6 @@ def _convert_argument(
 
         case _:
             return value
+
+
+V2Command = V2PoristionalArgumentsCommand | V2SubcommandsCommand

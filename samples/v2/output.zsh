@@ -12,9 +12,6 @@ _cliname() {
         '--ls[ls command]:command:_values 'ls' $(ls | grep -e '\.md$')' \
         '--verbose[verbose description]' \
         '--no-verbose[no verbose description]' \
-        '1: arg:(arg1)' \
-        '2: arg:(arg1 arg2 arg3)' \
-        '3: arg:(arg1 arg2)' \
         '*:: :->null' \
         && return 1
 

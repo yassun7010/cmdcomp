@@ -44,69 +44,6 @@
             "title": "V2CmdCompInfo",
             "type": "object"
         },
-        "V2Command": {
-            "additionalProperties": false,
-            "properties": {
-                "alias": {
-                    "anyOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "items": {
-                                "type": "string"
-                            },
-                            "type": "array"
-                        }
-                    ],
-                    "title": "alias of the command."
-                },
-                "arguments": {
-                    "additionalProperties": {
-                        "anyOf": [
-                            {
-                                "type": "string"
-                            },
-                            {
-                                "items": {
-                                    "type": "string"
-                                },
-                                "type": "array"
-                            },
-                            {
-                                "$ref": "#/$defs/V2ValuesArgument"
-                            },
-                            {
-                                "$ref": "#/$defs/V2FileArgument"
-                            },
-                            {
-                                "$ref": "#/$defs/V2CommandArgument"
-                            },
-                            {
-                                "$ref": "#/$defs/V2FlagArgument"
-                            },
-                            {
-                                "type": "null"
-                            }
-                        ]
-                    },
-                    "title": "arguments of the command.",
-                    "type": "object"
-                },
-                "subcommands": {
-                    "additionalProperties": {
-                        "$ref": "#/$defs/V2Command"
-                    },
-                    "title": "subcommands of the command.",
-                    "type": "object"
-                }
-            },
-            "required": [
-                "arguments"
-            ],
-            "title": "V2Command",
-            "type": "object"
-        },
         "V2CommandArgument": {
             "additionalProperties": false,
             "description": "complete with the result of executing the command in the Shell command.",
@@ -257,6 +194,132 @@
             "title": "V2FlagArgument",
             "type": "object"
         },
+        "V2PoristionalArgumentsCommand": {
+            "additionalProperties": false,
+            "properties": {
+                "alias": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        }
+                    ],
+                    "title": "alias of the command."
+                },
+                "arguments": {
+                    "additionalProperties": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            },
+                            {
+                                "$ref": "#/$defs/V2ValuesArgument"
+                            },
+                            {
+                                "$ref": "#/$defs/V2FileArgument"
+                            },
+                            {
+                                "$ref": "#/$defs/V2CommandArgument"
+                            },
+                            {
+                                "$ref": "#/$defs/V2FlagArgument"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "title": "arguments of the command.",
+                    "type": "object"
+                }
+            },
+            "required": [
+                "arguments"
+            ],
+            "title": "V2PoristionalArgumentsCommand",
+            "type": "object"
+        },
+        "V2SubcommandsCommand": {
+            "additionalProperties": false,
+            "properties": {
+                "alias": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        }
+                    ],
+                    "title": "alias of the command."
+                },
+                "arguments": {
+                    "additionalProperties": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            },
+                            {
+                                "$ref": "#/$defs/V2ValuesArgument"
+                            },
+                            {
+                                "$ref": "#/$defs/V2FileArgument"
+                            },
+                            {
+                                "$ref": "#/$defs/V2CommandArgument"
+                            },
+                            {
+                                "$ref": "#/$defs/V2FlagArgument"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "title": "arguments of the command.",
+                    "type": "object"
+                },
+                "subcommands": {
+                    "additionalProperties": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/$defs/V2PoristionalArgumentsCommand"
+                            },
+                            {
+                                "$ref": "#/$defs/V2SubcommandsCommand"
+                            }
+                        ]
+                    },
+                    "title": "subcommands of the command.",
+                    "type": "object"
+                }
+            },
+            "required": [
+                "arguments"
+            ],
+            "title": "V2SubcommandsCommand",
+            "type": "object"
+        },
         "V2ValueArgument": {
             "additionalProperties": false,
             "properties": {
@@ -343,7 +406,15 @@
             "$ref": "#/$defs/V2AppInfo"
         },
         "root": {
-            "$ref": "#/$defs/V2Command"
+            "anyOf": [
+                {
+                    "$ref": "#/$defs/V2PoristionalArgumentsCommand"
+                },
+                {
+                    "$ref": "#/$defs/V2SubcommandsCommand"
+                }
+            ],
+            "title": "Root"
         }
     },
     "required": [
