@@ -1,11 +1,6 @@
 class App:
     @classmethod
-    def run(
-        cls,
-        args: list[str] | None = None,
-        *,
-        throw_exception: bool = True,
-    ) -> None:
+    def run(cls, args: list[str] | None = None) -> None:
         import logging
         from argparse import ArgumentParser, BooleanOptionalAction, FileType
         from logging import getLogger
@@ -89,7 +84,4 @@ class App:
             else:
                 logger.error(e)
 
-            if throw_exception:
-                raise e
-            else:
-                exit(1)
+            raise e
