@@ -1,4 +1,4 @@
-# Command Completion Generator Tool
+# Command Shell Completion Generator Tool
 
 <p align="center">
     <a href="https://github.com/yassun4dev/cmdcomp/actions">
