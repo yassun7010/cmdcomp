@@ -1,0 +1,9 @@
+{%- set func_name = "_" + app_name|replace("-","_") -%}
+{%- set scope = "" -%}
+#!/bin/bash
+
+{{ func_name }}() {
+  :
+}
+
+complete -F {{ func_name }} -o bashdefault -o default {{ app_name }}
