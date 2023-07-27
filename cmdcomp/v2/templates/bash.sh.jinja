@@ -3,7 +3,27 @@
 #!/bin/bash
 
 {{ func_name }}() {
-  :
+  local i cur prev opts cmd
+  COMPREPLY=()
+  cur="${COMP_WORDS[COMP_CWORD]}"
+  prev="${COMP_WORDS[COMP_CWORD-1]}"
+  cmd=""
+  opts=""
+
+  for i in ${COMP_WORDS[@]} do
+    case "${cmd},${i}" in
+      ",$1")
+        cmd="{{ app_name }}"
+        ;;
+{% for command_name, subcommand in commands[app_name].subcommands.items() %}
+      {{ app_name }},{{ command_name }})
+        cmd="{{ func_name }}_{{  command_name }}_subcommands"
+        ;;
+{% endfor %}
+      *)
+        ;;
+    esac
+  done
 }
 
 complete -F {{ func_name }} -o bashdefault -o default {{ app_name }}
