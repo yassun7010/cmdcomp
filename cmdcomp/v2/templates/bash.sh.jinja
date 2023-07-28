@@ -10,20 +10,61 @@
   cmd=""
   opts=""
 
-  for i in ${COMP_WORDS[@]} do
+  for i in ${COMP_WORDS[@]}; do
     case "${cmd},${i}" in
       ",$1")
-        cmd="{{ app_name }}"
+        cmd="{{ func_name }}"
         ;;
-{% for command_name, subcommand in commands[app_name].subcommands.items() %}
-      {{ app_name }},{{ command_name }})
-        cmd="{{ func_name }}_{{  command_name }}_subcommands"
+{% for command_name, subcommand in commands[app_name].subcommands.items() recursive %}
+      {{ func_name }},{{ command_name }})
+        cmd="{{ tag_name }}"
         ;;
+{{ loop(subcommand.subcommands.items()) -}}
 {% endfor %}
       *)
         ;;
     esac
   done
+
+  case "${cmd}" in
+    {{ app_name }})
+      opts="{{ (commands[app_name].subcommands|list + commands[app_name].keyword_arguments|list)|join(' ') }}"
+      if [[ ${cur} == -* || ${COMP_CWORD} -eq 1 ]] ; then
+          COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+          return 0
+      fi
+
+      case "${prev}" in
+          {% for keyword, argument in commands[app_name].keyword_arguments.items() -%}
+          {{ keyword }})
+              {%- if argument.type == "values" %}
+              COMPREPLY=( $(compgen -W "{{ argument.values|join(" ") }}" -- "$cur") )
+              {% elif argument.type == "file" %}
+              file_completion "{{ argument.base_path }}"
+              {% elif argument.type == "command" %}
+              COMPREPLY=( $(compgen -W "{{ argument.execute }}" -- "$cur") )
+              {% elif argument.type == "flag" %}
+              COMPREPLY=()
+              {% endif -%}
+              ;;
+
+          {% endfor -%}
+          *)
+              COMPREPLY=()
+              ;;
+
+      esac
+
+      return 0
+      ;;
+{% for command_name, subcommand in commands[app_name].subcommands.items() %}
+    {{ func_name }}_{{ command_name }}_subcommands)
+      opts="{{ subcommand.subcommands|join(" ") }}"
+
+      COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+      ;;
+{% endfor %}
+  esac
 }
 
 complete -F {{ func_name }} -o bashdefault -o default {{ app_name }}
