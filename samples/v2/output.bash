@@ -43,34 +43,34 @@ _cliname() {
     _cliname)
       opts="list cd test --verbose --no-verbose --version --config --help"
       if [[ ${cur} == -* || ${COMP_CWORD} -eq 1 ]] ; then
-          COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-          return 0
+        COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+        return 0
       fi
 
       case "${prev}" in
-          --verbose)
-              COMPREPLY=()
-              ;;
+        --verbose)
+          COMPREPLY=()
+          ;;
 
-          --no-verbose)
-              COMPREPLY=()
-              ;;
+        --no-verbose)
+          COMPREPLY=()
+          ;;
 
-          --version)
-              COMPREPLY=()
-              ;;
+        --version)
+          COMPREPLY=()
+          ;;
 
-          --config)
-              file_completion "."
-              ;;
+        --config)
+          file_completion "."
+          ;;
 
-          --help)
-              COMPREPLY=()
-              ;;
+        --help)
+          COMPREPLY=()
+          ;;
 
-          *)
-              COMPREPLY=()
-              ;;
+        *)
+          COMPREPLY=()
+          ;;
 
       esac
 
@@ -80,18 +80,18 @@ _cliname() {
     _cliname_list)
       opts="--all"
       if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
-          COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-          return 0
+        COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+        return 0
       fi
 
       case "${prev}" in
-          --all)
-              COMPREPLY=()
-              ;;
+        --all)
+          COMPREPLY=()
+          ;;
 
-          *)
-              COMPREPLY=()
-              ;;
+        *)
+          file_completion "."
+          ;;
 
       esac
 
@@ -101,14 +101,15 @@ _cliname() {
     _cliname_cd)
       opts=""
       if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
-          COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-          return 0
+        COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+        return 0
       fi
 
       case "${prev}" in
-          *)
-              COMPREPLY=()
-              ;;
+        *)
+          file_completion "."
+          ;;
+        
 
       esac
 
@@ -118,14 +119,14 @@ _cliname() {
     _cliname_test)
       opts="rubocop pytest"
       if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
-          COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-          return 0
+        COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+        return 0
       fi
 
       case "${prev}" in
-          *)
-              COMPREPLY=()
-              ;;
+        *)
+          COMPREPLY=()
+          ;;
 
       esac
 
@@ -135,18 +136,18 @@ _cliname() {
     _cliname_test_rubocop)
       opts="--auto-correct"
       if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
-          COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-          return 0
+        COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+        return 0
       fi
 
       case "${prev}" in
-          --auto-correct)
-              COMPREPLY=()
-              ;;
+        --auto-correct)
+          COMPREPLY=()
+          ;;
 
-          *)
-              COMPREPLY=()
-              ;;
+        *)
+          COMPREPLY=()
+          ;;
 
       esac
 
@@ -156,14 +157,14 @@ _cliname() {
     _cliname_test_pytest)
       opts=""
       if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
-          COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-          return 0
+        COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+        return 0
       fi
 
       case "${prev}" in
-          *)
-              COMPREPLY=()
-              ;;
+        *)
+          COMPREPLY=()
+          ;;
 
       esac
 
