@@ -14,24 +14,24 @@ _cliname() {
         cmd="_cliname"
         ;;
 
-      _cliname_subcommand,list)
-        cmd="_cliname_list_subcommand"
+      _cliname,list)
+        cmd="_cliname_list"
         ;;
 
-      _cliname_subcommand,cd)
-        cmd="_cliname_cd_subcommand"
+      _cliname,cd)
+        cmd="_cliname_cd"
         ;;
 
-      _cliname_subcommand,test)
-        cmd="_cliname_test_subcommand"
+      _cliname,test)
+        cmd="_cliname_test"
         ;;
 
-      _cliname_test_subcommand,rubocop)
-        cmd="_cliname_test_rubocop_subcommand"
+      _cliname_test,rubocop)
+        cmd="_cliname_test_rubocop"
         ;;
 
-      _cliname_test_subcommand,pytest)
-        cmd="_cliname_test_pytest_subcommand"
+      _cliname_test,pytest)
+        cmd="_cliname_test_pytest"
         ;;
 
       *)
@@ -77,7 +77,7 @@ _cliname() {
       return 0
       ;;
 
-    _cliname_list_subcommand)
+    _cliname_list)
       opts="--all"
       if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
           COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
@@ -98,7 +98,7 @@ _cliname() {
       return 0
       ;;
 
-    _cliname_cd_subcommand)
+    _cliname_cd)
       opts=""
       if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
           COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
@@ -115,7 +115,7 @@ _cliname() {
       return 0
       ;;
 
-    _cliname_test_subcommand)
+    _cliname_test)
       opts="rubocop pytest"
       if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
           COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
@@ -132,7 +132,7 @@ _cliname() {
       return 0
       ;;
 
-    _cliname_test_rubocop_subcommand)
+    _cliname_test_rubocop)
       opts="--auto-correct"
       if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
           COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
@@ -153,7 +153,7 @@ _cliname() {
       return 0
       ;;
 
-    _cliname_test_pytest_subcommand)
+    _cliname_test_pytest)
       opts=""
       if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
           COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )

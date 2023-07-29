@@ -47,8 +47,8 @@
         ;;
 {% for (tag, command_name), subcommand in append_key_tag(commands[app_name].subcommands, func_name).items() recursive %}
       {% set new_tag = tag + "_" + command_name|replace("-","_") -%}
-      {{ tag }}_subcommand,{{ command_name }})
-        cmd="{{ new_tag }}_subcommand"
+      {{ tag }},{{ command_name }})
+        cmd="{{ new_tag }}"
         ;;
 {{ loop(append_key_tag(subcommand.subcommands, new_tag).items()) -}}
 {% endfor %}
@@ -65,7 +65,7 @@
       ;;
 {% for (tag, command_name), subcommand in append_key_tag(commands[app_name].subcommands, func_name).items() recursive %}
     {% set new_tag = tag + "_" + command_name|replace("-","_") -%}
-    {{ new_tag }}_subcommand)
+    {{ new_tag }})
       {{ command_completion(subcommand, loop.depth + 1)|indent(4) }}
 
       return 0
