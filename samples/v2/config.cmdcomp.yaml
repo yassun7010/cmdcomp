@@ -16,6 +16,9 @@ root:
       type: flag
       alias: "-V"
       description: "print version."
+    --config:
+      type: file
+      description: "config file."
     --help:
       type: flag
       description: "print help."

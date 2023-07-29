@@ -1,5 +1,35 @@
 {%- set func_name = "_" + app_name|replace("-","_") -%}
 {%- set scope = "" -%}
+
+{%- macro command_completion(command, depth) -%}
+  opts="{{ (command.subcommands|list + command.keyword_arguments|list)|join(' ') }}"
+  if [[ ${cur} == -* || ${COMP_CWORD} -eq {{ depth }} ]] ; then
+      COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+      return 0
+  fi
+
+  case "${prev}" in
+      {% for keyword, argument in command.keyword_arguments.items() -%}
+      {{ keyword }})
+          {%- if argument.type == "values" %}
+          COMPREPLY=( $(compgen -W "{{ argument.values|join(" ") }}" -- "$cur") )
+          {% elif argument.type == "file" %}
+          file_completion "{{ argument.base_path or "." }}"
+          {% elif argument.type == "command" %}
+          COMPREPLY=( $(compgen -W "{{ argument.execute }}" -- "$cur") )
+          {% elif argument.type == "flag" %}
+          COMPREPLY=()
+          {% endif -%}
+          ;;
+
+      {% endfor -%}
+      *)
+          COMPREPLY=()
+          ;;
+
+  esac
+{%- endmacro -%}
+
 #!/bin/bash
 
 {{ func_name }}() {
@@ -28,42 +58,17 @@
   done
 
   case "${cmd}" in
-    {{ app_name }})
-      opts="{{ (commands[app_name].subcommands|list + commands[app_name].keyword_arguments|list)|join(' ') }}"
-      if [[ ${cur} == -* || ${COMP_CWORD} -eq 1 ]] ; then
-          COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-          return 0
-      fi
-
-      case "${prev}" in
-          {% for keyword, argument in commands[app_name].keyword_arguments.items() -%}
-          {{ keyword }})
-              {%- if argument.type == "values" %}
-              COMPREPLY=( $(compgen -W "{{ argument.values|join(" ") }}" -- "$cur") )
-              {% elif argument.type == "file" %}
-              file_completion "{{ argument.base_path }}"
-              {% elif argument.type == "command" %}
-              COMPREPLY=( $(compgen -W "{{ argument.execute }}" -- "$cur") )
-              {% elif argument.type == "flag" %}
-              COMPREPLY=()
-              {% endif -%}
-              ;;
-
-          {% endfor -%}
-          *)
-              COMPREPLY=()
-              ;;
-
-      esac
+    {{ func_name }})
+      {{ command_completion(commands[app_name], 1)|indent(4) }}
 
       return 0
       ;;
 {% for (tag, command_name), subcommand in append_key_tag(commands[app_name].subcommands, func_name).items() recursive %}
     {% set new_tag = tag + "_" + command_name|replace("-","_") -%}
-    {{ new_tag }}_subcommands)
-      opts="{{ subcommand.subcommands|join(" ") }}"
+    {{ new_tag }}_subcommand)
+      {{ command_completion(subcommand, loop.depth + 1)|indent(4) }}
 
-      COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+      return 0
       ;;
 {{ loop(append_key_tag(subcommand.subcommands, new_tag).items()) -}}
 {% endfor %}

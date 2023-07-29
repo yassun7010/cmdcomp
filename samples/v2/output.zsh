@@ -19,6 +19,7 @@ _cliname() {
         --verbose'[verbose output.]' \
         --no-verbose'[no verbose output.]' \
         {--version,-V}'[print version.]' \
+        --config'[config file.]:file:_files' \
         --help'[print help.]' \
         '1: :_values "subcommand" ${__cliname_subcmds[@]}' \
         '*:: :->args' \
