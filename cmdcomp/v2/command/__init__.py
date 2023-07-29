@@ -94,6 +94,14 @@ class V2PoristionalArgumentsCommand(Model):
             ]
         )
 
+    @property
+    def has_subcommands(self) -> bool:
+        return False
+
+    @property
+    def has_positional_arguments(self) -> bool:
+        return len(self.positional_arguments) != 0
+
 
 class V2SubcommandsCommand(Model):
     model_config = ConfigDict(arbitrary_types_allowed=True)
@@ -158,6 +166,14 @@ class V2SubcommandsCommand(Model):
                 if isinstance(k, str)
             ]
         )
+
+    @property
+    def has_subcommands(self) -> bool:
+        return len(self.subcommands) != 0
+
+    @property
+    def has_positional_arguments(self) -> bool:
+        return False
 
 
 def _convert_argument(

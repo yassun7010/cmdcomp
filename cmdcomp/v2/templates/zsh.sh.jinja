@@ -36,7 +36,7 @@
 {%- for cmd_name, command in commands.items() recursive %}
 {%- set scope = scope + "_" + cmd_name %}
     {{ ([cmd_name] + command.aliases)|join("|") }})
-{%- if command.subcommands|length != 0 %}
+{%- if command.has_subcommands %}
       local -a _{{ scope }}_subcmds
       _{{ scope }}_subcmds=(
 {%- for subcmd_name, subcommand in command.subcommands.items() %}
@@ -53,12 +53,12 @@
 {%- endfor %}
 {%- if command.positional_wildcard_argument is not none %}
         '*{{ contents("*", command.positional_wildcard_argument) }}' \
-{%- elif command.subcommands|length != 0 %}
+{%- elif command.has_subcommands %}
         '1: :_values "subcommand" ${_{{ scope }}_subcmds[@]}' \
         '*:: :->args' \
 {%- endif %}
         && ret=0
-{%- if command.subcommands|length != 0 %}
+{%- if command.has_subcommands %}
 
       cmd_name=$words[1]
       case $state in

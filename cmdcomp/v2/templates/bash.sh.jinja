@@ -14,22 +14,19 @@
 {%- endmacro -%}
 
 {%- macro command_completion(command, depth) -%}
-  {% if command.subcommands|length != 0 -%}
-  {#- when subcommand -#}
+  {% if command.has_subcommands -%}
   opts="{{ (command.subcommands|list + command.keyword_arguments|list)|join(' ') }}"
   if [[ ${COMP_CWORD} -eq {{ depth }} ]] ; then
     COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
     return 0
   fi
-  {%- elif command.positional_arguments|length != 0 -%}
-  {#- when some positional arguments -#}
+  {%- elif command.has_positional_arguments -%}
   opts="{{ command.keyword_arguments|list|join(' ') }}"
   if [[ ${cur} == -* && ${COMP_CWORD} -eq {{ depth }} ]] ; then
     COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
     return 0
   fi
   {%- else -%}
-  {#- when only keyword arguments -#}
   opts="{{ command.keyword_arguments|list|join(' ') }}"
   if [[ ${COMP_CWORD} -eq {{ depth }} ]] ; then
     COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
