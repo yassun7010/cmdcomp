@@ -14,24 +14,24 @@ _cliname() {
         cmd="_cliname"
         ;;
 
-      _cliname,list)
-        cmd=""
+      _cliname_subcommand,list)
+        cmd="_cliname_list_subcommand"
         ;;
 
-      _cliname,cd)
-        cmd=""
+      _cliname_subcommand,cd)
+        cmd="_cliname_cd_subcommand"
         ;;
 
-      _cliname,test)
-        cmd=""
+      _cliname_subcommand,test)
+        cmd="_cliname_test_subcommand"
         ;;
 
-      _cliname,rubocop)
-        cmd=""
+      _cliname_test_subcommand,rubocop)
+        cmd="_cliname_test_rubocop_subcommand"
         ;;
 
-      _cliname,pytest)
-        cmd=""
+      _cliname_test_subcommand,pytest)
+        cmd="_cliname_test_pytest_subcommand"
         ;;
 
       *)

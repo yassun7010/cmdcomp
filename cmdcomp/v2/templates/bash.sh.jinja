@@ -15,11 +15,12 @@
       ",$1")
         cmd="{{ func_name }}"
         ;;
-{% for command_name, subcommand in commands[app_name].subcommands.items() recursive %}
-      {{ func_name }},{{ command_name }})
-        cmd="{{ tag_name }}"
+{% for (tag, command_name), subcommand in append_key_tag(commands[app_name].subcommands, func_name).items() recursive %}
+      {% set new_tag = tag + "_" + command_name|replace("-","_") -%}
+      {{ tag }}_subcommand,{{ command_name }})
+        cmd="{{ new_tag }}_subcommand"
         ;;
-{{ loop(subcommand.subcommands.items()) -}}
+{{ loop(append_key_tag(subcommand.subcommands, new_tag).items()) -}}
 {% endfor %}
       *)
         ;;
