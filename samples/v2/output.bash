@@ -91,6 +91,18 @@ _cliname() {
       COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
       ;;
 
+    _cliname_test_rubocop_subcommands)
+      opts=""
+
+      COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+      ;;
+
+    _cliname_test_pytest_subcommands)
+      opts=""
+
+      COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+      ;;
+
   esac
 }
 
