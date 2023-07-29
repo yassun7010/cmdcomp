@@ -42,7 +42,7 @@ _cliname() {
   case "${cmd}" in
     _cliname)
       opts="list cd test --verbose --no-verbose --version --config --help"
-      if [[ ${cur} == -* || ${COMP_CWORD} -eq 1 ]] ; then
+      if [[ ${COMP_CWORD} -eq 1 ]] ; then
         COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
         return 0
       fi
@@ -79,7 +79,7 @@ _cliname() {
 
     _cliname_list)
       opts="--all"
-      if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
+      if [[ ${COMP_CWORD} -eq 2 ]] ; then
         COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
         return 0
       fi
@@ -100,7 +100,7 @@ _cliname() {
 
     _cliname_cd)
       opts=""
-      if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
+      if [[ ${cur} == -* && ${COMP_CWORD} -eq 2 ]] ; then
         COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
         return 0
       fi
@@ -117,7 +117,7 @@ _cliname() {
 
     _cliname_test)
       opts="rubocop pytest"
-      if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
+      if [[ ${COMP_CWORD} -eq 2 ]] ; then
         COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
         return 0
       fi
@@ -134,7 +134,7 @@ _cliname() {
 
     _cliname_test_rubocop)
       opts="--auto-correct"
-      if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
+      if [[ ${COMP_CWORD} -eq 3 ]] ; then
         COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
         return 0
       fi
@@ -155,7 +155,7 @@ _cliname() {
 
     _cliname_test_pytest)
       opts=""
-      if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
+      if [[ ${COMP_CWORD} -eq 3 ]] ; then
         COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
         return 0
       fi
