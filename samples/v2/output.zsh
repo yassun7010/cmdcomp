@@ -38,7 +38,7 @@ _cliname() {
 
             cd)
               _arguments -C \
-                '1:file:_files' \
+                '1:file:_files -W "$HOME"' \
                 && ret=0
               ;;
 

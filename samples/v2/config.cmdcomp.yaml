@@ -39,6 +39,7 @@ root:
       arguments:
         1:
           type: file
+          base_path: $HOME
           description: "change project directory."
     test:
       description: "test command."

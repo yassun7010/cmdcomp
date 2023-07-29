@@ -107,9 +107,8 @@ _cliname() {
 
       case "${prev}" in
         *)
-          file_completion "."
+          file_completion "$HOME"
           ;;
-        
 
       esac
 

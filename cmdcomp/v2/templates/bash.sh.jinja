@@ -31,7 +31,7 @@
     *)
       {{- argument_completion(command.arguments[1])|indent(4) -}}
       ;;
-    {% elif "*" in command.arguments -%}
+    {%- elif "*" in command.arguments -%}
     *)
       {{- argument_completion(command.arguments["*"])|indent(4) -}}
       ;;
