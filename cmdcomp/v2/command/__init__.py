@@ -13,7 +13,7 @@ from cmdcomp.v2.command.argument.values_argument import (
 
 from .argument import V2Argument
 
-Position: TypeAlias = int
+Position: TypeAlias = Annotated[int, Field(ge=1)]
 Keyword = Annotated[str, Field(pattern=r"^--?[a-zA-Z0-9_-]+$")]
 SubcommandName: TypeAlias = str
 
