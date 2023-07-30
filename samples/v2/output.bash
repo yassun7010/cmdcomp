@@ -54,50 +54,29 @@ _cliname() {
 
       while [ $cur -lt $COMP_CWORD ] ; do
         cur=$(( cur + 1 ))
-
         case "${COMP_WORDS[cur-1]}" in
           --verbose)
-            if [ $cur -eq $COMP_CWORD ] ; then
-              COMPREPLY=()
-              return 0
-            fi
-            
+            :
             ;;
 
-          --no-verbose)
-            if [ $cur -eq $COMP_CWORD ] ; then
-              COMPREPLY=()
-              return 0
-            fi
-            
+        --no-verbose)
+            :
             ;;
 
-          --version|-V)
-            if [ $cur -eq $COMP_CWORD ] ; then
-              COMPREPLY=()
-              return 0
-            fi
-            
+        --version|-V)
+            :
             ;;
 
-          --config)
+        --config)
             if [ $cur -eq $COMP_CWORD ] ; then
               file_completion "."
+
               return 0
             fi
-            
             ;;
 
-          --help)
-            if [ $cur -eq $COMP_CWORD ] ; then
-              COMPREPLY=()
-              return 0
-            fi
-            
-            ;;
-
-          *)
-            COMPREPLY=()
+        --help)
+            :
             ;;
 
         esac
@@ -115,22 +94,10 @@ _cliname() {
 
       while [ $cur -lt $COMP_CWORD ] ; do
         cur=$(( cur + 1 ))
-
         case "${COMP_WORDS[cur-1]}" in
           --all|-a)
-            if [ $cur -eq $COMP_CWORD ] ; then
-              COMPREPLY=()
-              return 0
-            fi
-            
+            :
             ;;
-
-          *)
-          if [ $cur -eq $COMP_CWORD ] ; then
-            file_completion "."
-            return 0
-          fi
-          ;;
 
         esac
       done
@@ -147,16 +114,6 @@ _cliname() {
 
       while [ $cur -lt $COMP_CWORD ] ; do
         cur=$(( cur + 1 ))
-
-        case "${COMP_WORDS[cur-1]}" in
-          *)
-          if [ $cur -eq $COMP_CWORD ] ; then
-            file_completion "$HOME"
-            return 0
-          fi
-          ;;
-
-        esac
       done
 
       return 0
@@ -171,13 +128,6 @@ _cliname() {
 
       while [ $cur -lt $COMP_CWORD ] ; do
         cur=$(( cur + 1 ))
-
-        case "${COMP_WORDS[cur-1]}" in
-          *)
-            COMPREPLY=()
-            ;;
-
-        esac
       done
 
       return 0
@@ -192,18 +142,9 @@ _cliname() {
 
       while [ $cur -lt $COMP_CWORD ] ; do
         cur=$(( cur + 1 ))
-
         case "${COMP_WORDS[cur-1]}" in
           --auto-correct|-A)
-            if [ $cur -eq $COMP_CWORD ] ; then
-              COMPREPLY=()
-              return 0
-            fi
-            
-            ;;
-
-          *)
-            COMPREPLY=()
+            :
             ;;
 
         esac
@@ -221,13 +162,6 @@ _cliname() {
 
       while [ $cur -lt $COMP_CWORD ] ; do
         cur=$(( cur + 1 ))
-
-        case "${COMP_WORDS[cur-1]}" in
-          *)
-            COMPREPLY=()
-            ;;
-
-        esac
       done
 
       return 0

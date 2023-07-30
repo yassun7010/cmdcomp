@@ -3,28 +3,27 @@
 
 {#- macro def -#}
 {%- macro argument_completion(argument) -%}
-  {%- if argument.type == "values" %}
+  {% if argument.type == "values" -%}
   if [ $cur -eq $COMP_CWORD ] ; then
     COMPREPLY=( $(compgen -W "{{ argument.values|join(" ") }}" -- "$cur") )
+
     return 0
   fi
-  COMPREPLY=( $(compgen -W "{{ argument.values|join(" ") }}" -- "$cur") )
-  {% elif argument.type == "file" %}
+  {%- elif argument.type == "file" -%}
   if [ $cur -eq $COMP_CWORD ] ; then
     file_completion "{{ argument.base_path or "." }}"
+
     return 0
   fi
-  {% elif argument.type == "command" %}
+  {%- elif argument.type == "command" -%}
   if [ $cur -eq $COMP_CWORD ] ; then
     COMPREPLY=( $(compgen -W "{{ argument.execute }}" -- "$cur") )
+
     return 0
   fi
-  {% elif argument.type == "flag" %}
-  if [ $cur -eq $COMP_CWORD ] ; then
-    COMPREPLY=()
-    return 0
-  fi
-  {% endif -%}
+  {%- elif argument.type == "flag" -%}
+  :
+  {%- endif -%}
 {%- endmacro -%}
 
 {#- macro def -#}
@@ -52,28 +51,17 @@
   while [ $cur -lt $COMP_CWORD ] ; do
     cur=$(( cur + 1 ))
 
+    {%- if command.has_keyword_arguments %}
     case "${COMP_WORDS[cur-1]}" in
       {% for keyword, argument in command.keyword_arguments.items() -%}
       {{ ([keyword] + argument.aliases)|join("|") }})
-        {{- argument_completion(argument)|indent(6) }}
+        {{ argument_completion(argument)|indent(6) }}
         ;;
 
-      {% endfor -%}
-      {% if 1 in command.arguments -%}
-      *)
-        {{- argument_completion(command.arguments[1])|indent(4) -}}
-        ;;
-      {%- elif "*" in command.arguments -%}
-      *)
-        {{- argument_completion(command.arguments["*"])|indent(4) -}}
-        ;;
-      {%- else -%}
-      *)
-        COMPREPLY=()
-        ;;
-      {%- endif %}
-
+    {% endfor -%}
     esac
+    {%- endif -%}
+    {#- {{- argument_completion(command.arguments[1])|indent(6) -}} #}
   done
 {%- endmacro -%}
 
