@@ -1,82 +1,50 @@
+import pytest
 from pytest import CaptureFixture
 
 from cmdcomp.app import App
+from cmdcomp.shell import ShellType
 from tests.conftest import SAMPLES_DIR
 
 
-def test_sample_toml_bash(capsys: CaptureFixture) -> None:
+@pytest.mark.parametrize("version", ["v1", "v2"])
+@pytest.mark.parametrize("config_format", ["yaml"])
+@pytest.mark.parametrize("shell", ShellType)
+def test_output_file_to_samples(
+    version: str,
+    config_format: str,
+    shell: ShellType,
+) -> None:
     App.run(
         [
             "--file",
-            str(SAMPLES_DIR / "v1" / "config.cmdcomp.toml"),
+            str(SAMPLES_DIR / version / f"config.cmdcomp.{config_format}"),
             "--shell-type",
-            "bash",
-        ]
-    )
-
-    assert capsys.readouterr().out == open(SAMPLES_DIR / "v1" / "output.bash").read()
-
-
-def test_sample_toml_zsh(capsys: CaptureFixture) -> None:
-    App.run(
-        [
-            "--file",
-            str(SAMPLES_DIR / "v1" / "config.cmdcomp.toml"),
-            "--shell-type",
-            "zsh",
-        ]
-    )
-
-    assert capsys.readouterr().out == open(SAMPLES_DIR / "v1" / "output.zsh").read()
-
-
-def test_sample_yaml_bash(capsys: CaptureFixture) -> None:
-    App.run(
-        [
-            "--file",
-            str(SAMPLES_DIR / "v1" / "config.cmdcomp.yaml"),
-            "--shell-type",
-            "bash",
-        ]
-    )
-
-    assert capsys.readouterr().out == open(SAMPLES_DIR / "v1" / "output.bash").read()
-
-
-def test_sample_yaml_zsh(capsys: CaptureFixture) -> None:
-    App.run(
-        [
-            "--file",
-            str(SAMPLES_DIR / "v1" / "config.cmdcomp.yaml"),
-            "--shell-type",
-            "zsh",
-        ]
-    )
-
-    assert capsys.readouterr().out == open(SAMPLES_DIR / "v1" / "output.zsh").read()
-
-
-def test_sample_output_bash(capsys: CaptureFixture) -> None:
-    App.run(
-        [
-            "--file",
-            str(SAMPLES_DIR / "v1" / "config.cmdcomp.yaml"),
-            "--shell-type",
-            "bash",
+            shell.value,
             "--output",
-            str(SAMPLES_DIR / "v1" / "output.bash"),
+            str(SAMPLES_DIR / version / f"output.{shell.value}"),
         ]
     )
 
 
-def test_sample_output_zsh(capsys: CaptureFixture) -> None:
+@pytest.mark.parametrize("version", ["v1", "v2"])
+@pytest.mark.parametrize("config_format", ["yaml"])
+@pytest.mark.parametrize("shell", ShellType)
+def test_application(
+    capsys: CaptureFixture,
+    version: str,
+    config_format: str,
+    shell: ShellType,
+) -> None:
     App.run(
         [
             "--file",
-            str(SAMPLES_DIR / "v1" / "config.cmdcomp.yaml"),
+            str(SAMPLES_DIR / version / f"config.cmdcomp.{config_format}"),
             "--shell-type",
-            "zsh",
-            "--output",
-            str(SAMPLES_DIR / "v1" / "output.zsh"),
+            shell.value,
         ]
+    )
+
+    assert (
+        capsys.readouterr().out
+        == open(SAMPLES_DIR / version / f"output.{str(shell.value)}").read()
     )
