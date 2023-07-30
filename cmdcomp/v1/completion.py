@@ -34,7 +34,7 @@ def _generate_completions_list(config: V1Config):
     completions_list = [get_candidates(config.root)]
 
     _update_completions_list(
-        completions_list,
+        completions_list,  # type: ignore
         config.root,
     )
 
