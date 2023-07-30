@@ -111,6 +111,10 @@ class V2PoristionalArgumentsCommand(Model):
         return len(self.positional_arguments) != 0
 
     @property
+    def has_positional_wildcard_argument(self) -> bool:
+        return self.positional_wildcard_argument is not None
+
+    @property
     def has_keyword_arguments(self) -> bool:
         return len(self.keyword_arguments) != 0
 
@@ -194,6 +198,10 @@ class V2SubcommandsCommand(Model):
     @property
     def has_positional_arguments(self) -> bool:
         return False
+
+    @property
+    def has_positional_wildcard_argument(self) -> bool:
+        return self.positional_wildcard_argument is not None
 
     @property
     def has_keyword_arguments(self) -> bool:

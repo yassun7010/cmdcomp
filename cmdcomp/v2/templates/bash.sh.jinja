@@ -3,74 +3,99 @@
 
 {#- macro def -#}
 {%- macro argument_completion(argument) -%}
-  {% if argument.type == "values" -%}
-  if [ $cur -eq $COMP_CWORD ] ; then
-    COMPREPLY=( $(compgen -W "{{ argument.values|join(" ") }}" -- "$cur") )
+{% if argument.type == "values" -%}
+if [ $cur -eq $COMP_CWORD ] ; then
+  COMPREPLY=( $(compgen -W "{{ argument.values|join(" ") }}" -- "$cur") )
 
-    return 0
-  fi
-  {%- elif argument.type == "file" -%}
-  if [ $cur -eq $COMP_CWORD ] ; then
-    file_completion "{{ argument.base_path or "." }}"
+  return 0
+else
+  cmd_cur=$(( cmd_cur + 1 ))
+fi
+{%- elif argument.type == "file" -%}
+if [ $cur -eq $COMP_CWORD ] ; then
+  file_completion "{{ argument.base_path or "." }}"
 
-    return 0
-  fi
-  {%- elif argument.type == "command" -%}
-  if [ $cur -eq $COMP_CWORD ] ; then
-    COMPREPLY=( $(compgen -W "{{ argument.execute }}" -- "$cur") )
+  return 0
+else
+  cmd_cur=$(( cmd_cur + 2 ))
+fi
+{%- elif argument.type == "command" -%}
+if [ $cur -eq $COMP_CWORD ] ; then
+  COMPREPLY=( $(compgen -W "{{ argument.execute }}" -- "$cur") )
 
-    return 0
-  fi
-  {%- elif argument.type == "flag" -%}
-  :
-  {%- endif -%}
+  return 0
+else
+  cmd_cur=$(( cmd_cur + 2 ))
+fi
+{%- elif argument.type == "flag" -%}
+cmd_cur=$(( cmd_cur + 1 ))
+{%- endif -%}
 {%- endmacro -%}
 
 {#- macro def -#}
 {%- macro command_completion(command, depth) -%}
-  {% if command.has_subcommands -%}
-  opts="{{ (command.subcommand_names_with_alias + command.keyword_names_with_alias)|join(' ') }}"
-  if [[ ${COMP_CWORD} -eq {{ depth }} ]] ; then
-    COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[cur]}") )
-    return 0
-  fi
-  {%- elif command.has_positional_arguments -%}
-  opts="{{ command.keyword_names_with_alias|join(' ') }}"
-  if [[ ${cur} == -* && ${COMP_CWORD} -eq {{ depth }} ]] ; then
-    COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[cur]}") )
-    return 0
-  fi
-  {%- else -%}
-  opts="{{ command.keyword_names_with_alias|join(' ') }}"
-  if [[ ${COMP_CWORD} -eq {{ depth }} ]] ; then
-    COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[cur]}") )
-    return 0
-  fi
-  {%- endif %}
+{% if command.has_subcommands -%}
+opts="{{ (command.subcommand_names_with_alias + command.keyword_names_with_alias)|join(' ') }}"
+if [[ ${COMP_CWORD} -eq {{ depth }} ]] ; then
+  COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[cur]}") )
+  return 0
+fi
+{%- elif command.has_positional_arguments -%}
+opts="{{ command.keyword_names_with_alias|join(' ') }}"
+if [[ ${COMP_WORDS[COMP_CWORD]} == -* ]] ; then
+  COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[cur]}") )
+  return 0
+fi
+{%- else -%}
+opts="{{ command.keyword_names_with_alias|join(' ') }}"
+if [[ ${COMP_WORDS[COMP_CWORD]} == -* ]] ; then
+  COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[cur]}") )
+  return 0
+fi
+{%- endif %}
 
-  while [ $cur -lt $COMP_CWORD ] ; do
-    cur=$(( cur + 1 ))
+cmd_cur=$cur
+while [ $cur -lt $COMP_CWORD ] ; do
+  cur=$(( cur + 1 ))
 
-    {%- if command.has_keyword_arguments %}
-    case "${COMP_WORDS[cur-1]}" in
-      {% for keyword, argument in command.keyword_arguments.items() -%}
-      {{ ([keyword] + argument.aliases)|join("|") }})
-        {{ argument_completion(argument)|indent(6) }}
-        ;;
-
-    {% endfor -%}
-    esac
-    {%- endif -%}
-    {#- {{- argument_completion(command.arguments[1])|indent(6) -}} #}
-  done
+{%- if command.has_keyword_arguments %}
+  case "${COMP_WORDS[cur-1]}" in
+{%- for keyword, argument in command.keyword_arguments.items() %}
+    {{ ([keyword] + argument.aliases)|join("|") }})
+      {{ argument_completion(argument)|indent(6) }}
+      ;;
+{% endfor %}
+    *)
+      break
+      ;;
+  esac
+{%- endif %}
+done
+{%- if command.has_positional_arguments or command.has_positional_wildcard_argument %}
+cur=$COMP_CWORD
+case $(( COMP_CWORD - cmd_cur + 1)) in
+{%- for position, argument in command.positional_arguments.items() %}
+  {{ position }})
+    {{ argument_completion(argument)|indent(4) }}
+    ;;
+{% endfor -%}
+{%- if command.has_positional_wildcard_argument %}
+  *)
+    cur=$COMP_CWORD
+    {{ argument_completion(command.positional_wildcard_argument)|indent(4) }}
+    ;;
+{% endif -%}
+esac
+{%- endif -%}
 {%- endmacro -%}
 
 #!/bin/bash
 
 {{ func_name }}() {
-  local word cur cmd opts
+  local word cur cmd cmd_cur opts
   COMPREPLY=()
   cur=0
+  cmd_cur=0
   cmd=""
   opts=""
 
@@ -81,11 +106,11 @@
         cur=$(( cur + 1 ))
         ;;
 {% for (tag, command_name), subcommand in append_key_tag(commands[app_name].subcommands, func_name).items() recursive %}
-      {% set new_tag = tag + "_" + command_name|replace("-","_") -%}
+      {%- set new_tag = tag + "_" + command_name|replace("-","_") %}
       {{ tag }},{{ command_name }}
-      {%- for alias in subcommand.aliases -%}
+{%- for alias in subcommand.aliases -%}
       |{{ tag }},{{ alias }}
-      {%- endfor -%})
+{%- endfor -%})
         cmd="{{ new_tag }}"
         cur=$(( cur + 1 ))
         ;;
@@ -98,14 +123,14 @@
 
   case "${cmd}" in
     {{ func_name }})
-      {{ command_completion(commands[app_name], 1)|indent(4) }}
+      {{ command_completion(commands[app_name], 1)|indent(6) }}
 
       return 0
       ;;
 {% for (tag, command_name), subcommand in append_key_tag(commands[app_name].subcommands, func_name).items() recursive %}
-    {% set new_tag = tag + "_" + command_name|replace("-","_") -%}
+{%- set new_tag = tag + "_" + command_name|replace("-","_") %}
     {{ new_tag }})
-      {{ command_completion(subcommand, loop.depth + 1)|indent(4) }}
+      {{ command_completion(subcommand, loop.depth + 1)|indent(6) }}
 
       return 0
       ;;
