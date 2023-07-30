@@ -35,7 +35,7 @@ docker run --rm -itv $(pwd):/app/cmdcomp yassun4dev/cmdcomp --file ${YOUR_CONFIG
 
 ## Config
 
-Configuration can be written in JSON, YAML, and TOML file formats.
+Configuration can be written in `JSON`, `YAML`, and `TOML` file formats.
 
 ### Sample
 
