@@ -1,54 +1,60 @@
 #!/bin/bash
 
 _cliname() {
-  local word cur cmd cmd_cur opts
+  local word cmd opts cur cmd_cur opts_cur
   COMPREPLY=()
-  cur=0
-  cmd_cur=0
   cmd=""
   opts=""
+  cur=0
+  cmd_cur=0
+  opts_cur=0
 
   for word in ${COMP_WORDS[@]}; do
     case "${cmd},${word}" in
       ",$1")
         cmd="_cliname"
-        cur=$(( cur + 1 ))
+        cur=$(( cur + opts_cur + 1 ))
         ;;
 
       _cliname,list|_cliname,ls)
         cmd="_cliname_list"
-        cur=$(( cur + 1 ))
+        cur=$(( cur + opts_cur + 1 ))
         ;;
 
       _cliname,cd)
         cmd="_cliname_cd"
-        cur=$(( cur + 1 ))
+        cur=$(( cur + opts_cur + 1 ))
         ;;
 
       _cliname,test)
         cmd="_cliname_test"
-        cur=$(( cur + 1 ))
+        cur=$(( cur + opts_cur + 1 ))
         ;;
 
       _cliname_test,rubocop)
         cmd="_cliname_test_rubocop"
-        cur=$(( cur + 1 ))
+        cur=$(( cur + opts_cur + 1 ))
         ;;
 
       _cliname_test,pytest)
         cmd="_cliname_test_pytest"
-        cur=$(( cur + 1 ))
+        cur=$(( cur + opts_cur + 1 ))
         ;;
 
       *)
+        opts_cur=$(( opts_cur + 1 ))
         ;;
     esac
   done
 
   case "${cmd}" in
     _cliname)
-      opts="list ls cd test --verbose --no-verbose --version -V --config --help"
-      if [[ ${COMP_CWORD} -eq 1 ]] ; then
+      if [[ ${COMP_WORDS[COMP_CWORD]} == -* ]] ; then
+        opts="--verbose --no-verbose --version -V --config --help"
+        COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
+        return 0
+      elif [ $cur -eq $COMP_CWORD ] ; then
+        opts="list ls cd test"
         COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
         return 0
       fi
@@ -93,8 +99,8 @@ _cliname() {
       ;;
 
     _cliname_list)
-      opts="--all -a"
       if [[ ${COMP_WORDS[COMP_CWORD]} == -* ]] ; then
+        opts="--all -a"
         COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
         return 0
       fi
@@ -130,8 +136,8 @@ _cliname() {
       ;;
 
     _cliname_cd)
-      opts="-P"
       if [[ ${COMP_WORDS[COMP_CWORD]} == -* ]] ; then
+        opts="-P"
         COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
         return 0
       fi
@@ -166,8 +172,12 @@ _cliname() {
       ;;
 
     _cliname_test)
-      opts="rubocop pytest"
-      if [[ ${COMP_CWORD} -eq 2 ]] ; then
+      if [[ ${COMP_WORDS[COMP_CWORD]} == -* ]] ; then
+        opts=""
+        COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
+        return 0
+      elif [ $cur -eq $COMP_CWORD ] ; then
+        opts="rubocop pytest"
         COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
         return 0
       fi
