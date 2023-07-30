@@ -6,6 +6,7 @@ from typing import BinaryIO
 import yaml
 from pydantic import RootModel
 
+from cmdcomp.exception import ConfigFileExtensionError
 from cmdcomp.v1.config import V1Config
 from cmdcomp.v2.config import V2Config
 
@@ -17,8 +18,8 @@ class Config(RootModel):
 
 
 def load(file: BinaryIO) -> Config:
-    _, extention = os.path.splitext(file.name)
-    match extention:
+    _, extension = os.path.splitext(file.name)
+    match extension:
         case ".json":
             data = json.load(file)
 
@@ -29,6 +30,6 @@ def load(file: BinaryIO) -> Config:
             data = tomllib.load(file)
 
         case _:
-            raise Exception(f"Unsupported config file type `{extention}`.")
+            raise ConfigFileExtensionError(extension)
 
     return Config.model_validate(data)
