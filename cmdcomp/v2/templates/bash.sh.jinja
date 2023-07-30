@@ -34,6 +34,36 @@ cmd_cur=$(( cmd_cur + 1 ))
 
 {#- macro def -#}
 {%- macro command_completion(command, depth) -%}
+cmd_cur=$cur
+while [ $cur -lt $COMP_CWORD ] ; do
+  cur=$(( cur + 1 ))
+
+{%- if command.has_keyword_arguments %}
+  case "${COMP_WORDS[cur-1]}" in
+{%- for keyword, argument in command.keyword_arguments.items() %}
+    {{ ([keyword] + argument.aliases)|join("|") }})
+      {{ argument_completion(argument)|indent(6) }}
+      ;;
+{% endfor %}
+    *)
+      break
+      ;;
+  esac
+{%- endif %}
+done
+{%- if command.has_positional_arguments %}
+if [[ ! ${COMP_WORDS[COMP_CWORD]} == -* ]] ; then
+  cur=$COMP_CWORD
+  case $(( COMP_CWORD - cmd_cur + 1)) in
+  {%- for position, argument in command.positional_arguments.items() %}
+    {{ position }})
+      {{ argument_completion(argument)|indent(4) }}
+      ;;
+  {% endfor -%}
+  esac
+fi
+{%- endif %}
+
 {% if command.has_subcommands -%}
 if [[ ${COMP_WORDS[COMP_CWORD]} == -* ]] ; then
   opts="{{ command.keyword_names_with_alias|join(' ') }}"
@@ -53,42 +83,16 @@ fi
 {%- else -%}
 opts="{{ command.keyword_names_with_alias|join(' ') }}"
 COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
-return 0
 {%- endif %}
 
-cmd_cur=$cur
-while [ $cur -lt $COMP_CWORD ] ; do
-  cur=$(( cur + 1 ))
-
-{%- if command.has_keyword_arguments %}
-  case "${COMP_WORDS[cur-1]}" in
-{%- for keyword, argument in command.keyword_arguments.items() %}
-    {{ ([keyword] + argument.aliases)|join("|") }})
-      {{ argument_completion(argument)|indent(6) }}
-      ;;
-{% endfor %}
-    *)
-      break
-      ;;
-  esac
-{%- endif %}
-done
-{%- if command.has_positional_arguments or command.has_positional_wildcard_argument %}
-cur=$COMP_CWORD
-case $(( COMP_CWORD - cmd_cur + 1)) in
-{%- for position, argument in command.positional_arguments.items() %}
-  {{ position }})
-    {{ argument_completion(argument)|indent(4) }}
-    ;;
-{% endfor -%}
 {%- if command.has_positional_wildcard_argument %}
-  *)
-    cur=$COMP_CWORD
-    {{ argument_completion(command.positional_wildcard_argument)|indent(4) }}
-    ;;
-{% endif -%}
-esac
+cur=$COMP_CWORD
+{{ argument_completion(command.positional_wildcard_argument) }}
 {%- endif %}
+{%- endmacro -%}
+
+{#- macro def -#}
+{%- macro file_completion(base_path) -%}
 {%- endmacro -%}
 
 #!/bin/bash

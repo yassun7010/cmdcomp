@@ -49,16 +49,6 @@ _cliname() {
 
   case "${cmd}" in
     _cliname)
-      if [[ ${COMP_WORDS[COMP_CWORD]} == -* ]] ; then
-        opts="--verbose --no-verbose --version -V --config --help"
-        COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
-        return 0
-      elif [ $cur -eq $COMP_CWORD ] ; then
-        opts="list ls cd test"
-        COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
-        return 0
-      fi
-
       cmd_cur=$cur
       while [ $cur -lt $COMP_CWORD ] ; do
         cur=$(( cur + 1 ))
@@ -95,16 +85,20 @@ _cliname() {
         esac
       done
 
-      return 0
-      ;;
-
-    _cliname_list)
       if [[ ${COMP_WORDS[COMP_CWORD]} == -* ]] ; then
-        opts="--all -a"
+        opts="--verbose --no-verbose --version -V --config --help"
+        COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
+        return 0
+      elif [ $cur -eq $COMP_CWORD ] ; then
+        opts="list ls cd test"
         COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
         return 0
       fi
 
+      return 0
+      ;;
+
+    _cliname_list)
       cmd_cur=$cur
       while [ $cur -lt $COMP_CWORD ] ; do
         cur=$(( cur + 1 ))
@@ -118,30 +112,25 @@ _cliname() {
             ;;
         esac
       done
-      cur=$COMP_CWORD
-      case $(( COMP_CWORD - cmd_cur + 1)) in
-        *)
-          cur=$COMP_CWORD
-          if [ $cur -eq $COMP_CWORD ] ; then
-            file_completion "."
 
-            return 0
-          else
-            cmd_cur=$(( cmd_cur + 2 ))
-          fi
-          ;;
-      esac
+      if [[ ${COMP_WORDS[COMP_CWORD]} == -* ]] ; then
+        opts="--all -a"
+        COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
+        return 0
+      fi
+      cur=$COMP_CWORD
+      if [ $cur -eq $COMP_CWORD ] ; then
+        file_completion "."
+
+        return 0
+      else
+        cmd_cur=$(( cmd_cur + 2 ))
+      fi
 
       return 0
       ;;
 
     _cliname_cd)
-      if [[ ${COMP_WORDS[COMP_CWORD]} == -* ]] ; then
-        opts="-P"
-        COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
-        return 0
-      fi
-
       cmd_cur=$cur
       while [ $cur -lt $COMP_CWORD ] ; do
         cur=$(( cur + 1 ))
@@ -155,23 +144,36 @@ _cliname() {
             ;;
         esac
       done
-      cur=$COMP_CWORD
-      case $(( COMP_CWORD - cmd_cur + 1)) in
-        1)
-          if [ $cur -eq $COMP_CWORD ] ; then
+      if [[ ! ${COMP_WORDS[COMP_CWORD]} == -* ]] ; then
+        cur=$COMP_CWORD
+        case $(( COMP_CWORD - cmd_cur + 1)) in
+          1)
+            if [ $cur -eq $COMP_CWORD ] ; then
             file_completion "$HOME"
 
             return 0
           else
             cmd_cur=$(( cmd_cur + 2 ))
           fi
-          ;;
-      esac
+            ;;
+        esac
+      fi
+
+      if [[ ${COMP_WORDS[COMP_CWORD]} == -* ]] ; then
+        opts="-P"
+        COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
+        return 0
+      fi
 
       return 0
       ;;
 
     _cliname_test)
+      cmd_cur=$cur
+      while [ $cur -lt $COMP_CWORD ] ; do
+        cur=$(( cur + 1 ))
+      done
+
       if [[ ${COMP_WORDS[COMP_CWORD]} == -* ]] ; then
         opts=""
         COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
@@ -182,19 +184,10 @@ _cliname() {
         return 0
       fi
 
-      cmd_cur=$cur
-      while [ $cur -lt $COMP_CWORD ] ; do
-        cur=$(( cur + 1 ))
-      done
-
       return 0
       ;;
 
     _cliname_test_rubocop)
-      opts="--auto-correct -A"
-      COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
-      return 0
-
       cmd_cur=$cur
       while [ $cur -lt $COMP_CWORD ] ; do
         cur=$(( cur + 1 ))
@@ -209,18 +202,20 @@ _cliname() {
         esac
       done
 
+      opts="--auto-correct -A"
+      COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
+
       return 0
       ;;
 
     _cliname_test_pytest)
-      opts=""
-      COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
-      return 0
-
       cmd_cur=$cur
       while [ $cur -lt $COMP_CWORD ] ; do
         cur=$(( cur + 1 ))
       done
+
+      opts=""
+      COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
 
       return 0
       ;;
