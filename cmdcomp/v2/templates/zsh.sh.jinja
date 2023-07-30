@@ -1,6 +1,7 @@
 {%- set func_name = "_" + app_name|replace("-","_") -%}
 {%- set scope = "" -%}
 
+{#- macro def -#}
 {%- macro candidate(target_name, target) -%}
   {% if target.aliases|length == 0 -%}
     {{ target_name }}
@@ -9,10 +10,12 @@
   {%- endif -%}
 {%- endmacro -%}
 
+{#- macro def -#}
 {%- macro description(argument) -%}
   {%- if argument.description is not none -%}[{{ argument.description }}]{%- endif -%}
 {%- endmacro -%}
 
+{#- macro def -#}
 {%- macro contents(arg_name, argument) -%}
   {%- if argument.type == 'values' -%}
           :values:{{ "(" + argument.values|map("string")|join(" ") + ")" }}

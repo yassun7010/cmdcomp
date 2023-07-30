@@ -1,6 +1,7 @@
 {%- set func_name = "_" + app_name|replace("-","_") -%}
 {%- set scope = "" -%}
 
+{#- macro def -#}
 {%- macro argument_completion(argument) -%}
   {%- if argument.type == "values" %}
   COMPREPLY=( $(compgen -W "{{ argument.values|join(" ") }}" -- "$cur") )
@@ -13,6 +14,7 @@
   {% endif -%}
 {%- endmacro -%}
 
+{#- macro def -#}
 {%- macro command_completion(command, depth) -%}
   {% if command.has_subcommands -%}
   opts="{{ (command.subcommands|list + command.keyword_arguments|list)|join(' ') }}"
