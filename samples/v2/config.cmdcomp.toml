@@ -3,7 +3,7 @@ version = "2"
 
 [app]
 name = "cliname"
-alias = "cliname2"
+alias = ["cliname2"]
 
 [root]
 [root.arguments.--verbose]

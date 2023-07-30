@@ -224,3 +224,4 @@ _cliname() {
 }
 
 complete -F _cliname -o bashdefault -o default cliname
+complete -F _cliname -o bashdefault -o default cliname2

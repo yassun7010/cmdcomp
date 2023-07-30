@@ -148,3 +148,6 @@ cur=$COMP_CWORD
 }
 
 complete -F {{ func_name }} -o bashdefault -o default {{ app_name }}
+{%- for alias in app_aliases %}
+complete -F {{ func_name }} -o bashdefault -o default {{ alias }}
+{%- endfor -%}
