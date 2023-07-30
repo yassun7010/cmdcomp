@@ -39,28 +39,64 @@ Configuration can be written in JSON, YAML, and TOML file formats.
 
 ### Sample
 
-```toml
-[cmdcomp]
-version = "1"
-
-[app]
-name = "mycli"
-alias = "my-cli"
-
-[root]
-options = ["-h", "--help", "--version"]
-
-[root.subcommands.list]
-options = ["-a"]
-alias = "ls"
-
-[root.subcommands.execute]
-options = { type = "command", execute = "your_app_name ps -s" }
-alias = ["restart", "shell", "log"]
-
-[root.subcommands.cd]
-options = { type = "file", base_path = "$(cd $(dirname $0); pwd)/../apps" }
-
+```yaml
+cmdcomp:
+  version: "2"
+app:
+  name: "mycli"
+  alias: "my-cli"
+root:
+  arguments:
+    --verbose:
+      type: flag
+      description: "verbose output."
+    --no-verbose:
+      type: flag
+      description: "no verbose output."
+    --version:
+      type: flag
+      alias: "-V"
+      description: "print version."
+    --config:
+      type: file
+      description: "config file."
+    --help:
+      type: flag
+      description: "print help."
+  subcommands:
+    list:
+      alias: "ls"
+      description: "list project files."
+      arguments:
+        --all:
+          type: flag
+          alias: "-a"
+          description: "list all files."
+        "*":
+          type: file
+          description: "list files."
+    cd:
+      description: "cd project directory."
+      arguments:
+        -P:
+          type: flag
+          description: "physical directory."
+        1:
+          type: file
+          base_path: $HOME
+          description: "change project directory."
+    test:
+      description: "test command."
+      subcommands:
+        rubocop:
+          description: "run rubocop."
+          arguments:
+            --auto-correct:
+              type: flag
+              alias: "-A"
+              description: "auto correct."
+        pytest:
+          description: "run pytest."
 ```
 
 ### JSON Schema
