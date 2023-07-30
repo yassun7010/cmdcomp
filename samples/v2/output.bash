@@ -1,9 +1,10 @@
 #!/bin/bash
 
 _cliname() {
-  local word cur cmd opts
+  local word cur cmd cmd_cur opts
   COMPREPLY=()
   cur=0
+  cmd_cur=0
   cmd=""
   opts=""
 
@@ -52,33 +53,39 @@ _cliname() {
         return 0
       fi
 
+      cmd_cur=$cur
       while [ $cur -lt $COMP_CWORD ] ; do
         cur=$(( cur + 1 ))
         case "${COMP_WORDS[cur-1]}" in
           --verbose)
-            :
+            cmd_cur=$(( cmd_cur + 1 ))
             ;;
 
-        --no-verbose)
-            :
+          --no-verbose)
+            cmd_cur=$(( cmd_cur + 1 ))
             ;;
 
-        --version|-V)
-            :
+          --version|-V)
+            cmd_cur=$(( cmd_cur + 1 ))
             ;;
 
-        --config)
+          --config)
             if [ $cur -eq $COMP_CWORD ] ; then
               file_completion "."
 
               return 0
+            else
+              cmd_cur=$(( cmd_cur + 2 ))
             fi
             ;;
 
-        --help)
-            :
+          --help)
+            cmd_cur=$(( cmd_cur + 1 ))
             ;;
 
+          *)
+            break
+            ;;
         esac
       done
 
@@ -87,34 +94,73 @@ _cliname() {
 
     _cliname_list)
       opts="--all -a"
-      if [[ ${COMP_CWORD} -eq 2 ]] ; then
+      if [[ ${COMP_WORDS[COMP_CWORD]} == -* ]] ; then
         COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[cur]}") )
         return 0
       fi
 
+      cmd_cur=$cur
       while [ $cur -lt $COMP_CWORD ] ; do
         cur=$(( cur + 1 ))
         case "${COMP_WORDS[cur-1]}" in
           --all|-a)
-            :
+            cmd_cur=$(( cmd_cur + 1 ))
             ;;
 
+          *)
+            break
+            ;;
         esac
       done
+      cur=$COMP_CWORD
+      case $(( COMP_CWORD - cmd_cur + 1)) in
+        *)
+          cur=$COMP_CWORD
+          if [ $cur -eq $COMP_CWORD ] ; then
+            file_completion "."
+
+            return 0
+          else
+            cmd_cur=$(( cmd_cur + 2 ))
+          fi
+          ;;
+      esac
 
       return 0
       ;;
 
     _cliname_cd)
-      opts=""
-      if [[ ${cur} == -* && ${COMP_CWORD} -eq 2 ]] ; then
+      opts="-P"
+      if [[ ${COMP_WORDS[COMP_CWORD]} == -* ]] ; then
         COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[cur]}") )
         return 0
       fi
 
+      cmd_cur=$cur
       while [ $cur -lt $COMP_CWORD ] ; do
         cur=$(( cur + 1 ))
+        case "${COMP_WORDS[cur-1]}" in
+          -P)
+            cmd_cur=$(( cmd_cur + 1 ))
+            ;;
+
+          *)
+            break
+            ;;
+        esac
       done
+      cur=$COMP_CWORD
+      case $(( COMP_CWORD - cmd_cur + 1)) in
+        1)
+          if [ $cur -eq $COMP_CWORD ] ; then
+            file_completion "$HOME"
+
+            return 0
+          else
+            cmd_cur=$(( cmd_cur + 2 ))
+          fi
+          ;;
+      esac
 
       return 0
       ;;
@@ -126,6 +172,7 @@ _cliname() {
         return 0
       fi
 
+      cmd_cur=$cur
       while [ $cur -lt $COMP_CWORD ] ; do
         cur=$(( cur + 1 ))
       done
@@ -135,18 +182,22 @@ _cliname() {
 
     _cliname_test_rubocop)
       opts="--auto-correct -A"
-      if [[ ${COMP_CWORD} -eq 3 ]] ; then
+      if [[ ${COMP_WORDS[COMP_CWORD]} == -* ]] ; then
         COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[cur]}") )
         return 0
       fi
 
+      cmd_cur=$cur
       while [ $cur -lt $COMP_CWORD ] ; do
         cur=$(( cur + 1 ))
         case "${COMP_WORDS[cur-1]}" in
           --auto-correct|-A)
-            :
+            cmd_cur=$(( cmd_cur + 1 ))
             ;;
 
+          *)
+            break
+            ;;
         esac
       done
 
@@ -155,11 +206,12 @@ _cliname() {
 
     _cliname_test_pytest)
       opts=""
-      if [[ ${COMP_CWORD} -eq 3 ]] ; then
+      if [[ ${COMP_WORDS[COMP_CWORD]} == -* ]] ; then
         COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[cur]}") )
         return 0
       fi
 
+      cmd_cur=$cur
       while [ $cur -lt $COMP_CWORD ] ; do
         cur=$(( cur + 1 ))
       done

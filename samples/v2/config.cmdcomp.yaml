@@ -37,6 +37,9 @@ root:
     cd:
       description: "cd project directory."
       arguments:
+        -P:
+          type: flag
+          description: "physical directory."
         1:
           type: file
           base_path: $HOME

@@ -38,6 +38,7 @@ _cliname() {
 
             cd)
               _arguments -C \
+                -P'[physical directory.]' \
                 '1:file:_files -W "$HOME"' \
                 && ret=0
               ;;
