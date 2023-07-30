@@ -95,6 +95,14 @@ class V2PoristionalArgumentsCommand(Model):
         )
 
     @property
+    def subcommand_names_with_alias(self) -> list[SubcommandName]:
+        return _subcommand_names_with_alias(self)
+
+    @property
+    def keyword_names_with_alias(self) -> list[Keyword]:
+        return _keyword_names_with_alias(self)
+
+    @property
     def has_subcommands(self) -> bool:
         return False
 
@@ -168,12 +176,23 @@ class V2SubcommandsCommand(Model):
         )
 
     @property
+    def subcommand_names_with_alias(self) -> list[SubcommandName]:
+        return _subcommand_names_with_alias(self)
+
+    @property
+    def keyword_names_with_alias(self) -> list[Keyword]:
+        return _keyword_names_with_alias(self)
+
+    @property
     def has_subcommands(self) -> bool:
         return len(self.subcommands) != 0
 
     @property
     def has_positional_arguments(self) -> bool:
         return False
+
+
+V2Command = V2PoristionalArgumentsCommand | V2SubcommandsCommand
 
 
 def _convert_argument(
@@ -202,4 +221,19 @@ def _convert_argument(
             return value
 
 
-V2Command = V2PoristionalArgumentsCommand | V2SubcommandsCommand
+def _subcommand_names_with_alias(command: V2Command) -> list[SubcommandName]:
+    result: list[SubcommandName] = []
+    for subcommand_name, subcommand in command.subcommands.items():
+        result.append(subcommand_name)
+        result.extend(subcommand.aliases)
+
+    return result
+
+
+def _keyword_names_with_alias(command: V2Command) -> list[Keyword]:
+    result: list[Keyword] = []
+    for keyword, argument in command.keyword_arguments.items():
+        result.append(keyword)
+        result.extend(argument.aliases)
+
+    return result

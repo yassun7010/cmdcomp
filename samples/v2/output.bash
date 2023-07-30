@@ -14,7 +14,7 @@ _cliname() {
         cur=$(( cur + 1 ))
         ;;
 
-      _cliname,list)
+      _cliname,list|_cliname,ls)
         cmd="_cliname_list"
         cur=$(( cur + 1 ))
         ;;
@@ -46,7 +46,7 @@ _cliname() {
 
   case "${cmd}" in
     _cliname)
-      opts="list cd test --verbose --no-verbose --version --config --help"
+      opts="list ls cd test --verbose --no-verbose --version -V --config --help"
       if [[ ${COMP_CWORD} -eq 1 ]] ; then
         COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[cur]}") )
         return 0
@@ -72,7 +72,7 @@ _cliname() {
             
             ;;
 
-          --version)
+          --version|-V)
             if [ $cur -eq $COMP_CWORD ] ; then
               COMPREPLY=()
               return 0
@@ -107,7 +107,7 @@ _cliname() {
       ;;
 
     _cliname_list)
-      opts="--all"
+      opts="--all -a"
       if [[ ${COMP_CWORD} -eq 2 ]] ; then
         COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[cur]}") )
         return 0
@@ -117,7 +117,7 @@ _cliname() {
         cur=$(( cur + 1 ))
 
         case "${COMP_WORDS[cur-1]}" in
-          --all)
+          --all|-a)
             if [ $cur -eq $COMP_CWORD ] ; then
               COMPREPLY=()
               return 0
@@ -184,7 +184,7 @@ _cliname() {
       ;;
 
     _cliname_test_rubocop)
-      opts="--auto-correct"
+      opts="--auto-correct -A"
       if [[ ${COMP_CWORD} -eq 3 ]] ; then
         COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[cur]}") )
         return 0
@@ -194,7 +194,7 @@ _cliname() {
         cur=$(( cur + 1 ))
 
         case "${COMP_WORDS[cur-1]}" in
-          --auto-correct)
+          --auto-correct|-A)
             if [ $cur -eq $COMP_CWORD ] ; then
               COMPREPLY=()
               return 0

@@ -30,19 +30,19 @@
 {#- macro def -#}
 {%- macro command_completion(command, depth) -%}
   {% if command.has_subcommands -%}
-  opts="{{ (command.subcommands|list + command.keyword_arguments|list)|join(' ') }}"
+  opts="{{ (command.subcommand_names_with_alias + command.keyword_names_with_alias)|join(' ') }}"
   if [[ ${COMP_CWORD} -eq {{ depth }} ]] ; then
     COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[cur]}") )
     return 0
   fi
   {%- elif command.has_positional_arguments -%}
-  opts="{{ command.keyword_arguments|list|join(' ') }}"
+  opts="{{ command.keyword_names_with_alias|join(' ') }}"
   if [[ ${cur} == -* && ${COMP_CWORD} -eq {{ depth }} ]] ; then
     COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[cur]}") )
     return 0
   fi
   {%- else -%}
-  opts="{{ command.keyword_arguments|list|join(' ') }}"
+  opts="{{ command.keyword_names_with_alias|join(' ') }}"
   if [[ ${COMP_CWORD} -eq {{ depth }} ]] ; then
     COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[cur]}") )
     return 0
@@ -54,7 +54,7 @@
 
     case "${COMP_WORDS[cur-1]}" in
       {% for keyword, argument in command.keyword_arguments.items() -%}
-      {{ keyword }})
+      {{ ([keyword] + argument.aliases)|join("|") }})
         {{- argument_completion(argument)|indent(6) }}
         ;;
 
@@ -94,7 +94,10 @@
         ;;
 {% for (tag, command_name), subcommand in append_key_tag(commands[app_name].subcommands, func_name).items() recursive %}
       {% set new_tag = tag + "_" + command_name|replace("-","_") -%}
-      {{ tag }},{{ command_name }})
+      {{ tag }},{{ command_name }}
+      {%- for alias in subcommand.aliases -%}
+      |{{ tag }},{{ alias }}
+      {%- endfor -%})
         cmd="{{ new_tag }}"
         cur=$(( cur + 1 ))
         ;;
