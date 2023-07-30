@@ -49,7 +49,7 @@ _cliname() {
     _cliname)
       opts="list ls cd test --verbose --no-verbose --version -V --config --help"
       if [[ ${COMP_CWORD} -eq 1 ]] ; then
-        COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[cur]}") )
+        COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
         return 0
       fi
 
@@ -95,7 +95,7 @@ _cliname() {
     _cliname_list)
       opts="--all -a"
       if [[ ${COMP_WORDS[COMP_CWORD]} == -* ]] ; then
-        COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[cur]}") )
+        COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
         return 0
       fi
 
@@ -132,7 +132,7 @@ _cliname() {
     _cliname_cd)
       opts="-P"
       if [[ ${COMP_WORDS[COMP_CWORD]} == -* ]] ; then
-        COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[cur]}") )
+        COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
         return 0
       fi
 
@@ -168,7 +168,7 @@ _cliname() {
     _cliname_test)
       opts="rubocop pytest"
       if [[ ${COMP_CWORD} -eq 2 ]] ; then
-        COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[cur]}") )
+        COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
         return 0
       fi
 
@@ -182,10 +182,8 @@ _cliname() {
 
     _cliname_test_rubocop)
       opts="--auto-correct -A"
-      if [[ ${COMP_WORDS[COMP_CWORD]} == -* ]] ; then
-        COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[cur]}") )
-        return 0
-      fi
+      COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
+      return 0
 
       cmd_cur=$cur
       while [ $cur -lt $COMP_CWORD ] ; do
@@ -206,10 +204,8 @@ _cliname() {
 
     _cliname_test_pytest)
       opts=""
-      if [[ ${COMP_WORDS[COMP_CWORD]} == -* ]] ; then
-        COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[cur]}") )
-        return 0
-      fi
+      COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
+      return 0
 
       cmd_cur=$cur
       while [ $cur -lt $COMP_CWORD ] ; do

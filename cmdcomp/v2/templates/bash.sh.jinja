@@ -37,21 +37,19 @@ cmd_cur=$(( cmd_cur + 1 ))
 {% if command.has_subcommands -%}
 opts="{{ (command.subcommand_names_with_alias + command.keyword_names_with_alias)|join(' ') }}"
 if [[ ${COMP_CWORD} -eq {{ depth }} ]] ; then
-  COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[cur]}") )
+  COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
   return 0
 fi
-{%- elif command.has_positional_arguments -%}
+{%- elif command.has_positional_arguments or command.has_positional_wildcard_argument -%}
 opts="{{ command.keyword_names_with_alias|join(' ') }}"
 if [[ ${COMP_WORDS[COMP_CWORD]} == -* ]] ; then
-  COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[cur]}") )
+  COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
   return 0
 fi
 {%- else -%}
 opts="{{ command.keyword_names_with_alias|join(' ') }}"
-if [[ ${COMP_WORDS[COMP_CWORD]} == -* ]] ; then
-  COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[cur]}") )
-  return 0
-fi
+COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
+return 0
 {%- endif %}
 
 cmd_cur=$cur
