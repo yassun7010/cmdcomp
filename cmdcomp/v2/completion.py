@@ -1,6 +1,7 @@
 from pathlib import Path
 from typing import Any
 
+from cmdcomp import __version__
 from cmdcomp.shell import ShellType
 from cmdcomp.v2.config import V2Config
 
@@ -18,6 +19,7 @@ def generate_v2(shell: ShellType, config: V2Config) -> str:
         app_aliases=config.app.aliases + config.root.aliases,
         commands={config.app.name: config.root},
         append_key_tag=_append_key_tag,
+        version=__version__,
     )
 
 
