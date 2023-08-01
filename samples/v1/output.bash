@@ -6,7 +6,7 @@ _your_cli_command_name() {
 
     case $cword in
         1)
-            COMPREPLY=( $(compgen -W "-h --help --version welcome list ls execute restart shell log cd test and_normal_options_work" -- "$cur") )
+            COMPREPLY=( $(compgen -W "-h --help --version welcome list ls execute restart shell log cd test and-normal-options-work" -- "$cur") )
             ;;
         2)
             case ${words[1]} in
@@ -22,7 +22,7 @@ _your_cli_command_name() {
                 test)
                     COMPREPLY=( $(compgen -W "rubocop" -- "$cur") )
                     ;;
-                and_normal_options_work)
+                and-normal-options-work)
                     COMPREPLY=( $(compgen -W "-h --help foo bar" -- "$cur") )
                     ;;
             esac

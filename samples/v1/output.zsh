@@ -5,7 +5,7 @@ _your_cli_command_name() {
 
     case "$(($CURRENT-1))" in
         1)
-            _values 'your_cli_command_name' -h --help --version welcome list ls execute restart shell log cd test and_normal_options_work
+            _values 'your_cli_command_name' -h --help --version welcome list ls execute restart shell log cd test and-normal-options-work
             ;;
         2)
             case ${words[1]} in
@@ -21,7 +21,7 @@ _your_cli_command_name() {
                 test)
                     _values 'test' rubocop
                     ;;
-                and_normal_options_work)
+                and-normal-options-work)
                     _values 'and_normal_options_work' -h --help foo bar
                     ;;
             esac

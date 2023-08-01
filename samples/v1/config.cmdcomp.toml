@@ -24,6 +24,6 @@ options = { type = "file", base_path = "$(cd $(dirname $0); pwd)/../apps" }
 [root.subcommands.test.subcommands.rubocop]
 options = ["-A"]
 
-[root.subcommands.and_normal_options_work]
+[root.subcommands.and-normal-options-work]
 options = ["-h", "--help"]
 subcommands = { foo = {}, bar = {} }

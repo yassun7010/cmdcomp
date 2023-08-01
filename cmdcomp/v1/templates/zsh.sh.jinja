@@ -19,13 +19,13 @@
                     esac
                     ;;
 {%- elif completion|first is mapping and 'command' in completion|first %}
-                    _values '{{ name }}' {{ (completion|first).command }}
+                    _values '{{ name|replace("-", "_") }}' {{ (completion|first).command }}
                     ;;
 {%- elif completion|first is mapping and 'file' in completion|first %}
                     _files -W "{{ (completion|first).file }}"
                     ;;
 {%- else %}
-                    _values '{{ name }}' {{ completion|join(" ") }}
+                    _values '{{ name|replace("-", "_") }}' {{ completion|join(" ") }}
                     ;;
 {%- endif %}
 {%- endfor %}
