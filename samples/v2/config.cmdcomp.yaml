@@ -43,6 +43,20 @@ root:
           type: file
           base_path: $HOME
           description: "change project directory."
+    scripts:
+      description: "operate scripts."
+      subcommands:
+        run:
+          description: "run script."
+          arguments:
+            --all:
+              type: flag
+              alias: "-a"
+              description: "run all scripts."
+            "*":
+              type: command
+              description: "run script."
+              execute: "echo 'script1.sh script2.sh script3.sh'"
     test:
       description: "test command."
       subcommands:

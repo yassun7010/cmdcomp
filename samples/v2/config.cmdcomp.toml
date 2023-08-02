@@ -52,6 +52,21 @@ type = "file"
 base_path = "$HOME"
 description = "change project directory."
 
+[root.subcommands.scripts]
+description = "operate scripts."
+[root.subcommands.scripts.subcommands.run]
+description = "run script."
+
+[root.subcommands.scripts.subcommands.run.arguments.--all]
+type = "flag"
+alias = "-a"
+description = "run all scripts."
+
+[root.subcommands.scripts.subcommands.run.arguments."*"]
+type = "command"
+description = "run script."
+execute = "echo 'script1.sh script2.sh script3.sh'"
+
 [root.subcommands.test]
 description = "test command."
 

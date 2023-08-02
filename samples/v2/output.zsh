@@ -16,6 +16,7 @@ _cliname() {
       __cliname_subcmds=(
         {list,ls}'[list project files.]'
         cd'[cd project directory.]'
+        scripts'[operate scripts.]'
         test'[test command.]'
       )
 
@@ -45,6 +46,35 @@ _cliname() {
                 -P'[physical directory.]' \
                 '1:file:_files -W "$HOME"' \
                 && ret=0
+              ;;
+
+            scripts)
+              local -a __scripts_subcmds
+              __scripts_subcmds=(
+                run'[run script.]'
+              )
+
+              _arguments -C \
+                '1: :_values "subcommand" ${__scripts_subcmds[@]}' \
+                '*:: :->args' \
+                && ret=0
+
+              cmd_name=$words[1]
+              case $state in
+                args)
+                  case $cmd_name in
+                    run)
+                      local ___execute_result=$(echo 'script1.sh script2.sh script3.sh')
+                      _arguments -C \
+                        {--all,-a}'[run all scripts.]' \
+                        '*:command:_values '_' '"$___execute_result"'' \
+                        && ret=0
+                      ;;
+
+                  esac
+                  ;;
+
+              esac
               ;;
 
             test)

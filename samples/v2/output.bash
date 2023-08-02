@@ -30,6 +30,16 @@ _cliname() {
         cur=$(( cur + opts_cur + 1 ))
         ;;
 
+      _cliname,scripts)
+        cmd="_cliname_scripts"
+        cur=$(( cur + opts_cur + 1 ))
+        ;;
+
+      _cliname_scripts,run)
+        cmd="_cliname_scripts_run"
+        cur=$(( cur + opts_cur + 1 ))
+        ;;
+
       _cliname,test)
         cmd="_cliname_test"
         cur=$(( cur + opts_cur + 1 ))
@@ -94,7 +104,7 @@ _cliname() {
         COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
         return 0
       elif [ $cur -eq $COMP_CWORD ] ; then
-        opts="list ls cd test"
+        opts="list ls cd scripts test"
         COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
         return 0
       fi
@@ -167,6 +177,57 @@ _cliname() {
         opts="-P"
         COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
         return 0
+      fi
+
+      return 0
+      ;;
+
+    _cliname_scripts)
+      cmd_cur=$cur
+      while [ $cur -lt $COMP_CWORD ] ; do
+        cur=$(( cur + 1 ))
+      done
+
+      if [[ ${COMP_WORDS[COMP_CWORD]} == -* ]] ; then
+        opts=""
+        COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
+        return 0
+      elif [ $cur -eq $COMP_CWORD ] ; then
+        opts="run"
+        COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
+        return 0
+      fi
+
+      return 0
+      ;;
+
+    _cliname_scripts_run)
+      cmd_cur=$cur
+      while [ $cur -lt $COMP_CWORD ] ; do
+        cur=$(( cur + 1 ))
+        case "${COMP_WORDS[cur-1]}" in
+          --all|-a)
+            cmd_cur=$(( cmd_cur + 1 ))
+            ;;
+
+          *)
+            break
+            ;;
+        esac
+      done
+
+      if [[ ${COMP_WORDS[COMP_CWORD]} == -* ]] ; then
+        opts="--all -a"
+        COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
+        return 0
+      fi
+      cur=$COMP_CWORD
+      if [ $cur -eq $COMP_CWORD ] ; then
+        COMPREPLY=( $(compgen -W "echo 'script1.sh script2.sh script3.sh'" -- "$cur") )
+
+        return 0
+      else
+        cmd_cur=$(( cmd_cur + 2 ))
       fi
 
       return 0
