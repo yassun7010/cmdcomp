@@ -1,3 +1,4 @@
+import re
 from pathlib import Path
 from typing import Any
 
@@ -12,6 +13,7 @@ def generate_v2(shell: ShellType, config: V2Config) -> str:
     env = Environment(
         loader=FileSystemLoader(Path(__file__).parent / "templates"),
     )
+    env.filters["ident"] = lambda x: re.sub(r"[,.-]", "_", x)
     template = env.get_template(f"{shell.value}.sh.jinja")
 
     return template.render(

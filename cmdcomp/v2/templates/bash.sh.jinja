@@ -1,4 +1,4 @@
-{%- set func_name = "_" + app_name|replace("-","_") -%}
+{%- set func_name = "_" + app_name|ident -%}
 {%- set scope = "" -%}
 
 {#- macro def -#}
@@ -117,7 +117,7 @@ cur=$COMP_CWORD
         cur=$(( cur + opts_cur + 1 ))
         ;;
 {% for (tag, command_name), subcommand in append_key_tag(commands[app_name].subcommands, func_name).items() recursive %}
-      {%- set new_tag = tag + "_" + command_name|replace("-","_") %}
+      {%- set new_tag = tag + "_" + command_name|ident %}
       {{ tag }},{{ command_name }}
 {%- for alias in subcommand.aliases -%}
       |{{ tag }},{{ alias }}
@@ -140,7 +140,7 @@ cur=$COMP_CWORD
       return 0
       ;;
 {% for (tag, command_name), subcommand in append_key_tag(commands[app_name].subcommands, func_name).items() recursive %}
-{%- set new_tag = tag + "_" + command_name|replace("-","_") %}
+{%- set new_tag = tag + "_" + command_name|ident %}
     {{ new_tag }})
       {{ command_completion(subcommand, loop.depth + 1)|indent(6) }}
 

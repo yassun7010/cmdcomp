@@ -1,4 +1,4 @@
-{%- set func_name = "_" + app_name|replace("-","_") -%}
+{%- set func_name = "_" + app_name|ident -%}
 {%- set scope = "" -%}
 
 {#- macro def -#}
@@ -44,8 +44,8 @@
 {%- set scope = scope + "_" + cmd_name %}
     {{ ([cmd_name] + command.aliases)|join("|") }})
 {%- if command.has_subcommands %}
-      local -a _{{ scope|replace("-", "_") }}_subcmds
-      _{{ scope|replace("-", "_") }}_subcmds=(
+      local -a _{{ scope|ident }}_subcmds
+      _{{ scope|ident }}_subcmds=(
 {%- for subcmd_name, subcommand in command.subcommands.items() %}
         {{ candidate(subcmd_name, subcommand) }}'{{ description(subcommand) }}'
 {%- endfor %}
@@ -61,7 +61,7 @@
 {%- if command.has_positional_wildcard_argument %}
         '*{{ contents("*", command.positional_wildcard_argument) }}' \
 {%- elif command.has_subcommands %}
-        '1: :_values "subcommand" ${_{{ scope|replace("-", "_") }}_subcmds[@]}' \
+        '1: :_values "subcommand" ${_{{ scope|ident }}_subcmds[@]}' \
         '*:: :->args' \
 {%- endif %}
         && ret=0
