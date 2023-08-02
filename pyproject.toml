@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "cmdcomp"
-version = "2.0.5"
+version = "2.0.6"
 description = "cmdcomp is a cli tool completion generator for shell."
 authors = ["Yasutanium <yassun4dev@outlook.com>"]
 readme = "README.md"
