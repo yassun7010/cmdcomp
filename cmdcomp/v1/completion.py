@@ -3,6 +3,7 @@ from pathlib import Path
 
 from mergedeep import merge
 
+from cmdcomp import __version__
 from cmdcomp.shell import ShellType
 from cmdcomp.v1.command import (
     V1Candidates,
@@ -27,6 +28,7 @@ def generate_v1(shell: ShellType, config: V1Config):
         app_name=config.app.name,
         app_aliases=config.app.aliases + config.root.aliases,
         completions_list=_generate_completions_list(config),
+        version=__version__,
     )
 
 
