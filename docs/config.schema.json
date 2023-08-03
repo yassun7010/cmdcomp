@@ -568,6 +568,9 @@
                             },
                             {
                                 "$ref": "#/$defs/V2SubcommandsCommand"
+                            },
+                            {
+                                "type": "null"
                             }
                         ]
                     },

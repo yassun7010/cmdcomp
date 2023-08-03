@@ -139,8 +139,9 @@ class V2SubcommandsCommand(Model):
         ),
     ]
 
-    subcommands: OrderedDict[SubcommandName, "V2Command"] = Field(
+    raw_subcommands: OrderedDict[SubcommandName, "V2Command | None"] = Field(
         title="subcommands of the command.",
+        alias="subcommands",
         default_factory=OrderedDict,
     )
 
@@ -166,6 +167,20 @@ class V2SubcommandsCommand(Model):
                 (k, _convert_argument(v))
                 for k, v in self.arguments.items()
                 if isinstance(k, str)
+            ]
+        )
+
+    @property
+    def subcommands(self) -> OrderedDict[SubcommandName, "V2Command"]:
+        return OrderedDict(
+            [
+                (
+                    name,
+                    V2SubcommandsCommand(alias=[], arguments=OrderedDict())
+                    if subcommand is None
+                    else subcommand,
+                )
+                for name, subcommand in self.raw_subcommands.items()
             ]
         )
 
