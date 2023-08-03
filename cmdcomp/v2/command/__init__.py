@@ -3,8 +3,6 @@ from typing import Annotated, Literal, OrderedDict, TypeAlias
 from pydantic import ConfigDict, Field
 
 from cmdcomp.model import Model
-from cmdcomp.v2.command.argument.command_argument import V2CommandArgument
-from cmdcomp.v2.command.argument.file_argument import V2FileArgument
 from cmdcomp.v2.command.argument.flag_argument import V2FlagArgument
 from cmdcomp.v2.command.argument.values_argument import (
     V2ValueArgument,
@@ -37,13 +35,7 @@ class V2PoristionalArgumentsCommand(Model):
     arguments: Annotated[
         OrderedDict[
             Position | Literal["*"] | Keyword,
-            str
-            | list[str]
-            | V2ValuesArgument
-            | V2FileArgument
-            | V2CommandArgument
-            | V2FlagArgument
-            | None,
+            str | list[str] | V2Argument | None,
         ],
         Field(
             title="arguments of the command.",
@@ -138,13 +130,7 @@ class V2SubcommandsCommand(Model):
     arguments: Annotated[
         OrderedDict[
             Keyword,
-            str
-            | list[str]
-            | V2ValuesArgument
-            | V2FileArgument
-            | V2CommandArgument
-            | V2FlagArgument
-            | None,
+            str | list[str] | V2Argument | None,
         ],
         Field(
             title="arguments of the command.",
@@ -212,13 +198,7 @@ V2Command = V2PoristionalArgumentsCommand | V2SubcommandsCommand
 
 
 def _convert_argument(
-    value: str
-    | list[str]
-    | V2ValuesArgument
-    | V2FileArgument
-    | V2CommandArgument
-    | V2FlagArgument
-    | None,
+    value: str | list[str] | V2Argument | None,
 ) -> V2Argument:
     match value:
         case str():
