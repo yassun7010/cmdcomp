@@ -41,9 +41,9 @@ class V2PoristionalArgumentsCommand(Model):
             title="arguments of the command.",
             description=(
                 "argment key allow "
-                "positional integer (like `1` , `2`), "
-                'keyword string(like `"--f"`, `"-f"`), '
-                'wildcard string(`"*"`).'
+                "positional integer (like 1, 2), "
+                'keyword string (like "--f", "-f"), '
+                'wildcard string ("*").'
             ),
         ),
     ]
