@@ -55,11 +55,13 @@ class App:
 
         space = parser.parse_args(args)
 
+        level = logging.DEBUG if space.verbose else logging.INFO
         logging.basicConfig(
             format="%(message)s",
+            level=level,
             handlers=[
                 RichHandler(
-                    level=logging.DEBUG if space.verbose else logging.INFO,
+                    level=level,
                     console=Console(stderr=True),
                     show_time=False,
                     show_path=False,
