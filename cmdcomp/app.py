@@ -3,14 +3,11 @@ class App:
     def run(cls, args: list[str] | None = None) -> None:
         import logging
         from argparse import ArgumentParser, BooleanOptionalAction, FileType
-        from logging import getLogger
 
-        from rich.console import Console
+        from rich.console import Console as RichConsole
         from rich.logging import RichHandler
 
-        from cmdcomp import __version__
-        from cmdcomp.completion import generate
-        from cmdcomp.config import load
+        from cmdcomp import __version__, completion, config
         from cmdcomp.shell import ShellType
 
         parser = ArgumentParser(
@@ -62,18 +59,21 @@ class App:
             handlers=[
                 RichHandler(
                     level=level,
-                    console=Console(stderr=True),
+                    console=RichConsole(stderr=True),
                     show_time=False,
                     show_path=False,
                     rich_tracebacks=True,
                 )
             ],
         )
-        logger = getLogger(__name__)
+        logger = logging.getLogger(__name__)
 
         try:
             print(
-                generate(space.shell_type, load(space.file)),
+                completion.generate(
+                    space.shell_type,
+                    config.load(space.file),
+                ),
                 file=space.output_file,
             )
 
