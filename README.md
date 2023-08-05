@@ -84,7 +84,7 @@ root:
         1:
           type: file
           base_path: $HOME
-          description: "change project directory."
+          description: "change home directory."
     test:
       description: "test command."
       subcommands:
