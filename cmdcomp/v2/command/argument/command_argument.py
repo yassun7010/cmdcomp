@@ -1,3 +1,4 @@
+from functools import cached_property
 from typing import Annotated, Literal
 
 from pydantic import Field
@@ -25,7 +26,7 @@ class V2CommandArgument(Model):
         Field(title="command to execute."),
     ]
 
-    @property
+    @cached_property
     def aliases(self) -> list[str]:
         if isinstance(self.alias, str):
             return [self.alias]

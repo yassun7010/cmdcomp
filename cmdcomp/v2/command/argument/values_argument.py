@@ -1,4 +1,5 @@
 from collections import OrderedDict
+from functools import cached_property
 from typing import Annotated, Literal
 
 from pydantic import Field
@@ -35,7 +36,7 @@ class V2ValuesArgument(Model):
         Field(title="values of the argument."),
     ]
 
-    @property
+    @cached_property
     def items(self) -> list[V2ValueArgument]:
         match self.values:
             case str():
@@ -56,7 +57,7 @@ class V2ValuesArgument(Model):
             case _:
                 raise NeverReach(self.values)
 
-    @property
+    @cached_property
     def aliases(self) -> list[str]:
         if isinstance(self.alias, str):
             return [self.alias]

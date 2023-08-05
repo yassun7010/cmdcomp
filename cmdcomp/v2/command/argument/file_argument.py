@@ -1,3 +1,4 @@
+from functools import cached_property
 from typing import Literal
 
 from pydantic import Field
@@ -23,7 +24,7 @@ class V2FileArgument(Model):
         default=None,
     )
 
-    @property
+    @cached_property
     def aliases(self) -> list[str]:
         if isinstance(self.alias, str):
             return [self.alias]

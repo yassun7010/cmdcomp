@@ -1,3 +1,4 @@
+from functools import cached_property
 from typing import Annotated, Literal, OrderedDict, TypeAlias
 
 from pydantic import ConfigDict, Field
@@ -48,7 +49,7 @@ class V2PoristionalArgumentsCommand(Model):
         ),
     ]
 
-    @property
+    @cached_property
     def aliases(self) -> list[str]:
         if isinstance(self.alias, str):
             return [self.alias]
@@ -59,7 +60,7 @@ class V2PoristionalArgumentsCommand(Model):
     def subcommands(self) -> OrderedDict[SubcommandName, "V2Command"]:
         return OrderedDict()
 
-    @property
+    @cached_property
     def positional_arguments(self) -> OrderedDict[Position, V2Argument]:
         return OrderedDict(
             [
@@ -69,14 +70,14 @@ class V2PoristionalArgumentsCommand(Model):
             ]
         )
 
-    @property
+    @cached_property
     def positional_wildcard_argument(self) -> V2Argument | None:
         if "*" in self.arguments:
             return _convert_argument(self.arguments["*"])
         else:
             return None
 
-    @property
+    @cached_property
     def keyword_arguments(self) -> OrderedDict[Keyword, V2Argument]:
         return OrderedDict(
             [
@@ -86,11 +87,11 @@ class V2PoristionalArgumentsCommand(Model):
             ]
         )
 
-    @property
+    @cached_property
     def subcommand_names_with_alias(self) -> list[SubcommandName]:
         return _subcommand_names_with_alias(self)
 
-    @property
+    @cached_property
     def keyword_names_with_alias(self) -> list[Keyword]:
         return _keyword_names_with_alias(self)
 
@@ -145,7 +146,7 @@ class V2SubcommandsCommand(Model):
         default_factory=OrderedDict,
     )
 
-    @property
+    @cached_property
     def aliases(self) -> list[str]:
         if isinstance(self.alias, str):
             return [self.alias]
@@ -160,7 +161,7 @@ class V2SubcommandsCommand(Model):
     def positional_wildcard_argument(self) -> V2Argument | None:
         return None
 
-    @property
+    @cached_property
     def keyword_arguments(self) -> OrderedDict[Keyword, V2Argument]:
         return OrderedDict(
             [
@@ -170,7 +171,7 @@ class V2SubcommandsCommand(Model):
             ]
         )
 
-    @property
+    @cached_property
     def subcommands(self) -> OrderedDict[SubcommandName, "V2Command"]:
         return OrderedDict(
             [
@@ -184,11 +185,11 @@ class V2SubcommandsCommand(Model):
             ]
         )
 
-    @property
+    @cached_property
     def subcommand_names_with_alias(self) -> list[SubcommandName]:
         return _subcommand_names_with_alias(self)
 
-    @property
+    @cached_property
     def keyword_names_with_alias(self) -> list[Keyword]:
         return _keyword_names_with_alias(self)
 

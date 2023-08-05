@@ -1,4 +1,4 @@
-from functools import reduce
+from functools import cached_property, reduce
 from operator import add
 from typing import Annotated, NewType, OrderedDict
 
@@ -44,7 +44,7 @@ class V1SubCommandsCommand(Model):
         default_factory=OrderedDict,
     )
 
-    @property
+    @cached_property
     def aliases(self) -> list[str]:
         if isinstance(self.alias, str):
             return [self.alias]
@@ -72,7 +72,7 @@ class V1SpecificOptionsCommand(Model):
         ),
     ]
 
-    @property
+    @cached_property
     def aliases(self) -> list[str]:
         if isinstance(self.alias, str):
             return [self.alias]
