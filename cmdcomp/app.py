@@ -1,15 +1,16 @@
+import logging
+from argparse import ArgumentParser, BooleanOptionalAction, FileType
+
+from rich.console import Console as RichConsole
+from rich.logging import RichHandler
+
+from cmdcomp import __version__, completion, config
+from cmdcomp.shell import ShellType
+
+
 class App:
     @classmethod
     def run(cls, args: list[str] | None = None) -> None:
-        import logging
-        from argparse import ArgumentParser, BooleanOptionalAction, FileType
-
-        from rich.console import Console as RichConsole
-        from rich.logging import RichHandler
-
-        from cmdcomp import __version__, completion, config
-        from cmdcomp.shell import ShellType
-
         parser = ArgumentParser(
             prog="cmdcomp",
             description="A command-line tool for comparing commands.",
