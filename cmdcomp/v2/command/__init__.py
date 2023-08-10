@@ -1,7 +1,6 @@
+from abc import ABCMeta, abstractmethod
 from functools import cached_property
 from typing import Annotated, Literal, OrderedDict, TypeAlias
-
-from pydantic import ConfigDict, Field
 
 from cmdcomp.model import Model
 from cmdcomp.v2.command.argument.flag_argument import V2FlagArgument
@@ -9,16 +8,23 @@ from cmdcomp.v2.command.argument.values_argument import (
     V2ValueArgument,
     V2ValuesArgument,
 )
+from pydantic import ConfigDict, Field
 
 from .argument import V2Argument
 
 Position: TypeAlias = Annotated[int, Field(ge=1)]
 Keyword = Annotated[str, Field(pattern=r"^--?[a-zA-Z0-9_-]+$")]
 SubcommandName: TypeAlias = str
+_InputArgument = str | list[str] | V2Argument
 
 
-class V2PoristionalArgumentsCommand(Model):
+class _V2BaseCommand(Model, metaclass=ABCMeta):
     model_config = ConfigDict(arbitrary_types_allowed=True)
+
+    description: str | None = Field(
+        title="description of the command.",
+        default=None,
+    )
 
     alias: Annotated[
         str | list[str],
@@ -28,16 +34,67 @@ class V2PoristionalArgumentsCommand(Model):
         ),
     ]
 
-    description: str | None = Field(
-        title="description of the command.",
-        default=None,
-    )
+    @cached_property
+    def aliases(self) -> list[str]:
+        if isinstance(self.alias, str):
+            return [self.alias]
+        else:
+            return self.alias
 
+    @property
+    @abstractmethod
+    def subcommands(self) -> OrderedDict[SubcommandName, "V2Command"]:
+        ...
+
+    @property
+    @abstractmethod
+    def positional_arguments(self) -> OrderedDict[Position, V2Argument]:
+        ...
+
+    @property
+    @abstractmethod
+    def positional_wildcard_argument(self) -> V2Argument | None:
+        ...
+
+    @property
+    @abstractmethod
+    def keyword_arguments(self) -> OrderedDict[Keyword, V2Argument]:
+        ...
+
+    @property
+    @abstractmethod
+    def subcommand_names_with_alias(self) -> list[SubcommandName]:
+        ...
+
+    @property
+    @abstractmethod
+    def keyword_names_with_alias(self) -> list[Keyword]:
+        ...
+
+    @property
+    @abstractmethod
+    def has_subcommands(self) -> bool:
+        ...
+
+    @property
+    @abstractmethod
+    def has_positional_arguments(self) -> bool:
+        ...
+
+    @property
+    @abstractmethod
+    def has_positional_wildcard_argument(self) -> bool:
+        ...
+
+    @property
+    @abstractmethod
+    def has_keyword_arguments(self) -> bool:
+        ...
+
+
+class V2PoristionalArgumentsCommand(_V2BaseCommand):
     arguments: Annotated[
-        OrderedDict[
-            Position | Literal["*"] | Keyword,
-            str | list[str] | V2Argument | None,
-        ],
+        OrderedDict[Position | Literal["*"] | Keyword, _InputArgument | None],
         Field(
             title="arguments of the command.",
             description=(
@@ -48,13 +105,6 @@ class V2PoristionalArgumentsCommand(Model):
             ),
         ),
     ]
-
-    @cached_property
-    def aliases(self) -> list[str]:
-        if isinstance(self.alias, str):
-            return [self.alias]
-        else:
-            return self.alias
 
     @property
     def subcommands(self) -> OrderedDict[SubcommandName, "V2Command"]:
@@ -112,27 +162,9 @@ class V2PoristionalArgumentsCommand(Model):
         return len(self.keyword_arguments) != 0
 
 
-class V2SubcommandsCommand(Model):
-    model_config = ConfigDict(arbitrary_types_allowed=True)
-
-    description: str | None = Field(
-        title="description of the command.",
-        default=None,
-    )
-
-    alias: Annotated[
-        str | list[str],
-        Field(
-            title="alias of the command.",
-            default_factory=list,
-        ),
-    ]
-
+class V2SubcommandsCommand(_V2BaseCommand):
     arguments: Annotated[
-        OrderedDict[
-            Keyword,
-            str | list[str] | V2Argument | None,
-        ],
+        OrderedDict[Keyword, _InputArgument | None],
         Field(
             title="arguments of the command.",
             description='argment key allow keyword string (like "--f", "-f") only.',
@@ -145,13 +177,6 @@ class V2SubcommandsCommand(Model):
         alias="subcommands",
         default_factory=OrderedDict,
     )
-
-    @cached_property
-    def aliases(self) -> list[str]:
-        if isinstance(self.alias, str):
-            return [self.alias]
-        else:
-            return self.alias
 
     @property
     def positional_arguments(self) -> OrderedDict[Position, V2Argument]:
@@ -213,9 +238,7 @@ class V2SubcommandsCommand(Model):
 V2Command = V2PoristionalArgumentsCommand | V2SubcommandsCommand
 
 
-def _convert_argument(
-    value: str | list[str] | V2Argument | None,
-) -> V2Argument:
+def _convert_argument(value: _InputArgument | None) -> V2Argument:
     match value:
         case str():
             return V2ValuesArgument(type="values", values=[value])

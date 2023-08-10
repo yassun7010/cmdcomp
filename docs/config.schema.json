@@ -430,6 +430,18 @@
         "V2PoristionalArgumentsCommand": {
             "additionalProperties": false,
             "properties": {
+                "description": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "description of the command."
+                },
                 "alias": {
                     "anyOf": [
                         {
@@ -443,18 +455,6 @@
                         }
                     ],
                     "title": "alias of the command."
-                },
-                "description": {
-                    "anyOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "title": "description of the command."
                 },
                 "arguments": {
                     "additionalProperties": {
