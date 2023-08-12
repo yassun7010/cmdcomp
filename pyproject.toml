@@ -2,10 +2,10 @@
 name = "cmdcomp"
 version = "2.1.0"
 description = "cmdcomp is a cli tool completion generator for shell."
-authors = ["Yasutanium <yassun4dev@outlook.com>"]
+authors = ["Yasutanium <yassun7010@outlook.com>"]
 readme = "README.md"
 license = "BSD-3-Clause"
-repository = "https://github.com/yassun4dev/cmdcomp"
+repository = "https://github.com/yassun7010/cmdcomp"
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Topic :: Software Development",

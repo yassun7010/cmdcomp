@@ -30,7 +30,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: yassun4dev/cmdcomp
+          images: yassun7010/cmdcomp
           tags: |
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
@@ -49,5 +49,5 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          repository: yassun4dev/cmdcomp
+          repository: yassun7010/cmdcomp
           enable-url-completion: true
