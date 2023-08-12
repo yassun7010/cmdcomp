@@ -6,16 +6,7 @@ from pydantic import Field
 
 from cmdcomp.exception import NeverReach
 from cmdcomp.model import Model
-
-
-class V2ValueArgument(Model):
-    value: Annotated[
-        str,
-        Field(title="value of the argument."),
-    ]
-
-    def __str__(self) -> str:
-        return self.value
+from cmdcomp.v2.command.argument.value_argument import V2ValueArgument
 
 
 class V2SelectArgument(Model):
