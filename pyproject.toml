@@ -18,7 +18,7 @@ classifiers = [
 ]
 
 [tool.poetry.scripts]
-cmdcomp = "cmdcomp.main:main"
+cmdcomp = "cmdcomp.__main__:main"
 
 [tool.taskipy.tasks]
 generate-json-schema = "python tasks/generate_json_schema.py > docs/config.schema.json"
