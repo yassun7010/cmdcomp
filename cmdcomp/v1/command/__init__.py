@@ -1,4 +1,4 @@
-from functools import cached_property, reduce
+from functools import reduce
 from operator import add
 from typing import Annotated, NewType, OrderedDict
 
@@ -9,6 +9,7 @@ from cmdcomp.model import Model
 from cmdcomp.v1.command.option import V1OptionType, V1SpecificOptions, V1StrOption
 from cmdcomp.v1.command.option.command_option import V1CommandOption
 from cmdcomp.v1.command.option.file_option import V1FileOption
+from cmdcomp.v2.mixin.has_alias import HasAlias
 
 V1SubcommandName = NewType("V1SubcommandName", str)
 
@@ -18,16 +19,16 @@ V1Candidates = list[V1Candidate] | list[dict[V1OptionType, str]]
 V1Completions = V1Candidates | dict[str, "V1Completions"]  # type: ignore
 
 
-class V1SubCommandsCommand(Model):
+class V1SubCommandsCommand(HasAlias, Model):
     """A command that can specify a subcommand."""
 
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
     alias: Annotated[
-        str | list[str],
+        str | list[str] | None,
         Field(
             title="alias of the command.",
-            default_factory=list,
+            default=None,
         ),
     ]
 
@@ -44,24 +45,17 @@ class V1SubCommandsCommand(Model):
         default_factory=OrderedDict,
     )
 
-    @cached_property
-    def aliases(self) -> list[str]:
-        if isinstance(self.alias, str):
-            return [self.alias]
-        else:
-            return self.alias
 
-
-class V1SpecificOptionsCommand(Model):
+class V1SpecificOptionsCommand(HasAlias, Model):
     """A command that can specify options."""
 
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
     alias: Annotated[
-        str | list[str],
+        str | list[str] | None,
         Field(
             title="alias of the command.",
-            default_factory=list,
+            default=None,
         ),
     ]
 
@@ -71,13 +65,6 @@ class V1SpecificOptionsCommand(Model):
             title="options of the command.",
         ),
     ]
-
-    @cached_property
-    def aliases(self) -> list[str]:
-        if isinstance(self.alias, str):
-            return [self.alias]
-        else:
-            return self.alias
 
 
 V1Command = V1SubCommandsCommand | V1SpecificOptionsCommand

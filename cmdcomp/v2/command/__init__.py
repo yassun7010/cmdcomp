@@ -10,6 +10,7 @@ from cmdcomp.v2.command.argument.select_argument import (
     V2SelectArgument,
     V2ValueArgument,
 )
+from cmdcomp.v2.mixin.has_alias import HasAlias
 
 from .argument import V2Argument
 
@@ -19,7 +20,7 @@ SubcommandName: TypeAlias = str
 _InputArgument = str | list[str] | V2Argument
 
 
-class _V2BaseCommand(Model, metaclass=ABCMeta):
+class _V2BaseCommand(HasAlias, Model, metaclass=ABCMeta):
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
     description: str | None = Field(
@@ -28,19 +29,12 @@ class _V2BaseCommand(Model, metaclass=ABCMeta):
     )
 
     alias: Annotated[
-        str | list[str],
+        str | list[str] | None,
         Field(
             title="alias of the command.",
-            default_factory=list,
+            default=None,
         ),
     ]
-
-    @cached_property
-    def aliases(self) -> list[str]:
-        if isinstance(self.alias, str):
-            return [self.alias]
-        else:
-            return self.alias
 
     @cached_property
     def subcommand_names_with_alias(self) -> list[SubcommandName]:

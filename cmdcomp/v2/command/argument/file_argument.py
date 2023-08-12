@@ -1,12 +1,12 @@
-from functools import cached_property
 from typing import Literal
 
 from pydantic import Field
 
 from cmdcomp.model import Model
+from cmdcomp.v2.mixin.has_alias import HasAlias
 
 
-class V2FileArgument(Model):
+class V2FileArgument(HasAlias, Model):
     type: Literal["file"]
 
     description: str | None = Field(
@@ -23,12 +23,3 @@ class V2FileArgument(Model):
         title="path of the directory from which to base filename completion.",
         default=None,
     )
-
-    @cached_property
-    def aliases(self) -> list[str]:
-        if isinstance(self.alias, str):
-            return [self.alias]
-        elif isinstance(self.alias, list):
-            return self.alias
-        else:
-            return []

@@ -1,12 +1,12 @@
-from functools import cached_property
 from typing import Literal
 
 from pydantic import Field
 
 from cmdcomp.model import Model
+from cmdcomp.v2.mixin.has_alias import HasAlias
 
 
-class V2FlagArgument(Model):
+class V2FlagArgument(HasAlias, Model):
     type: Literal["flag"]
 
     description: str | None = Field(
@@ -18,12 +18,3 @@ class V2FlagArgument(Model):
         title="alias of the argument.",
         default=None,
     )
-
-    @cached_property
-    def aliases(self) -> list[str]:
-        if isinstance(self.alias, str):
-            return [self.alias]
-        elif isinstance(self.alias, list):
-            return self.alias
-        else:
-            return []

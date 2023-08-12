@@ -18,8 +18,12 @@
                                 "type": "string"
                             },
                             "type": "array"
+                        },
+                        {
+                            "type": "null"
                         }
                     ],
+                    "default": null,
                     "title": "alias of the cli app name."
                 }
             },
@@ -128,8 +132,12 @@
                                 "type": "string"
                             },
                             "type": "array"
+                        },
+                        {
+                            "type": "null"
                         }
                     ],
+                    "default": null,
                     "title": "alias of the command."
                 },
                 "options": {
@@ -164,8 +172,12 @@
                                 "type": "string"
                             },
                             "type": "array"
+                        },
+                        {
+                            "type": "null"
                         }
                     ],
+                    "default": null,
                     "title": "alias of the command."
                 },
                 "options": {
@@ -221,8 +233,12 @@
                                 "type": "string"
                             },
                             "type": "array"
+                        },
+                        {
+                            "type": "null"
                         }
                     ],
+                    "default": null,
                     "title": "alias of the cli app name."
                 }
             },
@@ -452,8 +468,12 @@
                                 "type": "string"
                             },
                             "type": "array"
+                        },
+                        {
+                            "type": "null"
                         }
                     ],
+                    "default": null,
                     "title": "alias of the command."
                 },
                 "arguments": {
@@ -600,8 +620,12 @@
                                 "type": "string"
                             },
                             "type": "array"
+                        },
+                        {
+                            "type": "null"
                         }
                     ],
+                    "default": null,
                     "title": "alias of the command."
                 },
                 "arguments": {

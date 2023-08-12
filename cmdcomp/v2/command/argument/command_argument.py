@@ -1,12 +1,12 @@
-from functools import cached_property
 from typing import Annotated, Literal
 
 from pydantic import Field
 
 from cmdcomp.model import Model
+from cmdcomp.v2.mixin.has_alias import HasAlias
 
 
-class V2CommandArgument(Model):
+class V2CommandArgument(HasAlias, Model):
     """complete with the result of executing the command in the Shell command."""
 
     type: Literal["command"]
@@ -25,12 +25,3 @@ class V2CommandArgument(Model):
         str,
         Field(title="command to execute."),
     ]
-
-    @cached_property
-    def aliases(self) -> list[str]:
-        if isinstance(self.alias, str):
-            return [self.alias]
-        elif isinstance(self.alias, list):
-            return self.alias
-        else:
-            return []

@@ -7,9 +7,10 @@ from pydantic import Field
 from cmdcomp.exception import NeverReach
 from cmdcomp.model import Model
 from cmdcomp.v2.command.argument.value_argument import V2ValueArgument
+from cmdcomp.v2.mixin.has_alias import HasAlias
 
 
-class V2SelectArgument(Model):
+class V2SelectArgument(HasAlias, Model):
     type: Literal["select"]
 
     description: str | None = Field(
@@ -50,12 +51,3 @@ class V2SelectArgument(Model):
 
             case _:
                 raise NeverReach(self.raw_values)
-
-    @cached_property
-    def aliases(self) -> list[str]:
-        if isinstance(self.alias, str):
-            return [self.alias]
-        elif isinstance(self.alias, list):
-            return self.alias
-        else:
-            return []

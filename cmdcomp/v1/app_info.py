@@ -1,27 +1,20 @@
-from functools import cached_property
 from typing import Annotated
 
 from pydantic import Field
 
 from cmdcomp.model import Model
+from cmdcomp.v2.mixin.has_alias import HasAlias
 
 
-class V1AppInfo(Model):
+class V1AppInfo(HasAlias, Model):
     """your cli app info."""
 
     name: Annotated[str, Field(title="your cli app name.")]
 
     alias: Annotated[
-        str | list[str],
+        str | list[str] | None,
         Field(
             title="alias of the cli app name.",
-            default_factory=list,
+            default=None,
         ),
     ]
-
-    @cached_property
-    def aliases(self) -> list[str]:
-        if isinstance(self.alias, str):
-            return [self.alias]
-        else:
-            return self.alias
