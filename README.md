@@ -60,6 +60,12 @@ root:
     --config:
       type: file
       description: "config file."
+    --type:
+      type: select
+      description: "config file type."
+      values:
+        - json
+        - toml
     --help:
       type: flag
       description: "print help."
