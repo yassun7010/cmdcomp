@@ -1,12 +1,12 @@
 {
   "recommendations": [
     "ms-python.black-formatter",
-    "ms-python.flake8",
     "ms-python.isort",
     "ms-python.python",
     "ms-python.vscode-pylance",
     "samuelcolvin.jinjahtml",
     "redhat.vscode-yaml",
-    "tamasfe.even-better-toml"
+    "tamasfe.even-better-toml",
+    "charliermarsh.ruff"
   ]
 }

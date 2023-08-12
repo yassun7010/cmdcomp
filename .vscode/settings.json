@@ -16,25 +16,7 @@
     "python.analysis.importFormat": "absolute",
     "python.analysis.indexing": true,
     "python.analysis.typeCheckingMode": "basic",
-    "python.formatting.blackArgs": [
-        "--target-version",
-        "py310",
-        "--line-length",
-        "88"
-    ],
     "python.globalModuleInstallation": true,
-    "python.linting.enabled": true,
-    "python.linting.flake8Args": [
-        "--max-line-length",
-        "200",
-        "--ignore",
-        "E203",
-        "--extend-ignore",
-        "W503",
-    ],
-    "python.linting.flake8Enabled": true,
-    "python.linting.mypyEnabled": false,
-    "python.linting.pylintEnabled": false,
     "python.testing.pytestEnabled": true,
     "yaml.schemas": {
         "docs/config.schema.json": "samples/**/*.yaml",
