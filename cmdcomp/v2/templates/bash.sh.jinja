@@ -3,7 +3,7 @@
 
 {#- macro def -#}
 {%- macro argument_completion(argument) -%}
-{% if argument.type == "values" -%}
+{% if argument.type == "select" -%}
 if [ $cur -eq $COMP_CWORD ] ; then
   COMPREPLY=( $(compgen -W "{{ argument.values|map(attribute='value')|join(" ") }}" -- "$cur") )
 

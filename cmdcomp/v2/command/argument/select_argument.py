@@ -18,8 +18,8 @@ class V2ValueArgument(Model):
         return self.value
 
 
-class V2ValuesArgument(Model):
-    type: Literal["values"]  # NOTE: Perhaps it should have been "select."
+class V2SelectArgument(Model):
+    type: Literal["select"]
 
     description: str | None = Field(
         title="description of the argument.",

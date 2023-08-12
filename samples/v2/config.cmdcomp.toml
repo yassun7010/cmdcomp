@@ -24,7 +24,7 @@ type = "file"
 description = "config file."
 
 [root.arguments.--type]
-type = "values"
+type = "select"
 description = "config file type."
 values = ["json", "toml"]
 

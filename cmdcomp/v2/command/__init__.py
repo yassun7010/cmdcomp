@@ -6,9 +6,9 @@ from pydantic import ConfigDict, Field
 
 from cmdcomp.model import Model
 from cmdcomp.v2.command.argument.flag_argument import V2FlagArgument
-from cmdcomp.v2.command.argument.values_argument import (
+from cmdcomp.v2.command.argument.select_argument import (
+    V2SelectArgument,
     V2ValueArgument,
-    V2ValuesArgument,
 )
 
 from .argument import V2Argument
@@ -234,11 +234,11 @@ V2Command = V2PoristionalArgumentsCommand | V2SubcommandsCommand
 def _convert_argument(value: _InputArgument | None) -> V2Argument:
     match value:
         case str():
-            return V2ValuesArgument(type="values", raw_values=[value])
+            return V2SelectArgument(type="select", raw_values=[value])
 
         case list():
-            return V2ValuesArgument(
-                type="values",
+            return V2SelectArgument(
+                type="select",
                 raw_values=[V2ValueArgument(value=v) for v in value],
             )
 
