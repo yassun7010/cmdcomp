@@ -23,6 +23,11 @@ description = "print version."
 type = "file"
 description = "config file."
 
+[root.arguments.--type]
+type = "values"
+description = "config file type."
+values = ["json", "toml"]
+
 [root.arguments.--help]
 type = "flag"
 description = "print help."

@@ -234,12 +234,12 @@ V2Command = V2PoristionalArgumentsCommand | V2SubcommandsCommand
 def _convert_argument(value: _InputArgument | None) -> V2Argument:
     match value:
         case str():
-            return V2ValuesArgument(type="values", values=[value])
+            return V2ValuesArgument(type="values", raw_values=[value])
 
         case list():
             return V2ValuesArgument(
                 type="values",
-                values=[V2ValueArgument(value=v) for v in value],
+                raw_values=[V2ValueArgument(value=v) for v in value],
             )
 
         case None:

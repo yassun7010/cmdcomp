@@ -25,6 +25,7 @@ _cliname() {
         --no-verbose'[no verbose output.]' \
         {--version,-V}'[print version.]' \
         --config'[config file.]:file:_files' \
+        --type'[config file type.]:values:(json toml)' \
         --help'[print help.]' \
         '1: :_values "subcommand" ${__cliname_subcmds[@]}' \
         '*:: :->args' \

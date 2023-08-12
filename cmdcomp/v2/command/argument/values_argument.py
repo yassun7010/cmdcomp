@@ -19,7 +19,7 @@ class V2ValueArgument(Model):
 
 
 class V2ValuesArgument(Model):
-    type: Literal["values"]
+    type: Literal["values"]  # NOTE: Perhaps it should have been "select."
 
     description: str | None = Field(
         title="description of the argument.",
@@ -31,31 +31,34 @@ class V2ValuesArgument(Model):
         default=None,
     )
 
-    values: Annotated[
+    raw_values: Annotated[
         str | list[str | V2ValueArgument] | OrderedDict[str, str | V2ValueArgument],
-        Field(title="values of the argument."),
+        Field(
+            title="values of the argument.",
+            alias="values",
+        ),
     ]
 
     @cached_property
-    def items(self) -> list[V2ValueArgument]:
-        match self.values:
+    def values(self) -> list[V2ValueArgument]:
+        match self.raw_values:
             case str():
-                return [V2ValueArgument(value=self.values)]
+                return [V2ValueArgument(value=self.raw_values)]
 
             case list():
                 return [
                     v if isinstance(v, V2ValueArgument) else V2ValueArgument(value=v)
-                    for v in self.values
+                    for v in self.raw_values
                 ]
 
             case OrderedDict():
                 return [
                     V2ValueArgument(value=v) if isinstance(v, str) else v
-                    for v in self.values.values()
+                    for v in self.raw_values.values()
                 ]
 
             case _:
-                raise NeverReach(self.values)
+                raise NeverReach(self.raw_values)
 
     @cached_property
     def aliases(self) -> list[str]:

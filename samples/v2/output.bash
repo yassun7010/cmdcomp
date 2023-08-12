@@ -89,6 +89,16 @@ _cliname() {
             fi
             ;;
 
+          --type)
+            if [ $cur -eq $COMP_CWORD ] ; then
+              COMPREPLY=( $(compgen -W "json toml" -- "$cur") )
+
+              return 0
+            else
+              cmd_cur=$(( cmd_cur + 1 ))
+            fi
+            ;;
+
           --help)
             cmd_cur=$(( cmd_cur + 1 ))
             ;;
@@ -100,7 +110,7 @@ _cliname() {
       done
 
       if [[ ${COMP_WORDS[COMP_CWORD]} == -* ]] ; then
-        opts="--verbose --no-verbose --version -V --config --help"
+        opts="--verbose --no-verbose --version -V --config --type --help"
         COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
         return 0
       elif [ $cur -eq $COMP_CWORD ] ; then
