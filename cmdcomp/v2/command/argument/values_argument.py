@@ -34,7 +34,7 @@ class V2ValuesArgument(Model):
     raw_values: Annotated[
         str | list[str | V2ValueArgument] | OrderedDict[str, str | V2ValueArgument],
         Field(
-            title="values of the argument.",
+            title="candidate selection.",
             alias="values",
         ),
     ]

@@ -664,7 +664,7 @@
                             "type": "object"
                         }
                     ],
-                    "title": "values of the argument."
+                    "title": "candidate selection."
                 }
             },
             "required": [
