@@ -2,13 +2,14 @@ from abc import ABCMeta, abstractmethod
 from functools import cached_property
 from typing import Annotated, Literal, OrderedDict, TypeAlias
 
+from pydantic import ConfigDict, Field
+
 from cmdcomp.model import Model
 from cmdcomp.v2.command.argument.flag_argument import V2FlagArgument
 from cmdcomp.v2.command.argument.values_argument import (
     V2ValueArgument,
     V2ValuesArgument,
 )
-from pydantic import ConfigDict, Field
 
 from .argument import V2Argument
 
@@ -41,6 +42,24 @@ class _V2BaseCommand(Model, metaclass=ABCMeta):
         else:
             return self.alias
 
+    @cached_property
+    def subcommand_names_with_alias(self) -> list[SubcommandName]:
+        result: list[SubcommandName] = []
+        for subcommand_name, subcommand in self.subcommands.items():
+            result.append(subcommand_name)
+            result.extend(subcommand.aliases)
+
+        return result
+
+    @cached_property
+    def keyword_names_with_alias(self) -> list[Keyword]:
+        result: list[Keyword] = []
+        for keyword, argument in self.keyword_arguments.items():
+            result.append(keyword)
+            result.extend(argument.aliases)
+
+        return result
+
     @property
     @abstractmethod
     def subcommands(self) -> OrderedDict[SubcommandName, "V2Command"]:
@@ -59,16 +78,6 @@ class _V2BaseCommand(Model, metaclass=ABCMeta):
     @property
     @abstractmethod
     def keyword_arguments(self) -> OrderedDict[Keyword, V2Argument]:
-        ...
-
-    @property
-    @abstractmethod
-    def subcommand_names_with_alias(self) -> list[SubcommandName]:
-        ...
-
-    @property
-    @abstractmethod
-    def keyword_names_with_alias(self) -> list[Keyword]:
         ...
 
     @property
@@ -137,14 +146,6 @@ class V2PoristionalArgumentsCommand(_V2BaseCommand):
             ]
         )
 
-    @cached_property
-    def subcommand_names_with_alias(self) -> list[SubcommandName]:
-        return _subcommand_names_with_alias(self)
-
-    @cached_property
-    def keyword_names_with_alias(self) -> list[Keyword]:
-        return _keyword_names_with_alias(self)
-
     @property
     def has_subcommands(self) -> bool:
         return False
@@ -210,14 +211,6 @@ class V2SubcommandsCommand(_V2BaseCommand):
             ]
         )
 
-    @cached_property
-    def subcommand_names_with_alias(self) -> list[SubcommandName]:
-        return _subcommand_names_with_alias(self)
-
-    @cached_property
-    def keyword_names_with_alias(self) -> list[Keyword]:
-        return _keyword_names_with_alias(self)
-
     @property
     def has_subcommands(self) -> bool:
         return len(self.subcommands) != 0
@@ -254,21 +247,3 @@ def _convert_argument(value: _InputArgument | None) -> V2Argument:
 
         case _:
             return value
-
-
-def _subcommand_names_with_alias(command: V2Command) -> list[SubcommandName]:
-    result: list[SubcommandName] = []
-    for subcommand_name, subcommand in command.subcommands.items():
-        result.append(subcommand_name)
-        result.extend(subcommand.aliases)
-
-    return result
-
-
-def _keyword_names_with_alias(command: V2Command) -> list[Keyword]:
-    result: list[Keyword] = []
-    for keyword, argument in command.keyword_arguments.items():
-        result.append(keyword)
-        result.extend(argument.aliases)
-
-    return result
