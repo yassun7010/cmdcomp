@@ -3,6 +3,7 @@ from functools import cached_property
 from typing import Annotated, Literal, OrderedDict, TypeAlias
 
 from pydantic import ConfigDict, Field
+from typing_extensions import override
 
 from cmdcomp.model import Model
 from cmdcomp.v2.command.argument.flag_argument import V2FlagArgument
@@ -110,10 +111,12 @@ class V2PoristionalArgumentsCommand(_V2BaseCommand):
     ]
 
     @property
+    @override
     def subcommands(self) -> OrderedDict[SubcommandName, "V2Command"]:
         return OrderedDict()
 
     @cached_property
+    @override
     def positional_arguments(self) -> OrderedDict[Position, V2Argument]:
         return OrderedDict(
             [
@@ -124,6 +127,7 @@ class V2PoristionalArgumentsCommand(_V2BaseCommand):
         )
 
     @cached_property
+    @override
     def positional_wildcard_argument(self) -> V2Argument | None:
         if "*" in self.arguments:
             return _convert_argument(self.arguments["*"])
@@ -131,6 +135,7 @@ class V2PoristionalArgumentsCommand(_V2BaseCommand):
             return None
 
     @cached_property
+    @override
     def keyword_arguments(self) -> OrderedDict[Keyword, V2Argument]:
         return OrderedDict(
             [
@@ -141,18 +146,22 @@ class V2PoristionalArgumentsCommand(_V2BaseCommand):
         )
 
     @property
+    @override
     def has_subcommands(self) -> bool:
         return False
 
     @property
+    @override
     def has_positional_arguments(self) -> bool:
         return len(self.positional_arguments) != 0
 
     @property
+    @override
     def has_positional_wildcard_argument(self) -> bool:
         return self.positional_wildcard_argument is not None
 
     @property
+    @override
     def has_keyword_arguments(self) -> bool:
         return len(self.keyword_arguments) != 0
 
@@ -174,14 +183,17 @@ class V2SubcommandsCommand(_V2BaseCommand):
     )
 
     @property
+    @override
     def positional_arguments(self) -> OrderedDict[Position, V2Argument]:
         return OrderedDict()
 
     @property
+    @override
     def positional_wildcard_argument(self) -> V2Argument | None:
         return None
 
     @cached_property
+    @override
     def keyword_arguments(self) -> OrderedDict[Keyword, V2Argument]:
         return OrderedDict(
             [
@@ -192,6 +204,7 @@ class V2SubcommandsCommand(_V2BaseCommand):
         )
 
     @cached_property
+    @override
     def subcommands(self) -> OrderedDict[SubcommandName, "V2Command"]:
         return OrderedDict(
             [
@@ -206,18 +219,22 @@ class V2SubcommandsCommand(_V2BaseCommand):
         )
 
     @property
+    @override
     def has_subcommands(self) -> bool:
         return len(self.subcommands) != 0
 
     @property
+    @override
     def has_positional_arguments(self) -> bool:
         return False
 
     @property
+    @override
     def has_positional_wildcard_argument(self) -> bool:
         return self.positional_wildcard_argument is not None
 
     @property
+    @override
     def has_keyword_arguments(self) -> bool:
         return len(self.keyword_arguments) != 0
 
