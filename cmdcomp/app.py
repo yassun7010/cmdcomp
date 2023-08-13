@@ -23,6 +23,12 @@ class App:
         )
 
         parser.add_argument(
+            "--verbose",
+            action=BooleanOptionalAction,
+            help="output verbose log.",
+        )
+
+        parser.add_argument(
             "--file",
             "-f",
             required=True,
@@ -43,12 +49,6 @@ class App:
             "-o",
             type=FileType("w"),
             help="output file (Default=stdout).",
-        )
-
-        parser.add_argument(
-            "--verbose",
-            action=BooleanOptionalAction,
-            help="output verbose log.",
         )
 
         space = parser.parse_args(args)
