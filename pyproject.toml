@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "cmdcomp"
 version = "2.2.0"
-description = "cmdcomp is a cli tool completion generator for shell."
+description = "ShellScript completion generator tool."
 authors = ["Yasutanium <yassun7010@outlook.com>"]
 readme = "README.md"
 license = "BSD-3-Clause"

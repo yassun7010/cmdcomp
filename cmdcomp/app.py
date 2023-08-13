@@ -13,7 +13,7 @@ class App:
     def run(cls, args: list[str] | None = None) -> None:
         parser = ArgumentParser(
             prog="cmdcomp",
-            description="A command-line tool for comparing commands.",
+            description="ShellScript completion generator tool.",
         )
 
         parser.add_argument(
