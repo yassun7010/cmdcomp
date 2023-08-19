@@ -18,7 +18,7 @@
 {#- macro def -#}
 {%- macro contents(arg_name, argument) -%}
   {%- if argument.type == 'select' -%}
-          :values:{{ "(" + argument.values|map(attribute='value')|join(" ") + ")" }}
+          :values:{{ "(" + argument.values|join(" ") + ")" }}
   {%- elif argument.type == 'file' -%}
           :file:_files{%- if argument.base_path is not none %} -W "{{ argument.base_path }}"{%- endif -%}
   {%- elif argument.type == 'command' -%}
