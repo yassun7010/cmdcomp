@@ -24,7 +24,7 @@ class V2SelectArgument(HasAlias, Model):
     )
 
     raw_values: Annotated[
-        str | list[str | V2ValueArgument] | OrderedDict[str, str | V2ValueArgument],
+        list[str | V2ValueArgument] | OrderedDict[str, str | V2ValueArgument],
         Field(
             title="candidate selection.",
             alias="values",

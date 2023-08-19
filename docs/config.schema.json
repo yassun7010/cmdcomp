@@ -556,9 +556,6 @@
                 "values": {
                     "anyOf": [
                         {
-                            "type": "string"
-                        },
-                        {
                             "items": {
                                 "anyOf": [
                                     {
