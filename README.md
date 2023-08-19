@@ -12,7 +12,8 @@
     </a>
 </p>
 
-`cmdcomp` generate shell completion file (`bash` or `zsh`) from config `json`/`yaml`/`toml` file.
+`cmdcomp` generate shell completion file (`bash` or `zsh`) from config
+`json`/`yaml`/`toml` file.
 
 ## Install
 
@@ -20,9 +21,14 @@
 pip install cmdcomp
 ```
 
+## Help
+
+See documentation for more details.
+
 ## Usage
 
 ### Local
+
 ```shell
 cmdcomp --file ${YOUR_CONFIG_FILE} --shell-type bash
 ```
