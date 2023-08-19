@@ -1,8 +1,10 @@
 import json
 import os
 import tomllib
-from typing import BinaryIO
+from io import StringIO
+from typing import IO
 
+import jinja2
 import yaml
 from pydantic import RootModel
 
@@ -17,8 +19,8 @@ class Config(RootModel):
     root: V1Config | V2Config
 
 
-def load(file: BinaryIO) -> Config:
-    _, extension = os.path.splitext(file.name)
+def load(file: IO) -> Config:
+    root, extension = os.path.splitext(file.name)
     match extension:
         case ".json":
             data = json.load(file)
@@ -28,6 +30,12 @@ def load(file: BinaryIO) -> Config:
 
         case ".toml":
             data = tomllib.load(file)
+
+        case ".jinja" | "jinja2" | ".j2":
+            data = StringIO(jinja2.Template(file.read()).render(os.environ))
+            data.name = root
+
+            return load(data)
 
         case _:
             raise ConfigFileExtensionError(extension)
