@@ -7,10 +7,7 @@ from typing_extensions import override
 
 from cmdcomp.model import Model
 from cmdcomp.v2.command.argument.flag_argument import V2FlagArgument
-from cmdcomp.v2.command.argument.select_argument import (
-    V2SelectArgument,
-    V2ValueArgument,
-)
+from cmdcomp.v2.command.argument.select_argument import V2SelectArgument
 from cmdcomp.v2.mixin.has_alias import HasAlias
 
 from .argument import V2Argument
@@ -250,7 +247,7 @@ def _convert_argument(value: _InputArgument | None) -> V2Argument:
         case list():
             return V2SelectArgument(
                 type="select",
-                raw_values=[V2ValueArgument(value=v) for v in value],
+                raw_values=[v for v in value],
             )
 
         case None:
