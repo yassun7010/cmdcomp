@@ -19,7 +19,7 @@
     "python.globalModuleInstallation": true,
     "python.testing.pytestEnabled": true,
     "yaml.schemas": {
-        "docs/config.schema.json": "samples/**/*.yaml",
+        "docs/config.schema.json": ["samples/**/*.yaml", "tests/data/config/*.yaml"],
     },
     "[python]": {
         "editor.codeActionsOnSave": {
