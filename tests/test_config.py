@@ -1,7 +1,10 @@
 from io import StringIO
 from textwrap import dedent
 
+import pytest
+
 from cmdcomp.config import load
+from tests.conftest import DATA_DIR
 
 
 def make_file(filename: str, contents: str) -> StringIO:
@@ -32,3 +35,7 @@ class TestConfig:
         )
 
         assert config.root.app.name == "mycli"
+
+    @pytest.mark.parametrize("config_file", (DATA_DIR / "config").iterdir())
+    def test_config_file(self, config_file):
+        load(config_file.open())

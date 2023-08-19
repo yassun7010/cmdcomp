@@ -1,0 +1,11 @@
+cmdcomp:
+  version: "2"
+app:
+  name: mycli
+root:
+  arguments:
+    --format:
+      type: select
+      description: "Output format"
+      values: [csv, json, yaml]
+    --help:
