@@ -7,6 +7,9 @@
     "samuelcolvin.jinjahtml",
     "redhat.vscode-yaml",
     "tamasfe.even-better-toml",
-    "charliermarsh.ruff"
+    "charliermarsh.ruff",
+  ],
+  "unwantedRecommendations": [
+    "ms-python.flake8",
   ]
 }
