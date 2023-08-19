@@ -1,3 +1,5 @@
 from pathlib import Path
 
-SAMPLES_DIR = Path(__file__).parent.parent / "samples"
+TEST_DIR = Path(__file__).parent
+SAMPLES_DIR = TEST_DIR.parent / "samples"
+DATA_DIR = TEST_DIR / "data"

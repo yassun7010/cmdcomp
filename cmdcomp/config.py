@@ -23,21 +23,25 @@ def load(file: IO) -> Config:
     root, extension = os.path.splitext(file.name)
     match extension:
         case ".json":
-            data = json.load(file)
+            config = json.load(file)
 
         case ".yaml" | ".yml":
-            data = yaml.full_load(file)
+            config = yaml.full_load(file)
 
         case ".toml":
-            data = tomllib.load(file)
+            config = tomllib.load(file)
 
         case ".jinja" | "jinja2" | ".j2":
-            data = StringIO(jinja2.Template(file.read()).render(os.environ))
-            data.name = root
+            data: bytes | str = file.read()
+            if isinstance(data, bytes):
+                data = data.decode("utf-8")
 
-            return load(data)
+            file = StringIO(jinja2.Template(data).render(os.environ))
+            file.name = root
+
+            return load(file)
 
         case _:
             raise ConfigFileExtensionError(extension)
 
-    return Config.model_validate(data)
+    return Config.model_validate(config)
