@@ -39,19 +39,19 @@ template: |
 autolabeler:
   - label: enhancement
     branch:
-      - "/^feat(ure)?[/-].+/"
+      - "/^feat(ure)?[/-_].+/"
   - label: bug
     branch:
-      - "/^fix[/-].+/"
+      - "/^fix[/-_].+/"
   - label: emergency
     branch:
-      - "/^hotfix[/-].+/"
+      - "/^hotfix[/-_].+/"
   - label: test
     branch:
-      - "/^test[/-].+/"
+      - "/^test[/-_].+/"
   - label: refactor
     branch:
-      - "/^refactor[/-].+/"
+      - "/^refactor[/-_].+/"
   - label: documentation
     branch:
-      - "/^doc[/-].+/"
+      - "/^doc[/-_].+/"
