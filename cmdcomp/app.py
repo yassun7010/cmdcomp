@@ -33,7 +33,7 @@ class App:
             "-f",
             required=True,
             type=FileType("rb"),
-            help="config file ('.json', '.yaml', '.toml' support).",
+            help="config file ('.json', '.yaml', '.toml', '.jinja2' support).",
         )
 
         parser.add_argument(
