@@ -6,13 +6,13 @@ The complete configuration items are as follows.
 === "yaml"
 
     ```yaml
-    --8<- "v2_app_info/v2_app_info.yaml"
+    --8<-- "docs/data/v2_app_info/v2_app_info.yaml"
     ```
 
 === "toml"
 
     ```toml
-    --8<- "v2_app_info/v2_app_info.toml"
+    --8<-- "docs/data/v2_app_info/v2_app_info.toml"
     ```
 
 | Property | Type                    | Description     |
