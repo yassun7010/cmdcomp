@@ -47,6 +47,12 @@
     "[markdown]": {
         "files.trimTrailingWhitespace": false
     },
+    "[json]": {
+        "editor.tabSize": 4
+    },
+    "[yaml]": {
+        "editor.tabSize": 2
+    },
     "files.associations": {
         "*.sh.jinja": "jinja-shell"
     },

@@ -12,7 +12,7 @@
     </a>
 </p>
 
-[cmdcomp](./) generate command shell completion file from config file.
+[cmdcomp](index.md) generate command shell completion file from config file.
 
 ## Features
 

@@ -38,5 +38,5 @@ class TestConfig:
 
     @pytest.mark.parametrize("config_file", (DATA_DIR / "config").iterdir())
     def test_config_file(self, config_file):
-        with open(config_file) as file:
+        with open(config_file, "rb") as file:
             load(file)

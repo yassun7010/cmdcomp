@@ -9,34 +9,13 @@ If you want to choise several candidates, use `select` type argument.
 === "yaml"
 
     ```yaml
-    cmdcomp:
-      version: "2"
-    app:
-      name: mycli
-    root:
-      arguments:
-        --format:
-          type: select
-          description: output format.
-          values:
-            - json
-            - yaml
-            - toml
+    --8<-- "config/config_v2_select_argument.yaml"
     ```
 
 === "toml"
 
     ```toml
-    [cmdcomp]
-    version = "2"
-
-    [app]
-    name = "mycli"
-
-    [root.arguments.--format]
-    type = "select"
-    description = "output format."
-    values = ["json", "yaml", "toml"]
+    --8<-- "config/config_v2_select_argument.toml"
     ```
 
 ## File Argument
@@ -47,29 +26,13 @@ type is recommended.
 === "yaml"
 
     ```yaml
-    cmdcomp:
-      version: "2"
-    app:
-      name: mycli
-    root:
-      arguments:
-        --output:
-          type: file
-          description: output filename.
+    --8<-- "config/config_v2_file_argument.yaml"
     ```
 
 === "toml"
 
     ```toml
-    [cmdcomp]
-    version = "2"
-
-    [app]
-    name = "mycli"
-
-    [root.arguments.--output]
-    type = "file"
-    description = "output filename."
+    --8<-- "config/config_v2_file_argument.toml"
     ```
 
 By default, it outputs completion candidates starting from the current directory
@@ -79,31 +42,13 @@ of the shell, but you can change the starting directory by specifying
 === "yaml"
 
     ```yaml
-    cmdcomp:
-      version: "2"
-    app:
-      name: mycli
-    root:
-      arguments:
-        --list:
-          type: file
-          description: list my command targets.
-          base_path: $HOME/.mycmd/targets
+    --8<-- "config/config_v2_file_argument_with_base_path.yaml"
     ```
 
 === "toml"
 
     ```toml
-    [cmdcomp]
-      version = "2"
-
-    [app]
-    name = "mycli"
-
-    [root.arguments.--list]
-    type = "file"
-    description = "list my command targets."
-    base_path = "$HOME/.mycmd/targets"
+    --8<-- "config/config_v2_file_argument_with_base_path.toml"
     ```
 
 For more complex conditions, such as outputting only files with a specific file
@@ -117,29 +62,11 @@ use the `command` type.
 === "yaml"
 
     ```yaml
-    cmdcomp:
-      version: "2"
-    app:
-      name: mycli
-    root:
-      arguments:
-        --start-date:
-          type: command
-          description: start date.
-          execute: date +%Y-%m-%d
+    --8<-- "config/config_v2_command_argument.yaml"
     ```
 
 === "toml"
 
     ```toml
-    [cmdcomp]
-    version = "2"
-
-    [app]
-    name = "mycli"
-
-    [root.arguments.--start-date]
-    type = "command"
-    description = "start date."
-    execute = "date +%Y-%m-%d"
+    --8<-- "config/config_v2_command_argument.toml"
     ```
