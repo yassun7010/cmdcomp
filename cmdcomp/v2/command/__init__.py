@@ -26,13 +26,10 @@ class _V2BaseCommand(HasAlias, Model, metaclass=ABCMeta):
         default=None,
     )
 
-    alias: Annotated[
-        str | list[str] | None,
-        Field(
-            title="alias of the command.",
-            default=None,
-        ),
-    ]
+    alias: str | list[str] | None = Field(
+        title="alias of the command.",
+        default=None,
+    )
 
     @cached_property
     def subcommand_names_with_alias(self) -> list[SubcommandName]:

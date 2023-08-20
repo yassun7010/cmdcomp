@@ -24,13 +24,10 @@ class V1SubCommandsCommand(HasAlias, Model):
 
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
-    alias: Annotated[
-        str | list[str] | None,
-        Field(
-            title="alias of the command.",
-            default=None,
-        ),
-    ]
+    alias: str | list[str] | None = Field(
+        title="alias of the command.",
+        default=None,
+    )
 
     options: Annotated[
         V1StrOption | list[V1StrOption],
@@ -51,13 +48,10 @@ class V1SpecificOptionsCommand(HasAlias, Model):
 
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
-    alias: Annotated[
-        str | list[str] | None,
-        Field(
-            title="alias of the command.",
-            default=None,
-        ),
-    ]
+    alias: str | list[str] | None = Field(
+        title="alias of the command.",
+        default=None,
+    )
 
     options: Annotated[
         V1SpecificOptions,
