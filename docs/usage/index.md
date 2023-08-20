@@ -21,7 +21,7 @@ the configuration file.
 The overall structure of the configuration file is shown below.
 
 ```yaml
---8<-- "config_jinja/v2_config_structure.yaml.jinja"
+--8<-- "jinja/v2_config_structure.yaml.jinja"
 ```
 
 More detailed information is given in the next section.

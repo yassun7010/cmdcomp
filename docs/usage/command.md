@@ -6,22 +6,17 @@ The complete configuration items are as follows.
 
 The overall structure of the [Command](#command) is shown below.
 
-```yaml
-description: command description.
-alias: my-cmd
-arguments:
-  1:
-    {{ Argument }}
-  --help:
-    {{ Argument }}
-  *:
-    {{ Argument }}
-subcommands:
-  list:
-    {{ Command }}
-  run:
-    {{ Command }}
-```
+=== "Use positional arguments"
+
+    ```yaml
+    --8<-- "jinja/v2_positional_arguments_command_structure.yaml.jinja"
+    ```
+
+=== "Use subcommands"
+
+    ```yaml
+    --8<-- "jinja/v2_subcommands_command_structure.yaml.jinja"
+    ```
 
 | Property    | Type                              | Description          |
 | ----------- | --------------------------------- | -------------------- |
