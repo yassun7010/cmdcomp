@@ -23,7 +23,7 @@ pip install cmdcomp
 
 ## Help
 
-See documentation for more details.
+See [documentation](https://yassun7010.github.io/cmdcomp/) for more details.
 
 ## Usage
 
