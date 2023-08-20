@@ -19,7 +19,7 @@ class Config(RootModel):
     root: V1Config | V2Config
 
 
-def load(file: IO) -> Config:
+def load(file: IO, **kwargs) -> Config:
     root, extension = os.path.splitext(file.name)
     match extension:
         case ".json":
@@ -36,7 +36,7 @@ def load(file: IO) -> Config:
             if isinstance(data, bytes):
                 data = data.decode("utf-8")
 
-            file = StringIO(jinja2.Template(data).render(os.environ))
+            file = StringIO(jinja2.Template(data).render(os.environ, **kwargs))
             file.name = root
 
             return load(file)
