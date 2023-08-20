@@ -3,8 +3,8 @@
 <!-- --8<-- [start:badges] -->
 [![docs](https://github.com/yassun7010/cmdcomp/actions/workflows/publish-mkdocs.yml/badge.svg)](https://yassun7010.github.io/cmdcomp/)
 [![test](https://github.com/yassun7010/cmdcomp/actions/workflows/test-suite.yml/badge.svg)](https://github.com/yassun7010/cmdcomp/actions)
-[![pypi](https://badge.fury.io/py/cmdcomp.svg)](https://pypi.org/project/cmdcomp)
-[![docker](https://img.shields.io/docker/v/yassun7010/cmdcomp/latest?label=docker%20version)](https://hub.docker.com/r/yassun7010/cmdcomp)
+[![pypi package](https://badge.fury.io/py/cmdcomp.svg)](https://pypi.org/project/cmdcomp)
+[![docker version](https://img.shields.io/docker/v/yassun7010/cmdcomp/latest?label=docker%20version)](https://hub.docker.com/r/yassun7010/cmdcomp)
 <!-- --8<-- [end:badges] -->
 
 
