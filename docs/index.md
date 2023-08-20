@@ -1,6 +1,6 @@
-# Cmdcomp
+# Welcome cmdcomp
 
-<p align="center">
+<p>
     <a href="https://github.com/yassun7010/cmdcomp/actions">
         <img src="https://github.com/yassun7010/cmdcomp/actions/workflows/test-suite.yml/badge.svg" alt="Test Suite">
     </a>
@@ -12,7 +12,7 @@
     </a>
 </p>
 
-Cmdcomp generate shell completion file from config file.
+[cmdcomp](./) generate command shell completion file from config file.
 
 ## Features
 
