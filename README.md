@@ -1,14 +1,17 @@
 # Command Completion Generator Tool
 
 <p align="center">
+    <a href="https://yassun7010.github.io/cmdcomp/">
+        <img src="https://github.com/yassun7010/cmdcomp/actions/workflows/publish-mkdocs.yml/badge.svg" alt="doc">
+    </a>
     <a href="https://github.com/yassun7010/cmdcomp/actions">
-        <img src="https://github.com/yassun7010/cmdcomp/actions/workflows/test-suite.yml/badge.svg" alt="Test Suite">
+        <img src="https://github.com/yassun7010/cmdcomp/actions/workflows/test-suite.yml/badge.svg" alt="test">
     </a>
     <a href="https://pypi.org/project/cmdcomp">
-        <img src="https://badge.fury.io/py/cmdcomp.svg" alt="PIP Version">
+        <img src="https://badge.fury.io/py/cmdcomp.svg" alt="pypi">
     </a>
     <a href="https://hub.docker.com/r/yassun7010/cmdcomp">
-        <img src="https://img.shields.io/docker/v/yassun7010/cmdcomp/latest?label=docker%20version" alt="Docker Version">
+        <img src="https://img.shields.io/docker/v/yassun7010/cmdcomp/latest?label=docker%20version" alt="docker">
     </a>
 </p>
 
