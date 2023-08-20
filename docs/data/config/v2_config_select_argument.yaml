@@ -6,6 +6,8 @@ root:
   arguments:
     --format:
       type: select
-      description: "Output format"
-      values: [csv, json, yaml]
-    --help:
+      description: output format.
+      values:
+        - json
+        - yaml
+        - toml

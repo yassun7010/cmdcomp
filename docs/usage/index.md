@@ -10,20 +10,7 @@ cmdcmp --file config.yaml --shell-type bash
 
 ```shell title="Help"
 $ cmdcomp --help
-usage: cmdcomp [-h] [--version] [--verbose | --no-verbose] --file FILE --shell-type {bash,zsh} [--output-file OUTPUT_FILE]
-
-shell completion file generator.
-
-options:
-  -h, --help            show this help message and exit
-  --version             show program's version number and exit
-  --verbose, --no-verbose
-                        output verbose log.
-  --file FILE, -f FILE  config file ('.json', '.yaml', '.toml', '.jinja2' support).
-  --shell-type {bash,zsh}
-                        target shell type.
-  --output-file OUTPUT_FILE, -o OUTPUT_FILE
-                        output file (Default=stdout).
+--8<-- "help.txt"
 ```
 
 ## Config
@@ -34,12 +21,7 @@ the configuration file.
 The overall structure of the configuration file is shown below.
 
 ```yaml
-cmdcomp:
-  version: "2"
-app:
-  {{ App }}
-root:
-  {{ Command }}
+--8<-- "jinja/v2_config_structure.yaml.jinja"
 ```
 
 More detailed information is given in the next section.

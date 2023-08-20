@@ -19,7 +19,11 @@
     "python.globalModuleInstallation": true,
     "python.testing.pytestEnabled": true,
     "yaml.schemas": {
-        "docs/config.schema.json": ["samples/**/*.yaml", "tests/data/config/*.yaml"],
+        "docs/config.schema.json": [
+            "samples/**/*.yaml",
+            "tests/data/config/*.yaml",
+            "docs/data/config/**/*.yaml",
+        ],
     },
     "yaml.customTags": [
         "!ENV scalar",
@@ -46,6 +50,12 @@
     },
     "[markdown]": {
         "files.trimTrailingWhitespace": false
+    },
+    "[json]": {
+        "editor.tabSize": 4
+    },
+    "[yaml]": {
+        "editor.tabSize": 2
     },
     "files.associations": {
         "*.sh.jinja": "jinja-shell"
