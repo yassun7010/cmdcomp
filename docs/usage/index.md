@@ -10,7 +10,7 @@ cmdcmp --file config.yaml --shell-type bash
 
 ```shell title="Help"
 $ cmdcomp --help
---8<-- "help.txt"
+--8<-- "docs/data/help.txt"
 ```
 
 ## Config
@@ -21,7 +21,7 @@ the configuration file.
 The overall structure of the configuration file is shown below.
 
 ```yaml
---8<-- "jinja/v2_config_structure.yaml.jinja"
+--8<-- "docs/data/jinja/v2_config_structure.yaml.jinja"
 ```
 
 More detailed information is given in the next section.

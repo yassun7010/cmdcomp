@@ -9,13 +9,13 @@ The overall structure of the [Command](#command) is shown below.
 === "Use positional arguments"
 
     ```yaml
-    --8<-- "jinja/v2_positional_arguments_command_structure.yaml.jinja"
+    --8<-- "docs/data/jinja/v2_positional_arguments_command_structure.yaml.jinja"
     ```
 
 === "Use subcommands"
 
     ```yaml
-    --8<-- "jinja/v2_subcommands_command_structure.yaml.jinja"
+    --8<-- "docs/data/jinja/v2_subcommands_command_structure.yaml.jinja"
     ```
 
 | Property    | Type                              | Description          |

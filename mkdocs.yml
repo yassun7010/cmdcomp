@@ -47,7 +47,6 @@ markdown_extensions:
   - admonition
   - pymdownx.details
   - pymdownx.snippets:
-      base_path: docs/data
   - pymdownx.superfences
   - pymdownx.highlight:
       anchor_linenums: true

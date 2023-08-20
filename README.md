@@ -1,19 +1,12 @@
 # Command Completion Generator Tool
 
-<p align="center">
-    <a href="https://yassun7010.github.io/cmdcomp/">
-        <img src="https://github.com/yassun7010/cmdcomp/actions/workflows/publish-mkdocs.yml/badge.svg" alt="doc">
-    </a>
-    <a href="https://github.com/yassun7010/cmdcomp/actions">
-        <img src="https://github.com/yassun7010/cmdcomp/actions/workflows/test-suite.yml/badge.svg" alt="test">
-    </a>
-    <a href="https://pypi.org/project/cmdcomp">
-        <img src="https://badge.fury.io/py/cmdcomp.svg" alt="pypi">
-    </a>
-    <a href="https://hub.docker.com/r/yassun7010/cmdcomp">
-        <img src="https://img.shields.io/docker/v/yassun7010/cmdcomp/latest?label=docker%20version" alt="docker">
-    </a>
-</p>
+<!-- --8<-- [start:badges] -->
+[![docs](https://github.com/yassun7010/cmdcomp/actions/workflows/publish-mkdocs.yml/badge.svg)](https://yassun7010.github.io/cmdcomp/)
+[![test](https://github.com/yassun7010/cmdcomp/actions/workflows/test-suite.yml/badge.svg)](https://github.com/yassun7010/cmdcomp/actions)
+[![pypi](https://badge.fury.io/py/cmdcomp.svg)](https://pypi.org/project/cmdcomp)
+[![docker](https://img.shields.io/docker/v/yassun7010/cmdcomp/latest?label=docker%20version)](https://hub.docker.com/r/yassun7010/cmdcomp)
+<!-- --8<-- [end:badges] -->
+
 
 `cmdcomp` generate command shell completion file (`bash` or `zsh`) from config
 `json`/`yaml`/`toml` file.

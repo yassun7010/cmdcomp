@@ -9,13 +9,13 @@ If you want to choise several candidates, use `select` type argument.
 === "yaml"
 
     ```yaml
-    --8<-- "config/v2_config_select_argument.yaml"
+    --8<-- "docs/data/config/v2_config_select_argument.yaml"
     ```
 
 === "toml"
 
     ```toml
-    --8<-- "config/v2_config_select_argument.toml"
+    --8<-- "docs/data/config/v2_config_select_argument.toml"
     ```
 
 ## File Argument
@@ -26,13 +26,13 @@ type is recommended.
 === "yaml"
 
     ```yaml
-    --8<-- "config/v2_config_file_argument.yaml"
+    --8<-- "docs/data/config/v2_config_file_argument.yaml"
     ```
 
 === "toml"
 
     ```toml
-    --8<-- "config/v2_config_file_argument.toml"
+    --8<-- "docs/data/config/v2_config_file_argument.toml"
     ```
 
 By default, it outputs completion candidates starting from the current directory
@@ -42,13 +42,13 @@ of the shell, but you can change the starting directory by specifying
 === "yaml"
 
     ```yaml
-    --8<-- "config/v2_config_file_argument_with_base_path.yaml"
+    --8<-- "docs/data/config/v2_config_file_argument_with_base_path.yaml"
     ```
 
 === "toml"
 
     ```toml
-    --8<-- "config/v2_config_file_argument_with_base_path.toml"
+    --8<-- "docs/data/config/v2_config_file_argument_with_base_path.toml"
     ```
 
 For more complex conditions, such as outputting only files with a specific file
@@ -62,11 +62,11 @@ use the `command` type.
 === "yaml"
 
     ```yaml
-    --8<-- "config/v2_config_command_argument.yaml"
+    --8<-- "docs/data/config/v2_config_command_argument.yaml"
     ```
 
 === "toml"
 
     ```toml
-    --8<-- "config/v2_config_command_argument.toml"
+    --8<-- "docs/data/config/v2_config_command_argument.toml"
     ```
