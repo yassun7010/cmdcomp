@@ -12,7 +12,7 @@
     </a>
 </p>
 
-`cmdcomp` generate shell completion file (`bash` or `zsh`) from config
+`cmdcomp` generate command shell completion file (`bash` or `zsh`) from config
 `json`/`yaml`/`toml` file.
 
 ## Install
