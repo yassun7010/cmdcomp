@@ -556,30 +556,13 @@
                 "values": {
                     "anyOf": [
                         {
-                            "items": {
-                                "anyOf": [
-                                    {
-                                        "type": "string"
-                                    },
-                                    {
-                                        "$ref": "#/$defs/V2ValueArgument"
-                                    }
-                                ]
-                            },
-                            "type": "array"
+                            "type": "string"
                         },
                         {
-                            "additionalProperties": {
-                                "anyOf": [
-                                    {
-                                        "type": "string"
-                                    },
-                                    {
-                                        "$ref": "#/$defs/V2ValueArgument"
-                                    }
-                                ]
+                            "items": {
+                                "type": "string"
                             },
-                            "type": "object"
+                            "type": "array"
                         }
                     ],
                     "title": "candidate selection."
@@ -679,20 +662,6 @@
                 }
             },
             "title": "V2SubcommandsCommand",
-            "type": "object"
-        },
-        "V2ValueArgument": {
-            "additionalProperties": false,
-            "properties": {
-                "value": {
-                    "title": "value of the argument.",
-                    "type": "string"
-                }
-            },
-            "required": [
-                "value"
-            ],
-            "title": "V2ValueArgument",
             "type": "object"
         }
     },
