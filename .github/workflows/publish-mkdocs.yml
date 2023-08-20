@@ -1,4 +1,4 @@
-name: Publish MkDocs
+name: doc
 
 on:
   push:
