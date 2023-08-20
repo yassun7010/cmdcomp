@@ -1,6 +1,6 @@
 # Installation
 
-## PyPi　(Recommendation)
+## PyPi
 
 Instration is as simple as:
 
@@ -8,7 +8,7 @@ Instration is as simple as:
 pip install cmdcomp
 ```
 
-!!! success
+!!! success "Recommendation"
 
     You can also use pipx to install `cmdcomp` in a application dedicated virtual
     environment created for you.
@@ -19,8 +19,7 @@ pip install cmdcomp
 
 ## Docker
 
-Docker support is available for those who wish to use it and run it in a
-container.
+To run on Docker, you can do the following
 
 ```shell
 docker run --rm -itv $(pwd):/app/cmdcomp yassun7010/cmdcomp --file ${YOUR_CONFIG_FILE} --shell-type bash

@@ -30,7 +30,7 @@ subcommands:
 | arguments   | `Dict[Union[str, int], Argument]` | Arguments.           |
 | subcommands | `Dict[str, Command]`              | Subcommands.         |
 
-The following 3 types of Arguments keys are available.
+The following 3 types of `arguments` keys are available.
 
 | Examples           | Description                                                                                           |
 | ------------------ | ----------------------------------------------------------------------------------------------------- |
@@ -40,4 +40,4 @@ The following 3 types of Arguments keys are available.
 
 !!! warning
 
-    When `subcommands` are used, the keys of the `arguments` cannot use positional specifiers.
+    When `subcommands` are used, the keys of the `arguments` can use only keyword argument key.
