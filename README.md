@@ -21,7 +21,7 @@ pip install cmdcomp
 ## Usage
 
 ```shell
-cmdcomp --file ${YOUR_CONFIG_FILE} --shell-type bash
+cmdcomp --file $YOUR_CONFIG_FILE --shell-type bash
 ```
 
 ## Documentation
