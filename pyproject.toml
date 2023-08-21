@@ -2,7 +2,7 @@
 name = "cmdcomp"
 version = "2.3.2"
 description = "command shell completion file generator."
-authors = ["Yasutanium <yassun7010@outlook.com>"]
+authors = ["yassun7010 <yassun7010@outlook.com>"]
 homepage = "https://yassun7010.github.io/cmdcomp/"
 readme = "README.md"
 license = "BSD-3-Clause"
