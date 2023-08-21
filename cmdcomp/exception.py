@@ -1,12 +1,13 @@
 from typing import Never
 
 
-class ConfigFileExtensionError(Exception):
-    def __init__(self, extension: str) -> None:
+class FileExtensionError(Exception):
+    def __init__(self, file: str, extension: str) -> None:
+        self._file = file
         self._extension = extension
 
     def __str__(self) -> str:
-        return f'config file extension "{self._extension}" is not supported.'
+        return f'file extension "{self._extension}" of "{self._file}" is not supported.'
 
 
 class NeverReach(Exception):
