@@ -8,7 +8,7 @@ import jinja2
 import yaml
 from pydantic import BaseModel, ConfigDict
 
-from cmdcomp.exception import ConfigFileExtensionError
+from cmdcomp.exception import FileExtensionError
 
 T = TypeVar("T", bound=BaseModel)
 
@@ -40,6 +40,6 @@ def load(type: Type[T], file: IO, **kwargs) -> T:
             return load(type, rendered_file, **kwargs)
 
         case _:
-            raise ConfigFileExtensionError(extension)
+            raise FileExtensionError(file.name, extension)
 
     return type.model_validate(config)
