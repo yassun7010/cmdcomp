@@ -1,5 +1,5 @@
 [[rule]]
-include = ["samples/**/*.toml"]
+include = ["examples/**/*.toml"]
 
 [rule.schema]
 path = "./docs/config.schema.json"
