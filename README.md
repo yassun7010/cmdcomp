@@ -28,6 +28,6 @@ cmdcomp --file $YOUR_CONFIG_FILE --shell-type bash
 
 See [documentation](https://yassun7010.github.io/cmdcomp/) for more details.
 
-## Samples
+## Examples
 
-See [samples](https://github.com/yassun7010/cmdcomp/tree/main/samples/v2).
+See [examples](https://github.com/yassun7010/cmdcomp/tree/main/examples/v2).

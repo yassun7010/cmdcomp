@@ -4,7 +4,7 @@ import pytest
 
 from cmdcomp.app import App
 from cmdcomp.shell import ShellType
-from tests.conftest import SAMPLES_DIR
+from tests.conftest import EXAMPLES_DIR
 
 
 @pytest.mark.parametrize("version", ["v1", "v2"])
@@ -21,7 +21,7 @@ class TestApplication:
         App.run(
             [
                 "--file",
-                str(SAMPLES_DIR / version / f"config.cmdcomp.{config_format}"),
+                str(EXAMPLES_DIR / version / f"config.cmdcomp.{config_format}"),
                 "--shell-type",
                 shell.value,
             ]
@@ -30,10 +30,10 @@ class TestApplication:
         assert mask_version(
             capsys.readouterr().out,
         ) == mask_version(
-            open(SAMPLES_DIR / version / f"output.{shell.value}").read(),
+            open(EXAMPLES_DIR / version / f"output.{shell.value}").read(),
         )
 
-    def test_output_file_to_samples(
+    def test_output_file_to_examples(
         self,
         capsys: pytest.CaptureFixture,
         version: str,
@@ -43,13 +43,13 @@ class TestApplication:
         App.run(
             [
                 "--file",
-                str(SAMPLES_DIR / version / f"config.cmdcomp.{config_format}"),
+                str(EXAMPLES_DIR / version / f"config.cmdcomp.{config_format}"),
                 "--shell-type",
                 shell.value,
             ]
         )
 
-        with open(SAMPLES_DIR / version / f"output.{shell.value}", "w") as file:
+        with open(EXAMPLES_DIR / version / f"output.{shell.value}", "w") as file:
             file.write(mask_version(capsys.readouterr().out))
 
 

@@ -20,7 +20,7 @@
     "python.testing.pytestEnabled": true,
     "yaml.schemas": {
         "docs/config.schema.json": [
-            "samples/**/*.yaml",
+            "examples/**/*.yaml",
             "tests/data/config/*.yaml",
             "docs/data/config/**/*.yaml",
         ],

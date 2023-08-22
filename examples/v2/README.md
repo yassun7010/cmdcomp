@@ -1,4 +1,4 @@
-# Basic Sample
+# Basic Example
 
 Just run it.
 
