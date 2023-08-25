@@ -27,11 +27,7 @@ class TestAppHelp:
                         name="mycli",
                     ).model_dump_json(indent=2)
                 ),
-                Command=(
-                    V2SubcommandsCommand(
-                        arguments=OrderedDict(),
-                    ).model_dump_json(indent=2)
-                ),
+                Command=(V2SubcommandsCommand().model_dump_json(indent=2)),
             )
 
     def test_v2_positional_arguments_command(self) -> None:

@@ -11,7 +11,9 @@ class V1AppInfo(HasAlias, Model):
 
     name: Annotated[str, Field(title="your cli app name.")]
 
-    alias: str | list[str] | None = Field(
-        title="alias of the cli app name.",
-        default=None,
-    )
+    alias: Annotated[
+        str | list[str] | None,
+        Field(
+            title="alias of the cli app name.",
+        ),
+    ] = None

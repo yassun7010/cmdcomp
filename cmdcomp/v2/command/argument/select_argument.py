@@ -10,15 +10,15 @@ from cmdcomp.v2.mixin.has_alias import HasAlias
 class V2SelectArgument(HasAlias, Model):
     type: Literal["select"]
 
-    description: str | None = Field(
-        title="description of the argument.",
-        default=None,
-    )
+    description: Annotated[
+        str | None,
+        Field(title="description of the argument."),
+    ] = None
 
-    alias: str | list[str] | None = Field(
-        title="alias of the argument.",
-        default=None,
-    )
+    alias: Annotated[
+        str | list[str] | None,
+        Field(title="alias of the argument."),
+    ] = None
 
     raw_values: Annotated[
         str | list[str],
