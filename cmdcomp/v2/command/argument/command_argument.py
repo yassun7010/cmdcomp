@@ -11,15 +11,15 @@ class V2CommandArgument(HasAlias, Model):
 
     type: Literal["command"]
 
-    description: str | None = Field(
-        title="description of the argument.",
-        default=None,
-    )
+    description: Annotated[
+        str | None,
+        Field(title="description of the argument."),
+    ] = None
 
-    alias: str | list[str] | None = Field(
-        title="alias of the argument.",
-        default=None,
-    )
+    alias: Annotated[
+        str | list[str] | None,
+        Field(title="alias of the argument."),
+    ] = None
 
     execute: Annotated[
         str,

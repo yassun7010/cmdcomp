@@ -21,15 +21,15 @@ _InputArgument = str | list[str] | V2Argument
 class _V2BaseCommand(HasAlias, Model, metaclass=ABCMeta):
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
-    description: str | None = Field(
-        title="description of the command.",
-        default=None,
-    )
+    description: Annotated[
+        str | None,
+        Field(title="description of the command."),
+    ] = None
 
-    alias: str | list[str] | None = Field(
-        title="alias of the command.",
-        default=None,
-    )
+    alias: Annotated[
+        str | list[str] | None,
+        Field(title="alias of the command."),
+    ] = None
 
     @cached_property
     def subcommand_names_with_alias(self) -> list[SubcommandName]:
@@ -161,14 +161,11 @@ class V2PoristionalArgumentsCommand(_V2BaseCommand):
 
 
 class V2SubcommandsCommand(_V2BaseCommand):
-    arguments: Annotated[
-        OrderedDict[Keyword, _InputArgument | None],
-        Field(
-            title="arguments of the command.",
-            description='argment key allow keyword string (like "--f", "-f") only.',
-            default_factory=OrderedDict,
-        ),
-    ]
+    arguments: OrderedDict[Keyword, _InputArgument | None] = Field(
+        title="arguments of the command.",
+        description='argment key allow keyword string (like "--f", "-f") only.',
+        default_factory=OrderedDict,
+    )
 
     raw_subcommands: OrderedDict[SubcommandName, "V2Command | None"] = Field(
         title="subcommands of the command.",
@@ -204,9 +201,7 @@ class V2SubcommandsCommand(_V2BaseCommand):
             [
                 (
                     name,
-                    V2SubcommandsCommand(alias=[], arguments=OrderedDict())
-                    if subcommand is None
-                    else subcommand,
+                    V2SubcommandsCommand() if subcommand is None else subcommand,
                 )
                 for name, subcommand in self.raw_subcommands.items()
             ]
