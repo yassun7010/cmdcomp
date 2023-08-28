@@ -47,7 +47,7 @@ taskipy = "^1.10.4"
 pytest-asyncio = "^0.21.0"
 ipython = "^8.14.0"
 ruff = "^0.0.285"
-mkdocs-material = "^9.1.21"
+mkdocs-material = "^9.2.5"
 
 [build-system]
 requires = ["poetry-core"]
