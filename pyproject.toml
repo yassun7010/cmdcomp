@@ -46,7 +46,7 @@ pyright = "^1.1.300"
 taskipy = "^1.10.4"
 pytest-asyncio = "^0.21.0"
 ipython = "^8.14.0"
-ruff = "^0.0.285"
+ruff = "^0.0.286"
 mkdocs-material = "^9.1.21"
 
 [build-system]
