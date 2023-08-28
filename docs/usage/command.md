@@ -31,7 +31,7 @@ The following 3 types of `arguments` keys are available.
 | ------------------ | ----------------------------------------------------------------------------------------------------- |
 | `1`, `2`           | Positional argument.                                                                                  |
 | `"--help"`, `"-v"` | Keyword argument.                                                                                     |
-| `"*"`              | Whildcard argument (The same rule applies to all positions not specified in the positional argument). |
+| `"*"`              | Wildcard argument (The same rule applies to all positions not specified in the positional argument). |
 
 !!! warning
 
