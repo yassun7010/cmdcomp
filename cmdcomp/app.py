@@ -3,6 +3,7 @@ from argparse import ArgumentParser, BooleanOptionalAction, FileType
 
 from rich.console import Console as RichConsole
 from rich.logging import RichHandler
+from rich_argparse import RichHelpFormatter
 
 from cmdcomp import __version__, completion, config
 from cmdcomp.shell import ShellType
@@ -14,6 +15,7 @@ class App:
         parser = ArgumentParser(
             prog="cmdcomp",
             description="shell completion file generator.",
+            formatter_class=RichHelpFormatter,
         )
 
         parser.add_argument(
