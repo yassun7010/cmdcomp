@@ -1,5 +1,8 @@
+import argparse
 import logging
-from argparse import ArgumentParser, BooleanOptionalAction, FileType
+import sys
+from argparse import BooleanOptionalAction, FileType
+from typing import NoReturn
 
 from rich.console import Console as RichConsole
 from rich.logging import RichHandler
@@ -7,6 +10,12 @@ from rich_argparse import RichHelpFormatter
 
 from cmdcomp import __version__, completion, config
 from cmdcomp.shell import ShellType
+
+
+class ArgumentParser(argparse.ArgumentParser):
+    def error(self, message: str) -> NoReturn:
+        self.print_usage(sys.stderr)
+        raise RuntimeError(message)
 
 
 class App:
@@ -53,15 +62,12 @@ class App:
             help="output file (Default=stdout).",
         )
 
-        space = parser.parse_args(args)
-
-        level = logging.DEBUG if space.verbose else logging.INFO
         logging.basicConfig(
             format="%(message)s",
-            level=level,
+            level=logging.INFO,
             handlers=[
                 RichHandler(
-                    level=level,
+                    level=logging.DEBUG,
                     console=RichConsole(stderr=True),
                     show_time=False,
                     show_path=False,
@@ -70,6 +76,15 @@ class App:
             ],
         )
         logger = logging.getLogger(__name__)
+
+        try:
+            space = parser.parse_args(args)
+        except Exception as e:
+            logger.error(e)
+
+            raise e
+
+        logging.root.setLevel(logging.DEBUG if space.verbose else logging.INFO)
 
         try:
             print(
