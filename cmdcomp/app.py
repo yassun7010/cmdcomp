@@ -30,7 +30,7 @@ class App:
         parser.add_argument(
             "--version",
             action="version",
-            version=__version__,
+            version=f"[argparse.prog]%(prog)s[/] {__version__}",
         )
 
         parser.add_argument(
