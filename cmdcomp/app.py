@@ -8,7 +8,7 @@ from rich.console import Console as RichConsole
 from rich.logging import RichHandler
 from rich_argparse import RichHelpFormatter
 
-from cmdcomp import __version__, completion, config
+from cmdcomp import __version__
 from cmdcomp.shell import ShellType
 
 
@@ -87,6 +87,8 @@ class App:
         logging.root.setLevel(logging.DEBUG if space.verbose else logging.INFO)
 
         try:
+            from cmdcomp import completion, config
+
             print(
                 completion.generate(
                     space.shell_type,
