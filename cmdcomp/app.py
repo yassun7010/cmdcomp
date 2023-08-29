@@ -15,7 +15,7 @@ from cmdcomp.shell import ShellType
 class ArgumentParser(argparse.ArgumentParser):
     def error(self, message: str) -> NoReturn:
         self.print_usage(sys.stderr)
-        raise RuntimeError(message)
+        raise ValueError(message)
 
 
 class App:
