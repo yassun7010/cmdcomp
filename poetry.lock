@@ -1408,6 +1408,20 @@ pygments = ">=2.13.0,<3.0.0"
 jupyter = ["ipywidgets (>=7.5.1,<9)"]
 
 [[package]]
+name = "rich-argparse"
+version = "1.3.0"
+description = "Rich help formatters for argparse and optparse"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "rich_argparse-1.3.0-py3-none-any.whl", hash = "sha256:1a5eda1659c0a215862fe3630fcbe68d7792f18a8106baaf4e005b9896acc6f6"},
+    {file = "rich_argparse-1.3.0.tar.gz", hash = "sha256:974cc1ba0aaa0d6aabc09ab1b78f9ba928670e08590f9551121bcbc60c75b74a"},
+]
+
+[package.dependencies]
+rich = ">=11.0.0"
+
+[[package]]
 name = "ruff"
 version = "0.0.285"
 description = "An extremely fast Python linter, written in Rust."
@@ -1614,4 +1628,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "b9e4c48d717cee7abfe7de864677f59762f2644574486ce47ee919f83e83c6ee"
+content-hash = "b546bc184ab7f28a4358984ff6971a78e2a85bd1cb63091c885162cc742d3c60"
