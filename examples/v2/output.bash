@@ -81,7 +81,13 @@ _cliname() {
 
           --config)
             if [ $cur -eq $COMP_CWORD ] ; then
-              file_completion "."
+              _get_comp_words_by_ref -n : cur prev cword
+              dir="$(echo ${cur} | grep -o ".*/")"
+              if test "${dir}" ;then
+                  COMPREPLY=( $(compgen -W "$(ls -F $1/${dir} | sed -E "s@(.*)@${dir}\1@g")" -- "${cur}") )
+              else
+                  COMPREPLY=( $(compgen -W "$(ls -F $1/)" -- "${cur}") )
+              fi
 
               return 0
             else
@@ -144,7 +150,13 @@ _cliname() {
       fi
       cur=$COMP_CWORD
       if [ $cur -eq $COMP_CWORD ] ; then
-        file_completion "."
+        _get_comp_words_by_ref -n : cur prev cword
+        dir="$(echo ${cur} | grep -o ".*/")"
+        if test "${dir}" ;then
+            COMPREPLY=( $(compgen -W "$(ls -F $1/${dir} | sed -E "s@(.*)@${dir}\1@g")" -- "${cur}") )
+        else
+            COMPREPLY=( $(compgen -W "$(ls -F $1/)" -- "${cur}") )
+        fi
 
         return 0
       else
@@ -173,7 +185,13 @@ _cliname() {
         case $(( COMP_CWORD - cmd_cur + 1)) in
           1)
             if [ $cur -eq $COMP_CWORD ] ; then
-            file_completion "$HOME"
+            _get_comp_words_by_ref -n : cur prev cword
+            dir="$(echo ${cur} | grep -o ".*/")"
+            if test "${dir}" ;then
+                COMPREPLY=( $(compgen -W "$(ls -F $1/${dir} | sed -E "s@(.*)@${dir}\1@g")" -- "${cur}") )
+            else
+                COMPREPLY=( $(compgen -W "$(ls -F $1/)" -- "${cur}") )
+            fi
 
             return 0
           else
