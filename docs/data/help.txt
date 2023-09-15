@@ -8,9 +8,9 @@ Options:
   --version             show program's version number and exit
   --verbose, --no-verbose
                         output verbose log.
-  --file, -f FILE       config file ('.json', '.yaml', '.toml', '.jinja2'
-                        support).
+  --file, -f FILE       config file path. supported formats are ".json",
+                        ".yaml", ".toml" and ".jinja".
   --shell-type {bash,zsh}
                         target shell type.
   --output-file, -o OUTPUT_FILE
-                        output file (Default=stdout).
+                        output file. default is stdout.
