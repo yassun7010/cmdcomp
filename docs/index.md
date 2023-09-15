@@ -4,6 +4,8 @@
 
 [cmdcomp](index.md) generate command shell completion file from config file.
 
+![image](./images/image.png)
+
 ## Features
 
 - Simple, intuitive and declarative configuration file.

@@ -12,7 +12,7 @@
 `cmdcomp` generate command shell completion file (`bash` or `zsh`) from config
 `json`/`yaml`/`toml` file.
 
-![image](./images/image.png)
+![image](./docs/images/image.png)
 
 ## Install
 
