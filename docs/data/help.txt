@@ -13,4 +13,4 @@ Options:
   --shell-type {bash,zsh}
                         target shell type.
   --output-file, -o OUTPUT_FILE
-                        output file. default is stdout.
+                        output file path. default is stdout.
