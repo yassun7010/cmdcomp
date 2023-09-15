@@ -62,7 +62,7 @@ class App:
             "--output-file",
             "-o",
             type=FileType("w"),
-            help="output file. default is [lit]stdout[/].",
+            help="output file path. default is [lit]stdout[/].",
         )
 
         logging.basicConfig(
