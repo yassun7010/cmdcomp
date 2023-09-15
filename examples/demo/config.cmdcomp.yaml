@@ -1,0 +1,25 @@
+cmdcomp:
+  version: "2"
+app:
+  name: "cliname"
+root:
+  arguments:
+    --verbose:
+      type: flag
+      description: "verbose output."
+    --help:
+      type: flag
+      description: "print help."
+  subcommands:
+    test:
+      description: "test command."
+      subcommands:
+        rubocop:
+          description: "run rubocop."
+          arguments:
+            --auto-correct:
+              type: flag
+              alias: "-A"
+              description: "auto correct."
+        pytest:
+          description: "run pytest."
