@@ -21,6 +21,8 @@ class ArgumentParser(argparse.ArgumentParser):
 class App:
     @classmethod
     def run(cls, args: list[str] | None = None) -> None:
+        RichHelpFormatter.styles["lit"] = RichHelpFormatter.styles["argparse.metavar"]
+
         parser = ArgumentParser(
             prog="cmdcomp",
             description="shell completion file generator.",
@@ -44,7 +46,8 @@ class App:
             "-f",
             required=True,
             type=FileType("rb"),
-            help="config file ('.json', '.yaml', '.toml', '.jinja2' support).",
+            help="config file path. supported formats are "
+            + '[lit]".json"[/], [lit]".yaml"[/], [lit]".toml"[/] and [lit]".jinja"[/].',
         )
 
         parser.add_argument(
@@ -59,7 +62,7 @@ class App:
             "--output-file",
             "-o",
             type=FileType("w"),
-            help="output file (Default=stdout).",
+            help="output file. default is [lit]stdout[/].",
         )
 
         logging.basicConfig(
