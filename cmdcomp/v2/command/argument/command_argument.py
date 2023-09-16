@@ -7,9 +7,12 @@ from cmdcomp.v2.mixin.has_alias import HasAlias
 
 
 class V2CommandArgument(HasAlias, Model):
-    """complete with the result of executing the command in the Shell command."""
+    """complete with the result of executing the command."""
 
-    type: Literal["command"]
+    type: Annotated[
+        Literal["command"],
+        Field(title="complete with the result of executing the command."),
+    ]
 
     description: Annotated[
         str | None,

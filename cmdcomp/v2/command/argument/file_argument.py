@@ -7,6 +7,8 @@ from cmdcomp.v2.mixin.has_alias import HasAlias
 
 
 class V2FileArgument(HasAlias, Model):
+    """completion of file names starting from the specified directory."""
+
     type: Literal["file"]
 
     description: Annotated[

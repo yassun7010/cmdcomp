@@ -7,7 +7,7 @@ root:
     --format:
       type: select
       description: output format.
-      values:
+      options:
         - json
         - yaml
         - toml

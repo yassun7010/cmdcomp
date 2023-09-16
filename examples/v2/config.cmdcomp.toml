@@ -26,7 +26,7 @@ description = "config file."
 [root.arguments.--type]
 type = "select"
 description = "config file type."
-values = ["json", "toml"]
+options = ["json", "toml"]
 
 [root.arguments.--help]
 type = "flag"

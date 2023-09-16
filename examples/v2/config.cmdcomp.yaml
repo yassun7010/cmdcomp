@@ -21,7 +21,7 @@ root:
     --type:
       type: select
       description: "config file type."
-      values:
+      options:
         - json
         - toml
     --help:
