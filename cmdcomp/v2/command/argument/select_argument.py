@@ -24,7 +24,30 @@ class V2SelectArgument(HasAlias, Model):
         Field(title="alias of the argument."),
     ] = None
 
-    options: Annotated[
-        list[str],
-        Field(title="completion candidates."),
-    ]
+    raw_options: Annotated[
+        list[str] | None,
+        Field(
+            title="completion candidates.",
+            alias="options",
+        ),
+    ] = None
+
+    values: Annotated[
+        list[str] | str | None,
+        Field(
+            title="completion candidates.",
+            description="this field is deprecated. use `options` instead.",
+            json_schema_extra={"deprecated": True},
+        ),
+    ] = None
+
+    @property
+    def options(self) -> list[str]:
+        if self.raw_options is not None:
+            return self.raw_options
+        if self.values is None:
+            return []
+        elif isinstance(self.values, str):
+            return [self.values]
+        else:
+            return self.values
