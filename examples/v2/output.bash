@@ -40,6 +40,11 @@ _cliname() {
         cur=$(( cur + opts_cur + 1 ))
         ;;
 
+      _cliname,git)
+        cmd="_cliname_git"
+        cur=$(( cur + opts_cur + 1 ))
+        ;;
+
       _cliname,test)
         cmd="_cliname_test"
         cur=$(( cur + opts_cur + 1 ))
@@ -120,7 +125,7 @@ _cliname() {
         COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
         return 0
       elif [ $cur -eq $COMP_CWORD ] ; then
-        opts="list ls cd scripts test"
+        opts="list ls cd scripts git test"
         COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
         return 0
       fi
@@ -257,6 +262,18 @@ _cliname() {
       else
         cmd_cur=$(( cmd_cur + 2 ))
       fi
+
+      return 0
+      ;;
+
+    _cliname_git)
+      cmd_cur=$cur
+      while [ $cur -lt $COMP_CWORD ] ; do
+        cur=$(( cur + 1 ))
+      done
+
+      opts=""
+      COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
 
       return 0
       ;;

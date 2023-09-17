@@ -330,6 +330,9 @@
                         },
                         {
                             "$ref": "#/$defs/V2SubcommandsCommand"
+                        },
+                        {
+                            "$ref": "#/$defs/V2RelayCommand"
                         }
                     ],
                     "title": "Root"
@@ -503,9 +506,6 @@
                                 "$ref": "#/$defs/V2FlagArgument"
                             },
                             {
-                                "$ref": "#/$defs/V2RelayArgument"
-                            },
-                            {
                                 "type": "null"
                             }
                         ]
@@ -521,14 +521,10 @@
             "title": "V2PoristionalArgumentsCommand",
             "type": "object"
         },
-        "V2RelayArgument": {
+        "V2RelayCommand": {
             "additionalProperties": false,
             "description": "relay completion of other command.",
             "properties": {
-                "type": {
-                    "const": "relay",
-                    "title": "relay completion of other command."
-                },
                 "description": {
                     "anyOf": [
                         {
@@ -559,6 +555,10 @@
                     "default": null,
                     "title": "alias of the argument."
                 },
+                "type": {
+                    "const": "relay",
+                    "title": "relay completion of other command."
+                },
                 "target": {
                     "title": "relay target.",
                     "type": "string"
@@ -568,7 +568,7 @@
                 "type",
                 "target"
             ],
-            "title": "V2RelayArgument",
+            "title": "V2RelayCommand",
             "type": "object"
         },
         "V2SelectArgument": {
@@ -610,16 +610,43 @@
                     "title": "alias of the argument."
                 },
                 "options": {
-                    "items": {
-                        "type": "string"
-                    },
-                    "title": "completion candidates.",
-                    "type": "array"
+                    "anyOf": [
+                        {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "completion candidates."
+                },
+                "values": {
+                    "anyOf": [
+                        {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "deprecated": true,
+                    "description": "this field is deprecated. use `options` instead.",
+                    "title": "completion candidates."
                 }
             },
             "required": [
-                "type",
-                "options"
+                "type"
             ],
             "title": "V2SelectArgument",
             "type": "object"
@@ -684,9 +711,6 @@
                                     "$ref": "#/$defs/V2FlagArgument"
                                 },
                                 {
-                                    "$ref": "#/$defs/V2RelayArgument"
-                                },
-                                {
                                     "type": "null"
                                 }
                             ]
@@ -703,6 +727,9 @@
                             },
                             {
                                 "$ref": "#/$defs/V2SubcommandsCommand"
+                            },
+                            {
+                                "$ref": "#/$defs/V2RelayCommand"
                             },
                             {
                                 "type": "null"

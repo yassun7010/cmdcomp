@@ -41,6 +41,10 @@
 
   case $cmd_name in
 {%- for cmd_name, command in commands.items() recursive %}
+{%- if command.type == "relay"  %}
+    {{ ([cmd_name] + command.aliases)|join("|") }})
+      ;;
+{%- else -%}
 {%- set scope = scope + "_" + cmd_name %}
     {{ ([cmd_name] + command.aliases)|join("|") }})
 {%- if command.has_subcommands %}
@@ -83,6 +87,7 @@
       esac
 {%- endif %}
       ;;
+{%- endif %}
 {% endfor %}
   esac
 
