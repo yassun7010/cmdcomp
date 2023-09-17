@@ -332,7 +332,7 @@
                             "$ref": "#/$defs/V2SubcommandsCommand"
                         },
                         {
-                            "$ref": "#/$defs/V2RelayCommand"
+                            "$ref": "#/$defs/V2DelegateCommand"
                         }
                     ],
                     "title": "Root"
@@ -344,6 +344,56 @@
                 "root"
             ],
             "title": "V2Config",
+            "type": "object"
+        },
+        "V2DelegateCommand": {
+            "additionalProperties": false,
+            "description": "delegate completion of other command.",
+            "properties": {
+                "description": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "description of the argument."
+                },
+                "alias": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "alias of the argument."
+                },
+                "type": {
+                    "const": "delegate",
+                    "title": "delegate completion of other command."
+                },
+                "target": {
+                    "title": "delegate target.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "type",
+                "target"
+            ],
+            "title": "V2DelegateCommand",
             "type": "object"
         },
         "V2FileArgument": {
@@ -521,56 +571,6 @@
             "title": "V2PoristionalArgumentsCommand",
             "type": "object"
         },
-        "V2RelayCommand": {
-            "additionalProperties": false,
-            "description": "relay completion of other command.",
-            "properties": {
-                "description": {
-                    "anyOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "title": "description of the argument."
-                },
-                "alias": {
-                    "anyOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "items": {
-                                "type": "string"
-                            },
-                            "type": "array"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "title": "alias of the argument."
-                },
-                "type": {
-                    "const": "relay",
-                    "title": "relay completion of other command."
-                },
-                "target": {
-                    "title": "relay target.",
-                    "type": "string"
-                }
-            },
-            "required": [
-                "type",
-                "target"
-            ],
-            "title": "V2RelayCommand",
-            "type": "object"
-        },
         "V2SelectArgument": {
             "additionalProperties": false,
             "description": "completion for choosing from options.",
@@ -729,7 +729,7 @@
                                 "$ref": "#/$defs/V2SubcommandsCommand"
                             },
                             {
-                                "$ref": "#/$defs/V2RelayCommand"
+                                "$ref": "#/$defs/V2DelegateCommand"
                             },
                             {
                                 "type": "null"

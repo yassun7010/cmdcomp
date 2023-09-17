@@ -41,7 +41,7 @@
 
   case $cmd_name in
 {%- for cmd_name, command in commands.items() recursive %}
-{%- if command.type == "relay"  %}
+{%- if command.type == "delegate"  %}
     {{ ([cmd_name] + command.aliases)|join("|") }})
       ;;
 {%- else -%}

@@ -270,12 +270,12 @@ class V2SubcommandsCommand(_V2BaseCommand):
         return len(self.keyword_arguments) != 0
 
 
-class V2RelayCommand(_V2EmptyCommand):
-    """relay completion of other command."""
+class V2DelegateCommand(_V2EmptyCommand):
+    """delegate completion of other command."""
 
     type: Annotated[
-        Literal["relay"],
-        Field(title="relay completion of other command."),
+        Literal["delegate"],
+        Field(title="delegate completion of other command."),
     ]
 
     description: Annotated[
@@ -288,10 +288,10 @@ class V2RelayCommand(_V2EmptyCommand):
         Field(title="alias of the argument."),
     ] = None
 
-    target: Annotated[str, Field(title="relay target.")]
+    target: Annotated[str, Field(title="delegate target.")]
 
 
-V2Command = V2PoristionalArgumentsCommand | V2SubcommandsCommand | V2RelayCommand
+V2Command = V2PoristionalArgumentsCommand | V2SubcommandsCommand | V2DelegateCommand
 
 
 def _convert_argument(value: _InputArgument | None) -> V2Argument:
