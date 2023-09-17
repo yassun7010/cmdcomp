@@ -297,12 +297,12 @@ V2Command = V2PoristionalArgumentsCommand | V2SubcommandsCommand | V2RelayComman
 def _convert_argument(value: _InputArgument | None) -> V2Argument:
     match value:
         case str():
-            return V2SelectArgument(type="select", options=[value])
+            return V2SelectArgument(type="select", raw_options=[value])
 
         case list():
             return V2SelectArgument(
                 type="select",
-                options=[v for v in value],
+                raw_options=[v for v in value],
             )
 
         case None:
