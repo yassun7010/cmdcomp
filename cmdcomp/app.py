@@ -43,6 +43,7 @@ class App:
 
         parser.add_argument(
             "--file",
+            "--config",
             "-f",
             required=True,
             type=FileType("rb"),

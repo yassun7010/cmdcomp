@@ -8,7 +8,8 @@ Options:
   --version             show program's version number and exit
   --verbose, --no-verbose
                         output verbose log.
-  --file, -f FILE       config file path. supported formats are ".json",
+  --file, --config, -f FILE
+                        config file path. supported formats are ".json",
                         ".yaml", ".toml" and ".jinja".
   --shell-type {bash,zsh}
                         target shell type.
