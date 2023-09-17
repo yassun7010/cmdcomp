@@ -5,7 +5,7 @@
 {%- macro argument_completion(argument) -%}
 {% if argument.type == "select" -%}
 if [ $cur -eq $COMP_CWORD ] ; then
-  COMPREPLY=( $(compgen -W "{{ argument.values|join(" ") }}" -- "$cur") )
+  COMPREPLY=( $(compgen -W "{{ argument.options|join(" ") }}" -- "$cur") )
 
   return 0
 else

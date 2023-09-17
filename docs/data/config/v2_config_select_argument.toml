@@ -7,4 +7,4 @@ name = "mycli"
 [root.arguments.--format]
 type = "select"
 description = "output format."
-values = ["json", "yaml", "toml"]
+options = ["json", "yaml", "toml"]

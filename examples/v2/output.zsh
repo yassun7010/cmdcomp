@@ -17,6 +17,7 @@ _cliname() {
         {list,ls}'[list project files.]'
         cd'[cd project directory.]'
         scripts'[operate scripts.]'
+        git'[git command.]'
         test'[test command.]'
       )
 
@@ -76,6 +77,9 @@ _cliname() {
                   ;;
 
               esac
+              ;;
+
+            git)
               ;;
 
             test)

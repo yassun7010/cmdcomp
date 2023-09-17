@@ -1,4 +1,3 @@
-from functools import cached_property
 from typing import Annotated, Literal
 
 from pydantic import Field
@@ -8,7 +7,12 @@ from cmdcomp.v2.mixin.has_alias import HasAlias
 
 
 class V2SelectArgument(HasAlias, Model):
-    type: Literal["select"]
+    """completion for choosing from options."""
+
+    type: Annotated[
+        Literal["select"],
+        Field(title="completion for choosing from options."),
+    ]
 
     description: Annotated[
         str | None,
@@ -20,19 +24,30 @@ class V2SelectArgument(HasAlias, Model):
         Field(title="alias of the argument."),
     ] = None
 
-    raw_values: Annotated[
-        str | list[str],
+    raw_options: Annotated[
+        list[str] | None,
         Field(
-            title="candidate selection.",
-            alias="values",
+            title="completion candidates.",
+            alias="options",
         ),
-    ]
+    ] = None
 
-    @cached_property
-    def values(self) -> list[str]:
-        match self.raw_values:
-            case str():
-                return [self.raw_values]
+    values: Annotated[
+        list[str] | str | None,
+        Field(
+            title="completion candidates.",
+            description="this field is deprecated. use `options` instead.",
+            json_schema_extra={"deprecated": True},
+        ),
+    ] = None
 
-            case list():
-                return self.raw_values
+    @property
+    def options(self) -> list[str]:
+        if self.raw_options is not None:
+            return self.raw_options
+        if self.values is None:
+            return []
+        elif isinstance(self.values, str):
+            return [self.values]
+        else:
+            return self.values

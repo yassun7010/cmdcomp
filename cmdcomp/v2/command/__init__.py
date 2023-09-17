@@ -90,6 +90,48 @@ class _V2BaseCommand(HasAlias, Model, metaclass=ABCMeta):
         ...
 
 
+class _V2EmptyCommand(_V2BaseCommand):
+    @property
+    @override
+    def subcommands(self) -> OrderedDict[SubcommandName, "V2Command"]:
+        return OrderedDict()
+
+    @property
+    @override
+    def positional_arguments(self) -> OrderedDict[Position, V2Argument]:
+        return OrderedDict()
+
+    @property
+    @override
+    def positional_wildcard_argument(self) -> V2Argument | None:
+        return None
+
+    @property
+    @override
+    def keyword_arguments(self) -> OrderedDict[Keyword, V2Argument]:
+        return OrderedDict()
+
+    @property
+    @override
+    def has_subcommands(self) -> bool:
+        return False
+
+    @property
+    @override
+    def has_positional_arguments(self) -> bool:
+        return False
+
+    @property
+    @override
+    def has_positional_wildcard_argument(self) -> bool:
+        return False
+
+    @property
+    @override
+    def has_keyword_arguments(self) -> bool:
+        return False
+
+
 class V2PoristionalArgumentsCommand(_V2BaseCommand):
     arguments: Annotated[
         OrderedDict[Position | Literal["*"] | Keyword, _InputArgument | None],
@@ -228,18 +270,39 @@ class V2SubcommandsCommand(_V2BaseCommand):
         return len(self.keyword_arguments) != 0
 
 
-V2Command = V2PoristionalArgumentsCommand | V2SubcommandsCommand
+class V2RelayCommand(_V2EmptyCommand):
+    """relay completion of other command."""
+
+    type: Annotated[
+        Literal["relay"],
+        Field(title="relay completion of other command."),
+    ]
+
+    description: Annotated[
+        str | None,
+        Field(title="description of the argument."),
+    ] = None
+
+    alias: Annotated[
+        str | list[str] | None,
+        Field(title="alias of the argument."),
+    ] = None
+
+    target: Annotated[str, Field(title="relay target.")]
+
+
+V2Command = V2PoristionalArgumentsCommand | V2SubcommandsCommand | V2RelayCommand
 
 
 def _convert_argument(value: _InputArgument | None) -> V2Argument:
     match value:
         case str():
-            return V2SelectArgument(type="select", raw_values=[value])
+            return V2SelectArgument(type="select", options=[value])
 
         case list():
             return V2SelectArgument(
                 type="select",
-                raw_values=[v for v in value],
+                options=[v for v in value],
             )
 
         case None:

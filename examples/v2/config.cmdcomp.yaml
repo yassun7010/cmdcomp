@@ -21,7 +21,7 @@ root:
     --type:
       type: select
       description: "config file type."
-      values:
+      options:
         - json
         - toml
     --help:
@@ -63,6 +63,10 @@ root:
               type: command
               description: "run script."
               execute: "echo 'script1.sh script2.sh script3.sh'"
+    git:
+      type: relay
+      description: git command.
+      target: "git"
     test:
       description: "test command."
       subcommands:

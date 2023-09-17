@@ -7,7 +7,12 @@ from cmdcomp.v2.mixin.has_alias import HasAlias
 
 
 class V2FlagArgument(HasAlias, Model):
-    type: Literal["flag"]
+    """completion of flags to support enable/disable."""
+
+    type: Annotated[
+        Literal["flag"],
+        Field(title="completion of flags to support enable/disable."),
+    ]
 
     description: Annotated[
         str | None,

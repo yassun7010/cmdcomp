@@ -26,7 +26,7 @@ description = "config file."
 [root.arguments.--type]
 type = "select"
 description = "config file type."
-values = ["json", "toml"]
+options = ["json", "toml"]
 
 [root.arguments.--help]
 type = "flag"
@@ -71,6 +71,11 @@ description = "run all scripts."
 type = "command"
 description = "run script."
 execute = "echo 'script1.sh script2.sh script3.sh'"
+
+[root.subcommands.git]
+type = "relay"
+description = "git command."
+target = "git"
 
 [root.subcommands.test]
 description = "test command."

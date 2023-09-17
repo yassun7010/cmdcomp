@@ -265,11 +265,11 @@
         },
         "V2CommandArgument": {
             "additionalProperties": false,
-            "description": "complete with the result of executing the command in the Shell command.",
+            "description": "complete with the result of executing the command.",
             "properties": {
                 "type": {
                     "const": "command",
-                    "title": "Type"
+                    "title": "complete with the result of executing the command."
                 },
                 "description": {
                     "anyOf": [
@@ -330,6 +330,9 @@
                         },
                         {
                             "$ref": "#/$defs/V2SubcommandsCommand"
+                        },
+                        {
+                            "$ref": "#/$defs/V2RelayCommand"
                         }
                     ],
                     "title": "Root"
@@ -345,6 +348,7 @@
         },
         "V2FileArgument": {
             "additionalProperties": false,
+            "description": "completion of file names starting from the specified directory.",
             "properties": {
                 "type": {
                     "const": "file",
@@ -401,10 +405,11 @@
         },
         "V2FlagArgument": {
             "additionalProperties": false,
+            "description": "completion of flags to support enable/disable.",
             "properties": {
                 "type": {
                     "const": "flag",
-                    "title": "Type"
+                    "title": "completion of flags to support enable/disable."
                 },
                 "description": {
                     "anyOf": [
@@ -516,12 +521,63 @@
             "title": "V2PoristionalArgumentsCommand",
             "type": "object"
         },
+        "V2RelayCommand": {
+            "additionalProperties": false,
+            "description": "relay completion of other command.",
+            "properties": {
+                "description": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "description of the argument."
+                },
+                "alias": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "alias of the argument."
+                },
+                "type": {
+                    "const": "relay",
+                    "title": "relay completion of other command."
+                },
+                "target": {
+                    "title": "relay target.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "type",
+                "target"
+            ],
+            "title": "V2RelayCommand",
+            "type": "object"
+        },
         "V2SelectArgument": {
             "additionalProperties": false,
+            "description": "completion for choosing from options.",
             "properties": {
                 "type": {
                     "const": "select",
-                    "title": "Type"
+                    "title": "completion for choosing from options."
                 },
                 "description": {
                     "anyOf": [
@@ -553,24 +609,44 @@
                     "default": null,
                     "title": "alias of the argument."
                 },
-                "values": {
+                "options": {
                     "anyOf": [
-                        {
-                            "type": "string"
-                        },
                         {
                             "items": {
                                 "type": "string"
                             },
                             "type": "array"
+                        },
+                        {
+                            "type": "null"
                         }
                     ],
-                    "title": "candidate selection."
+                    "default": null,
+                    "title": "completion candidates."
+                },
+                "values": {
+                    "anyOf": [
+                        {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "deprecated": true,
+                    "description": "this field is deprecated. use `options` instead.",
+                    "title": "completion candidates."
                 }
             },
             "required": [
-                "type",
-                "values"
+                "type"
             ],
             "title": "V2SelectArgument",
             "type": "object"
@@ -651,6 +727,9 @@
                             },
                             {
                                 "$ref": "#/$defs/V2SubcommandsCommand"
+                            },
+                            {
+                                "$ref": "#/$defs/V2RelayCommand"
                             },
                             {
                                 "type": "null"
