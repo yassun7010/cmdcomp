@@ -98,7 +98,7 @@ dir="$(echo ${cur} | grep -o ".*/")"
 if test "${dir}" ;then
     COMPREPLY=( $(compgen -W "$(ls -F "{{ base_path }}/${dir}" | sed -E "s@(.*)@${dir}\1@g")" -- "${cur}") )
 else
-    COMPREPLY=( $(compgen -W "$(ls -F "{{ base_path }}$1/")" -- "${cur}") )
+    COMPREPLY=( $(compgen -W "$(ls -F "{{ base_path }}/")" -- "${cur}") )
 fi
 {%- endmacro -%}
 
