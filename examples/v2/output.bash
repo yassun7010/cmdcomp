@@ -87,11 +87,11 @@ _cliname() {
           --config)
             if [ $cur -eq $COMP_CWORD ] ; then
               _get_comp_words_by_ref -n : cur prev cword
-              dir="$(echo ${cur} | grep -o ".*/")"
+              dir="$(echo ${COMP_WORDS[COMP_CWORD]} | grep -o ".*/")"
               if test "${dir}" ;then
-                  COMPREPLY=( $(compgen -W "$(ls -F "./${dir}" | sed -E "s@(.*)@${dir}\1@g")" -- "${cur}") )
+                  COMPREPLY=( $(compgen -W "$(ls -F "./${dir}" | sed -E "s@(.*)@${dir}\1@g")" -- "${COMP_WORDS[COMP_CWORD]}") )
               else
-                  COMPREPLY=( $(compgen -W "$(ls -F "./")" -- "${cur}") )
+                  COMPREPLY=( $(compgen -W "$(ls -F "./")" -- "${COMP_WORDS[COMP_CWORD]}") )
               fi
 
               return 0
@@ -102,7 +102,7 @@ _cliname() {
 
           --type)
             if [ $cur -eq $COMP_CWORD ] ; then
-              COMPREPLY=( $(compgen -W "json toml" -- "$cur") )
+              COMPREPLY=( $(compgen -W "json toml" -- "${COMP_WORDS[COMP_CWORD]}") )
 
               return 0
             else
@@ -156,11 +156,11 @@ _cliname() {
       cur=$COMP_CWORD
       if [ $cur -eq $COMP_CWORD ] ; then
         _get_comp_words_by_ref -n : cur prev cword
-        dir="$(echo ${cur} | grep -o ".*/")"
+        dir="$(echo ${COMP_WORDS[COMP_CWORD]} | grep -o ".*/")"
         if test "${dir}" ;then
-            COMPREPLY=( $(compgen -W "$(ls -F "./${dir}" | sed -E "s@(.*)@${dir}\1@g")" -- "${cur}") )
+            COMPREPLY=( $(compgen -W "$(ls -F "./${dir}" | sed -E "s@(.*)@${dir}\1@g")" -- "${COMP_WORDS[COMP_CWORD]}") )
         else
-            COMPREPLY=( $(compgen -W "$(ls -F "./")" -- "${cur}") )
+            COMPREPLY=( $(compgen -W "$(ls -F "./")" -- "${COMP_WORDS[COMP_CWORD]}") )
         fi
 
         return 0
@@ -191,11 +191,11 @@ _cliname() {
           1)
             if [ $cur -eq $COMP_CWORD ] ; then
             _get_comp_words_by_ref -n : cur prev cword
-            dir="$(echo ${cur} | grep -o ".*/")"
+            dir="$(echo ${COMP_WORDS[COMP_CWORD]} | grep -o ".*/")"
             if test "${dir}" ;then
-                COMPREPLY=( $(compgen -W "$(ls -F "$HOME/${dir}" | sed -E "s@(.*)@${dir}\1@g")" -- "${cur}") )
+                COMPREPLY=( $(compgen -W "$(ls -F "$HOME/${dir}" | sed -E "s@(.*)@${dir}\1@g")" -- "${COMP_WORDS[COMP_CWORD]}") )
             else
-                COMPREPLY=( $(compgen -W "$(ls -F "$HOME/")" -- "${cur}") )
+                COMPREPLY=( $(compgen -W "$(ls -F "$HOME/")" -- "${COMP_WORDS[COMP_CWORD]}") )
             fi
 
             return 0
@@ -256,7 +256,7 @@ _cliname() {
       fi
       cur=$COMP_CWORD
       if [ $cur -eq $COMP_CWORD ] ; then
-        COMPREPLY=( $(compgen -W "echo 'script1.sh script2.sh script3.sh'" -- "$cur") )
+        COMPREPLY=( $(compgen -W "$(echo 'script1.sh script2.sh script3.sh')" -- "${COMP_WORDS[COMP_CWORD]}") )
 
         return 0
       else
