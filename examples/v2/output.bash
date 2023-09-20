@@ -89,9 +89,9 @@ _cliname() {
               _get_comp_words_by_ref -n : cur prev cword
               dir="$(echo ${cur} | grep -o ".*/")"
               if test "${dir}" ;then
-                  COMPREPLY=( $(compgen -W "$(ls -F $1/${dir} | sed -E "s@(.*)@${dir}\1@g")" -- "${cur}") )
+                  COMPREPLY=( $(compgen -W "$(ls -F "./${dir}" | sed -E "s@(.*)@${dir}\1@g")" -- "${cur}") )
               else
-                  COMPREPLY=( $(compgen -W "$(ls -F $1/)" -- "${cur}") )
+                  COMPREPLY=( $(compgen -W "$(ls -F "./")" -- "${cur}") )
               fi
 
               return 0
@@ -158,9 +158,9 @@ _cliname() {
         _get_comp_words_by_ref -n : cur prev cword
         dir="$(echo ${cur} | grep -o ".*/")"
         if test "${dir}" ;then
-            COMPREPLY=( $(compgen -W "$(ls -F $1/${dir} | sed -E "s@(.*)@${dir}\1@g")" -- "${cur}") )
+            COMPREPLY=( $(compgen -W "$(ls -F "./${dir}" | sed -E "s@(.*)@${dir}\1@g")" -- "${cur}") )
         else
-            COMPREPLY=( $(compgen -W "$(ls -F $1/)" -- "${cur}") )
+            COMPREPLY=( $(compgen -W "$(ls -F "./")" -- "${cur}") )
         fi
 
         return 0
@@ -193,9 +193,9 @@ _cliname() {
             _get_comp_words_by_ref -n : cur prev cword
             dir="$(echo ${cur} | grep -o ".*/")"
             if test "${dir}" ;then
-                COMPREPLY=( $(compgen -W "$(ls -F $1/${dir} | sed -E "s@(.*)@${dir}\1@g")" -- "${cur}") )
+                COMPREPLY=( $(compgen -W "$(ls -F "$HOME/${dir}" | sed -E "s@(.*)@${dir}\1@g")" -- "${cur}") )
             else
-                COMPREPLY=( $(compgen -W "$(ls -F $1/)" -- "${cur}") )
+                COMPREPLY=( $(compgen -W "$(ls -F "$HOME/")" -- "${cur}") )
             fi
 
             return 0
