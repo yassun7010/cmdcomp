@@ -17,7 +17,7 @@ _cliname() {
         {list,ls}'[list project files.]'
         cd'[cd project directory.]'
         scripts'[operate scripts.]'
-        git'[git command.]'
+        gcloud'[gcloud command.]'
         test'[test command.]'
       )
 
@@ -79,7 +79,10 @@ _cliname() {
               esac
               ;;
 
-            git)
+            gcloud)
+              words=(gcloud storage "${words[2, -1]}")
+              ((CURRENT += 1))
+              _normal
               ;;
 
             test)

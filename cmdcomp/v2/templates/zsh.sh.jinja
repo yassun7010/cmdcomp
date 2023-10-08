@@ -41,8 +41,11 @@
 
   case $cmd_name in
 {%- for cmd_name, command in commands.items() recursive %}
-{%- if command.type == "delegate"  %}
+{%- if command.type == "delegate" %}
     {{ ([cmd_name] + command.aliases)|join("|") }})
+      words=({{ command.targets | join(" ") }} "${words[{{ command.targets | length }}, -1]}")
+      ((CURRENT += 1))
+      _normal
       ;;
 {%- else -%}
 {%- set scope = scope + "_" + cmd_name %}

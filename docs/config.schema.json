@@ -326,7 +326,7 @@
                 "root": {
                     "anyOf": [
                         {
-                            "$ref": "#/$defs/V2PoristionalArgumentsCommand"
+                            "$ref": "#/$defs/V2PositionalArgumentsCommand"
                         },
                         {
                             "$ref": "#/$defs/V2SubcommandsCommand"
@@ -385,8 +385,30 @@
                     "title": "delegate completion of other command."
                 },
                 "target": {
-                    "title": "delegate target.",
-                    "type": "string"
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        }
+                    ],
+                    "examples": [
+                        "aws",
+                        [
+                            "aws",
+                            "s3"
+                        ],
+                        [
+                            "aws",
+                            "s3",
+                            "ls"
+                        ]
+                    ],
+                    "title": "delegate target command name."
                 }
             },
             "required": [
@@ -498,7 +520,7 @@
             "title": "V2FlagArgument",
             "type": "object"
         },
-        "V2PoristionalArgumentsCommand": {
+        "V2PositionalArgumentsCommand": {
             "additionalProperties": false,
             "properties": {
                 "description": {
@@ -568,7 +590,7 @@
             "required": [
                 "arguments"
             ],
-            "title": "V2PoristionalArgumentsCommand",
+            "title": "V2PositionalArgumentsCommand",
             "type": "object"
         },
         "V2SelectArgument": {
@@ -723,7 +745,7 @@
                     "additionalProperties": {
                         "anyOf": [
                             {
-                                "$ref": "#/$defs/V2PoristionalArgumentsCommand"
+                                "$ref": "#/$defs/V2PositionalArgumentsCommand"
                             },
                             {
                                 "$ref": "#/$defs/V2SubcommandsCommand"

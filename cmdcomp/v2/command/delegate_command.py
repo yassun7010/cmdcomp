@@ -23,4 +23,21 @@ class V2DelegateCommand(V2EmptyCommand):
         Field(title="alias of the argument."),
     ] = None
 
-    target: Annotated[str, Field(title="delegate target.")]
+    target: Annotated[
+        str | list[str],
+        Field(
+            title="delegate target command name.",
+            examples=[
+                "aws",
+                ["aws", "s3"],
+                ["aws", "s3", "ls"],
+            ],
+        ),
+    ]
+
+    @property
+    def targets(self) -> list[str]:
+        if isinstance(self.target, str):
+            return [self.target]
+        else:
+            return self.target

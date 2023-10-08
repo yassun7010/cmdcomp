@@ -63,10 +63,10 @@ root:
               type: command
               description: "run script."
               execute: "echo 'script1.sh script2.sh script3.sh'"
-    git:
+    gcloud:
       type: delegate
-      description: git command.
-      target: "git"
+      description: gcloud command.
+      target: [gcloud, storage]
     test:
       description: "test command."
       subcommands:
