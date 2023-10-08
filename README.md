@@ -17,10 +17,10 @@
 ## Why was `cmdcomp` created?
 
 The completion files for many cli tools (`aws`, `gcloud`, etc.) are provided by
-self. However, if one wants to use these cli tools with multiple products and
-multiple environments (prd, dev, etc.), it would be useful to be able to switch
-contexts easily. In this situation, I have a simple shell script wrapper that
-easily switches between settings for each environment. (like
+the tools themselves. However, if one wants to use these cli tools with multiple
+products and multiple environments (prd, dev, etc.), it would be useful to be
+able to switch contexts easily. In this situation, I have a simple shell script
+wrapper that easily switches between settings for each environment. (like
 `mycli prd aws s3 ...`).
 
 `cmdcomp` can generate shell script completion files with config described in
