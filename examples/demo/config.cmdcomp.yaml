@@ -11,22 +11,30 @@ root:
       type: flag
       description: "print help."
   subcommands:
-    gcloud:
-      type: delegate
-      description: "gcloud command."
-      target: [gcloud]
-    gcs:
-      type: delegate
-      description: "gcs command."
-      target: [gcloud, storage]
-    composer-operation:
-      type: delegate
-      description: "composer operation command."
-      target: [gcloud, composer, operations]
-    git:
-      type: delegate
-      description: "git command."
-      target: [git]
+    production:
+      alias:
+        - development
+      subcommands:
+        aws:
+          type: delegate
+          description: "aws command."
+          target: aws
+        s3:
+          type: delegate
+          description: "s3 command."
+          target: [aws, s3]
+        gcloud:
+          type: delegate
+          description: "gcloud command."
+          target: gcloud
+        gcs:
+          type: delegate
+          description: "gcs command."
+          target: [gcloud, storage]
+        composer-operation:
+          type: delegate
+          description: "composer operation command."
+          target: [gcloud, composer, operations]
     test:
       description: "test command."
       subcommands:
