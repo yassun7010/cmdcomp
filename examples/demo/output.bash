@@ -5,74 +5,74 @@
 #
 
 _mycli() {
-  local word cmd opts cur cmd_cur opts_cur
+  local word cmd opts cword cmd_cword opts_cword
   COMPREPLY=()
   cmd=""
   opts=""
-  cur=0
-  cmd_cur=0
-  opts_cur=0
+  cword=0
+  cmd_cword=0
+  opts_cword=0
 
   for word in ${COMP_WORDS[@]}; do
     case "${cmd},${word}" in
       ",$1")
         cmd="_mycli"
-        cur=$(( cur + opts_cur + 1 ))
+        cword=$(( cword + opts_cword + 1 ))
         ;;
 
       _mycli,gcloud)
         cmd="_mycli_gcloud"
-        cur=$(( cur + opts_cur + 1 ))
+        cword=$(( cword + opts_cword + 1 ))
         ;;
 
       _mycli,gcs)
         cmd="_mycli_gcs"
-        cur=$(( cur + opts_cur + 1 ))
+        cword=$(( cword + opts_cword + 1 ))
         ;;
 
       _mycli,composer-operation)
         cmd="_mycli_composer_operation"
-        cur=$(( cur + opts_cur + 1 ))
+        cword=$(( cword + opts_cword + 1 ))
         ;;
 
       _mycli,git)
         cmd="_mycli_git"
-        cur=$(( cur + opts_cur + 1 ))
+        cword=$(( cword + opts_cword + 1 ))
         ;;
 
       _mycli,test)
         cmd="_mycli_test"
-        cur=$(( cur + opts_cur + 1 ))
+        cword=$(( cword + opts_cword + 1 ))
         ;;
 
       _mycli_test,rubocop)
         cmd="_mycli_test_rubocop"
-        cur=$(( cur + opts_cur + 1 ))
+        cword=$(( cword + opts_cword + 1 ))
         ;;
 
       _mycli_test,pytest)
         cmd="_mycli_test_pytest"
-        cur=$(( cur + opts_cur + 1 ))
+        cword=$(( cword + opts_cword + 1 ))
         ;;
 
       *)
-        opts_cur=$(( opts_cur + 1 ))
+        opts_cword=$(( opts_cword + 1 ))
         ;;
     esac
   done
 
   case "${cmd}" in
     _mycli)
-      cmd_cur=$cur
-      while [ $cur -lt $COMP_CWORD ] ; do
-        cur=$(( cur + 1 ))
-        case "${COMP_WORDS[cur-1]}" in
+      cmd_cword=$cword
+      while [ $cword -lt $COMP_CWORD ] ; do
+        cword=$(( cword + 1 ))
+        case "${COMP_WORDS[cword-1]}" in
           --verbose)
-            cmd_cur=$(( cmd_cur + 1 ))
+            cmd_cword=$(( cmd_cword + 1 ))
             ;;
 
           --help)
-            cmd_cur=$(( cmd_cur + 1 ))
+            cmd_cword=$(( cmd_cword + 1 ))
             ;;
 
           *)
@@ -85,7 +85,7 @@ _mycli() {
         opts="--verbose --help"
         COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
         return 0
-      elif [ $cur -eq $COMP_CWORD ] ; then
+      elif [ $cword -eq $COMP_CWORD ] ; then
         opts="gcloud gcs composer-operation git test"
         COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
         return 0
@@ -95,9 +95,9 @@ _mycli() {
       ;;
 
     _mycli_gcloud)
-      cmd_cur=$cur
-      while [ $cur -lt $COMP_CWORD ] ; do
-        cur=$(( cur + 1 ))
+      cmd_cword=$cword
+      while [ $cword -lt $COMP_CWORD ] ; do
+        cword=$(( cword + 1 ))
       done
 
       opts=""
@@ -107,9 +107,9 @@ _mycli() {
       ;;
 
     _mycli_gcs)
-      cmd_cur=$cur
-      while [ $cur -lt $COMP_CWORD ] ; do
-        cur=$(( cur + 1 ))
+      cmd_cword=$cword
+      while [ $cword -lt $COMP_CWORD ] ; do
+        cword=$(( cword + 1 ))
       done
 
       opts=""
@@ -119,9 +119,9 @@ _mycli() {
       ;;
 
     _mycli_composer_operation)
-      cmd_cur=$cur
-      while [ $cur -lt $COMP_CWORD ] ; do
-        cur=$(( cur + 1 ))
+      cmd_cword=$cword
+      while [ $cword -lt $COMP_CWORD ] ; do
+        cword=$(( cword + 1 ))
       done
 
       opts=""
@@ -131,9 +131,9 @@ _mycli() {
       ;;
 
     _mycli_git)
-      cmd_cur=$cur
-      while [ $cur -lt $COMP_CWORD ] ; do
-        cur=$(( cur + 1 ))
+      cmd_cword=$cword
+      while [ $cword -lt $COMP_CWORD ] ; do
+        cword=$(( cword + 1 ))
       done
 
       opts=""
@@ -143,16 +143,16 @@ _mycli() {
       ;;
 
     _mycli_test)
-      cmd_cur=$cur
-      while [ $cur -lt $COMP_CWORD ] ; do
-        cur=$(( cur + 1 ))
+      cmd_cword=$cword
+      while [ $cword -lt $COMP_CWORD ] ; do
+        cword=$(( cword + 1 ))
       done
 
       if [[ ${COMP_WORDS[COMP_CWORD]} == -* ]] ; then
         opts=""
         COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
         return 0
-      elif [ $cur -eq $COMP_CWORD ] ; then
+      elif [ $cword -eq $COMP_CWORD ] ; then
         opts="rubocop pytest"
         COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
         return 0
@@ -162,12 +162,12 @@ _mycli() {
       ;;
 
     _mycli_test_rubocop)
-      cmd_cur=$cur
-      while [ $cur -lt $COMP_CWORD ] ; do
-        cur=$(( cur + 1 ))
-        case "${COMP_WORDS[cur-1]}" in
+      cmd_cword=$cword
+      while [ $cword -lt $COMP_CWORD ] ; do
+        cword=$(( cword + 1 ))
+        case "${COMP_WORDS[cword-1]}" in
           --auto-correct|-A)
-            cmd_cur=$(( cmd_cur + 1 ))
+            cmd_cword=$(( cmd_cword + 1 ))
             ;;
 
           *)
@@ -183,9 +183,9 @@ _mycli() {
       ;;
 
     _mycli_test_pytest)
-      cmd_cur=$cur
-      while [ $cur -lt $COMP_CWORD ] ; do
-        cur=$(( cur + 1 ))
+      cmd_cword=$cword
+      while [ $cword -lt $COMP_CWORD ] ; do
+        cword=$(( cword + 1 ))
       done
 
       opts=""

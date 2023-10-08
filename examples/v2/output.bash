@@ -5,87 +5,87 @@
 #
 
 _cliname() {
-  local word cmd opts cur cmd_cur opts_cur
+  local word cmd opts cword cmd_cword opts_cword
   COMPREPLY=()
   cmd=""
   opts=""
-  cur=0
-  cmd_cur=0
-  opts_cur=0
+  cword=0
+  cmd_cword=0
+  opts_cword=0
 
   for word in ${COMP_WORDS[@]}; do
     case "${cmd},${word}" in
       ",$1")
         cmd="_cliname"
-        cur=$(( cur + opts_cur + 1 ))
+        cword=$(( cword + opts_cword + 1 ))
         ;;
 
       _cliname,list|_cliname,ls)
         cmd="_cliname_list"
-        cur=$(( cur + opts_cur + 1 ))
+        cword=$(( cword + opts_cword + 1 ))
         ;;
 
       _cliname,cd)
         cmd="_cliname_cd"
-        cur=$(( cur + opts_cur + 1 ))
+        cword=$(( cword + opts_cword + 1 ))
         ;;
 
       _cliname,scripts)
         cmd="_cliname_scripts"
-        cur=$(( cur + opts_cur + 1 ))
+        cword=$(( cword + opts_cword + 1 ))
         ;;
 
       _cliname_scripts,run)
         cmd="_cliname_scripts_run"
-        cur=$(( cur + opts_cur + 1 ))
+        cword=$(( cword + opts_cword + 1 ))
         ;;
 
       _cliname,gcloud)
         cmd="_cliname_gcloud"
-        cur=$(( cur + opts_cur + 1 ))
+        cword=$(( cword + opts_cword + 1 ))
         ;;
 
       _cliname,test)
         cmd="_cliname_test"
-        cur=$(( cur + opts_cur + 1 ))
+        cword=$(( cword + opts_cword + 1 ))
         ;;
 
       _cliname_test,rubocop)
         cmd="_cliname_test_rubocop"
-        cur=$(( cur + opts_cur + 1 ))
+        cword=$(( cword + opts_cword + 1 ))
         ;;
 
       _cliname_test,pytest)
         cmd="_cliname_test_pytest"
-        cur=$(( cur + opts_cur + 1 ))
+        cword=$(( cword + opts_cword + 1 ))
         ;;
 
       *)
-        opts_cur=$(( opts_cur + 1 ))
+        opts_cword=$(( opts_cword + 1 ))
         ;;
     esac
   done
 
   case "${cmd}" in
     _cliname)
-      cmd_cur=$cur
-      while [ $cur -lt $COMP_CWORD ] ; do
-        cur=$(( cur + 1 ))
-        case "${COMP_WORDS[cur-1]}" in
+      cmd_cword=$cword
+      while [ $cword -lt $COMP_CWORD ] ; do
+        cword=$(( cword + 1 ))
+        case "${COMP_WORDS[cword-1]}" in
           --verbose)
-            cmd_cur=$(( cmd_cur + 1 ))
+            cmd_cword=$(( cmd_cword + 1 ))
             ;;
 
           --no-verbose)
-            cmd_cur=$(( cmd_cur + 1 ))
+            cmd_cword=$(( cmd_cword + 1 ))
             ;;
 
           --version|-V)
-            cmd_cur=$(( cmd_cur + 1 ))
+            cmd_cword=$(( cmd_cword + 1 ))
             ;;
 
           --config)
-            if [ $cur -eq $COMP_CWORD ] ; then
+            if [ $cword -eq $COMP_CWORD ] ; then
               _get_comp_words_by_ref -n : cur prev cword
               dir="$(echo ${COMP_WORDS[COMP_CWORD]} | grep -o ".*/")"
               if test "${dir}" ;then
@@ -96,22 +96,22 @@ _cliname() {
 
               return 0
             else
-              cmd_cur=$(( cmd_cur + 2 ))
+              cmd_cword=$(( cmd_cword + 2 ))
             fi
             ;;
 
           --type)
-            if [ $cur -eq $COMP_CWORD ] ; then
+            if [ $cword -eq $COMP_CWORD ] ; then
               COMPREPLY=( $(compgen -W "json toml" -- "${COMP_WORDS[COMP_CWORD]}") )
 
               return 0
             else
-              cmd_cur=$(( cmd_cur + 1 ))
+              cmd_cword=$(( cmd_cword + 1 ))
             fi
             ;;
 
           --help)
-            cmd_cur=$(( cmd_cur + 1 ))
+            cmd_cword=$(( cmd_cword + 1 ))
             ;;
 
           *)
@@ -124,7 +124,7 @@ _cliname() {
         opts="--verbose --no-verbose --version -V --config --type --help"
         COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
         return 0
-      elif [ $cur -eq $COMP_CWORD ] ; then
+      elif [ $cword -eq $COMP_CWORD ] ; then
         opts="list ls cd scripts gcloud test"
         COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
         return 0
@@ -134,12 +134,12 @@ _cliname() {
       ;;
 
     _cliname_list)
-      cmd_cur=$cur
-      while [ $cur -lt $COMP_CWORD ] ; do
-        cur=$(( cur + 1 ))
-        case "${COMP_WORDS[cur-1]}" in
+      cmd_cword=$cword
+      while [ $cword -lt $COMP_CWORD ] ; do
+        cword=$(( cword + 1 ))
+        case "${COMP_WORDS[cword-1]}" in
           --all|-a)
-            cmd_cur=$(( cmd_cur + 1 ))
+            cmd_cword=$(( cmd_cword + 1 ))
             ;;
 
           *)
@@ -153,8 +153,8 @@ _cliname() {
         COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
         return 0
       fi
-      cur=$COMP_CWORD
-      if [ $cur -eq $COMP_CWORD ] ; then
+      cword=$COMP_CWORD
+      if [ $cword -eq $COMP_CWORD ] ; then
         _get_comp_words_by_ref -n : cur prev cword
         dir="$(echo ${COMP_WORDS[COMP_CWORD]} | grep -o ".*/")"
         if test "${dir}" ;then
@@ -165,19 +165,19 @@ _cliname() {
 
         return 0
       else
-        cmd_cur=$(( cmd_cur + 2 ))
+        cmd_cword=$(( cmd_cword + 2 ))
       fi
 
       return 0
       ;;
 
     _cliname_cd)
-      cmd_cur=$cur
-      while [ $cur -lt $COMP_CWORD ] ; do
-        cur=$(( cur + 1 ))
-        case "${COMP_WORDS[cur-1]}" in
+      cmd_cword=$cword
+      while [ $cword -lt $COMP_CWORD ] ; do
+        cword=$(( cword + 1 ))
+        case "${COMP_WORDS[cword-1]}" in
           -P)
-            cmd_cur=$(( cmd_cur + 1 ))
+            cmd_cword=$(( cmd_cword + 1 ))
             ;;
 
           *)
@@ -186,10 +186,10 @@ _cliname() {
         esac
       done
       if [[ ! ${COMP_WORDS[COMP_CWORD]} == -* ]] ; then
-        cur=$COMP_CWORD
-        case $(( COMP_CWORD - cmd_cur + 1)) in
+        cword=$COMP_CWORD
+        case $(( COMP_CWORD - cmd_cword + 1)) in
           1)
-            if [ $cur -eq $COMP_CWORD ] ; then
+            if [ $cword -eq $COMP_CWORD ] ; then
             _get_comp_words_by_ref -n : cur prev cword
             dir="$(echo ${COMP_WORDS[COMP_CWORD]} | grep -o ".*/")"
             if test "${dir}" ;then
@@ -200,7 +200,7 @@ _cliname() {
 
             return 0
           else
-            cmd_cur=$(( cmd_cur + 2 ))
+            cmd_cword=$(( cmd_cword + 2 ))
           fi
             ;;
         esac
@@ -216,16 +216,16 @@ _cliname() {
       ;;
 
     _cliname_scripts)
-      cmd_cur=$cur
-      while [ $cur -lt $COMP_CWORD ] ; do
-        cur=$(( cur + 1 ))
+      cmd_cword=$cword
+      while [ $cword -lt $COMP_CWORD ] ; do
+        cword=$(( cword + 1 ))
       done
 
       if [[ ${COMP_WORDS[COMP_CWORD]} == -* ]] ; then
         opts=""
         COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
         return 0
-      elif [ $cur -eq $COMP_CWORD ] ; then
+      elif [ $cword -eq $COMP_CWORD ] ; then
         opts="run"
         COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
         return 0
@@ -235,12 +235,12 @@ _cliname() {
       ;;
 
     _cliname_scripts_run)
-      cmd_cur=$cur
-      while [ $cur -lt $COMP_CWORD ] ; do
-        cur=$(( cur + 1 ))
-        case "${COMP_WORDS[cur-1]}" in
+      cmd_cword=$cword
+      while [ $cword -lt $COMP_CWORD ] ; do
+        cword=$(( cword + 1 ))
+        case "${COMP_WORDS[cword-1]}" in
           --all|-a)
-            cmd_cur=$(( cmd_cur + 1 ))
+            cmd_cword=$(( cmd_cword + 1 ))
             ;;
 
           *)
@@ -254,22 +254,22 @@ _cliname() {
         COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
         return 0
       fi
-      cur=$COMP_CWORD
-      if [ $cur -eq $COMP_CWORD ] ; then
+      cword=$COMP_CWORD
+      if [ $cword -eq $COMP_CWORD ] ; then
         COMPREPLY=( $(compgen -W "$(echo 'script1.sh script2.sh script3.sh')" -- "${COMP_WORDS[COMP_CWORD]}") )
 
         return 0
       else
-        cmd_cur=$(( cmd_cur + 2 ))
+        cmd_cword=$(( cmd_cword + 2 ))
       fi
 
       return 0
       ;;
 
     _cliname_gcloud)
-      cmd_cur=$cur
-      while [ $cur -lt $COMP_CWORD ] ; do
-        cur=$(( cur + 1 ))
+      cmd_cword=$cword
+      while [ $cword -lt $COMP_CWORD ] ; do
+        cword=$(( cword + 1 ))
       done
 
       opts=""
@@ -279,16 +279,16 @@ _cliname() {
       ;;
 
     _cliname_test)
-      cmd_cur=$cur
-      while [ $cur -lt $COMP_CWORD ] ; do
-        cur=$(( cur + 1 ))
+      cmd_cword=$cword
+      while [ $cword -lt $COMP_CWORD ] ; do
+        cword=$(( cword + 1 ))
       done
 
       if [[ ${COMP_WORDS[COMP_CWORD]} == -* ]] ; then
         opts=""
         COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
         return 0
-      elif [ $cur -eq $COMP_CWORD ] ; then
+      elif [ $cword -eq $COMP_CWORD ] ; then
         opts="rubocop pytest"
         COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
         return 0
@@ -298,12 +298,12 @@ _cliname() {
       ;;
 
     _cliname_test_rubocop)
-      cmd_cur=$cur
-      while [ $cur -lt $COMP_CWORD ] ; do
-        cur=$(( cur + 1 ))
-        case "${COMP_WORDS[cur-1]}" in
+      cmd_cword=$cword
+      while [ $cword -lt $COMP_CWORD ] ; do
+        cword=$(( cword + 1 ))
+        case "${COMP_WORDS[cword-1]}" in
           --auto-correct|-A)
-            cmd_cur=$(( cmd_cur + 1 ))
+            cmd_cword=$(( cmd_cword + 1 ))
             ;;
 
           *)
@@ -319,9 +319,9 @@ _cliname() {
       ;;
 
     _cliname_test_pytest)
-      cmd_cur=$cur
-      while [ $cur -lt $COMP_CWORD ] ; do
-        cur=$(( cur + 1 ))
+      cmd_cword=$cword
+      while [ $cword -lt $COMP_CWORD ] ; do
+        cword=$(( cword + 1 ))
       done
 
       opts=""
