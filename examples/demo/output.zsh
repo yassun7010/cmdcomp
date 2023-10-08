@@ -14,10 +14,7 @@ _mycli() {
     mycli)
       local -a __mycli_subcmds
       __mycli_subcmds=(
-        gcloud'[gcloud command.]'
-        gcs'[gcs command.]'
-        composer-operation'[composer operation command.]'
-        git'[git command.]'
+        {production,development}''
         test'[test command.]'
       )
 
@@ -32,28 +29,59 @@ _mycli() {
       case $state in
         args)
           case $cmd_name in
-            gcloud)
-              words=(gcloud "${words[2, -1]}")
-              ((CURRENT += 0))
-              _normal
-              ;;
+            production|development)
+              local -a __production_subcmds
+              __production_subcmds=(
+                aws'[aws command.]'
+                s3'[s3 command.]'
+                gcloud'[gcloud command.]'
+                gcs'[gcs command.]'
+                composer-operation'[composer operation command.]'
+              )
 
-            gcs)
-              words=(gcloud storage "${words[2, -1]}")
-              ((CURRENT += 1))
-              _normal
-              ;;
+              _arguments -C \
+                '1: :_values "subcommand" ${__production_subcmds[@]}' \
+                '*:: :->args' \
+                && ret=0
 
-            composer-operation)
-              words=(gcloud composer operations "${words[2, -1]}")
-              ((CURRENT += 2))
-              _normal
-              ;;
+              cmd_name=$words[1]
+              case $state in
+                args)
+                  case $cmd_name in
+                    aws)
+                      words=(aws "${words[3, -1]}")
+                      ((CURRENT += 0))
+                      _normal
+                      ;;
 
-            git)
-              words=(git "${words[2, -1]}")
-              ((CURRENT += 0))
-              _normal
+                    s3)
+                      words=(aws s3 "${words[3, -1]}")
+                      ((CURRENT += 1))
+                      _normal
+                      ;;
+
+                    gcloud)
+                      words=(gcloud "${words[3, -1]}")
+                      ((CURRENT += 0))
+                      _normal
+                      ;;
+
+                    gcs)
+                      words=(gcloud storage "${words[3, -1]}")
+                      ((CURRENT += 1))
+                      _normal
+                      ;;
+
+                    composer-operation)
+                      words=(gcloud composer operations "${words[3, -1]}")
+                      ((CURRENT += 2))
+                      _normal
+                      ;;
+
+                  esac
+                  ;;
+
+              esac
               ;;
 
             test)

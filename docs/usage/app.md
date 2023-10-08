@@ -15,7 +15,7 @@ The complete configuration items are as follows.
     --8<-- "docs/data/v2_app_info/v2_app_info.toml"
     ```
 
-| Property | Type                     | Description     |
-| -------- | ------------------------ | --------------- |
-| name     | `str`                    | cli app name.   |
-| alias    | `str | list[str] | None` | app name alias. |
+| Property | Required | Type  | Description   |
+| -------- | -------- | ----- | ------------- |
+| name     | ✅       | `str` | cli app name. |
+| alias    |          | `str  | list[str]     |
