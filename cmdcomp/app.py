@@ -2,6 +2,7 @@ import argparse
 import logging
 import sys
 from argparse import BooleanOptionalAction, FileType
+from pathlib import Path
 from typing import NoReturn
 
 from rich.console import Console as RichConsole
@@ -43,6 +44,7 @@ class App:
 
         parser.add_argument(
             "--file",
+            "--config",
             "-f",
             required=True,
             type=FileType("rb"),
@@ -61,7 +63,7 @@ class App:
         parser.add_argument(
             "--output-file",
             "-o",
-            type=FileType("w"),
+            type=Path,
             help="output file path. default is [lit]stdout[/].",
         )
 
@@ -92,13 +94,18 @@ class App:
         try:
             from cmdcomp import completion, config
 
-            print(
-                completion.generate(
-                    space.shell_type,
-                    config.load(space.file),
-                ),
-                file=space.output_file,
+            output_file: Path | None = space.output_file
+
+            output = completion.generate(
+                space.shell_type,
+                config.load(space.file),
             )
+
+            if output_file:
+                with open(output_file, "w") as f:
+                    f.write(output)
+            else:
+                print(output)
 
         except Exception as e:
             if space.verbose:

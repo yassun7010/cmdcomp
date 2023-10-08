@@ -20,10 +20,10 @@ The overall structure of the [Command](#command) is shown below.
 
 | Property    | Type                              | Description          |
 | ----------- | --------------------------------- | -------------------- |
-| description | `str`                             | Command description. |
-| alias       | `Union[str, list[str]]`           | Command alias.       |
-| arguments   | `Dict[Union[str, int], Argument]` | Arguments.           |
-| subcommands | `Dict[str, Command]`              | Subcommands.         |
+| description | `str | None`                      | Command description. |
+| alias       | `str | list[str] | None`          | Command alias.       |
+| arguments   | `dict[str | int, Argument]`       | Arguments.           |
+| subcommands | `dict[str, Command]`              | Subcommands.         |
 
 The following 3 types of `arguments` keys are available.
 

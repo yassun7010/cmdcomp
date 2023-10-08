@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "cmdcomp"
-version = "2.4.0"
+version = "2.4.2"
 description = "command shell completion file generator."
 authors = ["yassun7010 <yassun7010@outlook.com>"]
 homepage = "https://yassun7010.github.io/cmdcomp/"
@@ -47,7 +47,7 @@ pyright = "^1.1.325"
 taskipy = "^1.10.4"
 pytest-asyncio = "^0.21.0"
 ipython = "^8.15.0"
-ruff = "^0.0.288"
+ruff = ">=0.0.288,<0.0.292"
 mkdocs-material = "^9.1.21"
 
 [build-system]
