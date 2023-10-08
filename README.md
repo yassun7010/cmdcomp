@@ -16,19 +16,20 @@
 
 ## Why was `cmdcomp` created?
 
-Completion files for many cli tools (`aws`, `gcloud`, etc.) are provided by
-self. However, if you want to use these cli tools in multiple products and
+The completion files for many cli tools (`aws`, `gcloud`, etc.) are provided by
+self. However, if one wants to use these cli tools with multiple products and
 multiple environments (prd, dev, etc.), it would be useful to be able to switch
-contexts easily. In this situation, I have a simple Shell Script wrapper to
-switches settings for each environment easily. (like `mycli prd aws s3 ...`).
+contexts easily. In this situation, I have a simple shell script wrapper that
+easily switches between settings for each environment. (like
+`mycli prd aws s3 ...`).
 
-`cmdcomp` can generate completion files for your shell script using
-configuration wittened by `YAML` or `TOML` or `JSON`.
+`cmdcomp` can generate shell script completion files with config described in
+`YAML`, `TOML` or `JSON`.
 
-In today's development, more and more cli tools be used.
+In today's development, more and more cli tools are being used.
 
-If you want to generate a completion file for a simple wrapper script, `cmdcomp`
-will be of great help.
+If you want to generate completion files for simple wrapper scripts, cmdcomp can
+be of great help.
 
 ## Install
 
