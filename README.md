@@ -28,8 +28,8 @@ wrapper that easily switches between settings for each environment. (like
 
 In today's development, more and more cli tools are being used.
 
-If you want to generate completion files for simple wrapper scripts, cmdcomp can
-be of great help.
+If you want to generate completion files for simple wrapper scripts, `cmdcomp`
+can be of great help.
 
 ## Install
 
