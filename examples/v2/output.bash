@@ -86,7 +86,6 @@ _cliname() {
 
           --config)
             if [ $cword -eq $COMP_CWORD ] ; then
-              _get_comp_words_by_ref -n : cur prev cword
               dir="$(echo ${COMP_WORDS[COMP_CWORD]} | grep -o ".*/")"
               if test "${dir}" ;then
                   COMPREPLY=( $(compgen -W "$(ls -F "./${dir}" | sed -E "s@(.*)@${dir}\1@g")" -- "${COMP_WORDS[COMP_CWORD]}") )
@@ -155,7 +154,6 @@ _cliname() {
       fi
       cword=$COMP_CWORD
       if [ $cword -eq $COMP_CWORD ] ; then
-        _get_comp_words_by_ref -n : cur prev cword
         dir="$(echo ${COMP_WORDS[COMP_CWORD]} | grep -o ".*/")"
         if test "${dir}" ;then
             COMPREPLY=( $(compgen -W "$(ls -F "./${dir}" | sed -E "s@(.*)@${dir}\1@g")" -- "${COMP_WORDS[COMP_CWORD]}") )
@@ -190,7 +188,6 @@ _cliname() {
         case $(( COMP_CWORD - cmd_cword + 1)) in
           1)
             if [ $cword -eq $COMP_CWORD ] ; then
-            _get_comp_words_by_ref -n : cur prev cword
             dir="$(echo ${COMP_WORDS[COMP_CWORD]} | grep -o ".*/")"
             if test "${dir}" ;then
                 COMPREPLY=( $(compgen -W "$(ls -F "$HOME/${dir}" | sed -E "s@(.*)@${dir}\1@g")" -- "${COMP_WORDS[COMP_CWORD]}") )
@@ -272,8 +269,21 @@ _cliname() {
         cword=$(( cword + 1 ))
       done
 
-      opts=""
-      COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
+      for ((i = 0; i < 2; i++)); do
+        for ((j = 0; j <= ${#COMP_LINE}; j++)); do
+          [[ $COMP_LINE == "${COMP_WORDS[i]}"* ]] && break
+          COMP_LINE=${COMP_LINE:1}
+          ((COMP_POINT--))
+        done
+        COMP_LINE=${COMP_LINE#"${COMP_WORDS[i]}"}
+        ((COMP_POINT -= ${#COMP_WORDS[i]}))
+      done
+      COMP_LINE="gcloud storage $COMP_LINE"
+      COMP_POINT=$((COMP_POINT + 15))
+      COMP_WORDS=(gcloud storage "${COMP_WORDS[3, -1]}")
+      COMP_CWORD=${#COMP_WORDS[@]}
+
+      _command_offset 0
 
       return 0
       ;;

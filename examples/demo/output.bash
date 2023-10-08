@@ -100,8 +100,21 @@ _mycli() {
         cword=$(( cword + 1 ))
       done
 
-      opts=""
-      COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
+      for ((i = 0; i < 2; i++)); do
+        for ((j = 0; j <= ${#COMP_LINE}; j++)); do
+          [[ $COMP_LINE == "${COMP_WORDS[i]}"* ]] && break
+          COMP_LINE=${COMP_LINE:1}
+          ((COMP_POINT--))
+        done
+        COMP_LINE=${COMP_LINE#"${COMP_WORDS[i]}"}
+        ((COMP_POINT -= ${#COMP_WORDS[i]}))
+      done
+      COMP_LINE="gcloud $COMP_LINE"
+      COMP_POINT=$((COMP_POINT + 7))
+      COMP_WORDS=(gcloud "${COMP_WORDS[3, -1]}")
+      COMP_CWORD=${#COMP_WORDS[@]}
+
+      _command_offset 0
 
       return 0
       ;;
@@ -112,8 +125,21 @@ _mycli() {
         cword=$(( cword + 1 ))
       done
 
-      opts=""
-      COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
+      for ((i = 0; i < 2; i++)); do
+        for ((j = 0; j <= ${#COMP_LINE}; j++)); do
+          [[ $COMP_LINE == "${COMP_WORDS[i]}"* ]] && break
+          COMP_LINE=${COMP_LINE:1}
+          ((COMP_POINT--))
+        done
+        COMP_LINE=${COMP_LINE#"${COMP_WORDS[i]}"}
+        ((COMP_POINT -= ${#COMP_WORDS[i]}))
+      done
+      COMP_LINE="gcloud storage $COMP_LINE"
+      COMP_POINT=$((COMP_POINT + 15))
+      COMP_WORDS=(gcloud storage "${COMP_WORDS[3, -1]}")
+      COMP_CWORD=${#COMP_WORDS[@]}
+
+      _command_offset 0
 
       return 0
       ;;
@@ -124,8 +150,21 @@ _mycli() {
         cword=$(( cword + 1 ))
       done
 
-      opts=""
-      COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
+      for ((i = 0; i < 2; i++)); do
+        for ((j = 0; j <= ${#COMP_LINE}; j++)); do
+          [[ $COMP_LINE == "${COMP_WORDS[i]}"* ]] && break
+          COMP_LINE=${COMP_LINE:1}
+          ((COMP_POINT--))
+        done
+        COMP_LINE=${COMP_LINE#"${COMP_WORDS[i]}"}
+        ((COMP_POINT -= ${#COMP_WORDS[i]}))
+      done
+      COMP_LINE="gcloud composer operations $COMP_LINE"
+      COMP_POINT=$((COMP_POINT + 27))
+      COMP_WORDS=(gcloud composer operations "${COMP_WORDS[3, -1]}")
+      COMP_CWORD=${#COMP_WORDS[@]}
+
+      _command_offset 0
 
       return 0
       ;;
@@ -136,8 +175,21 @@ _mycli() {
         cword=$(( cword + 1 ))
       done
 
-      opts=""
-      COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
+      for ((i = 0; i < 2; i++)); do
+        for ((j = 0; j <= ${#COMP_LINE}; j++)); do
+          [[ $COMP_LINE == "${COMP_WORDS[i]}"* ]] && break
+          COMP_LINE=${COMP_LINE:1}
+          ((COMP_POINT--))
+        done
+        COMP_LINE=${COMP_LINE#"${COMP_WORDS[i]}"}
+        ((COMP_POINT -= ${#COMP_WORDS[i]}))
+      done
+      COMP_LINE="git $COMP_LINE"
+      COMP_POINT=$((COMP_POINT + 4))
+      COMP_WORDS=(git "${COMP_WORDS[3, -1]}")
+      COMP_CWORD=${#COMP_WORDS[@]}
+
+      _command_offset 0
 
       return 0
       ;;
