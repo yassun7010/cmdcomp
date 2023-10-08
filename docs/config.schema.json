@@ -326,13 +326,13 @@
                 "root": {
                     "anyOf": [
                         {
-                            "$ref": "#/$defs/V2PoristionalArgumentsCommand"
+                            "$ref": "#/$defs/V2PositionalArgumentsCommand"
                         },
                         {
                             "$ref": "#/$defs/V2SubcommandsCommand"
                         },
                         {
-                            "$ref": "#/$defs/V2RelayCommand"
+                            "$ref": "#/$defs/V2DelegateCommand"
                         }
                     ],
                     "title": "Root"
@@ -344,6 +344,78 @@
                 "root"
             ],
             "title": "V2Config",
+            "type": "object"
+        },
+        "V2DelegateCommand": {
+            "additionalProperties": false,
+            "description": "delegate completion of other command.",
+            "properties": {
+                "description": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "description of the argument."
+                },
+                "alias": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "alias of the argument."
+                },
+                "type": {
+                    "const": "delegate",
+                    "title": "delegate completion of other command."
+                },
+                "target": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        }
+                    ],
+                    "examples": [
+                        "aws",
+                        [
+                            "aws",
+                            "s3"
+                        ],
+                        [
+                            "aws",
+                            "s3",
+                            "ls"
+                        ]
+                    ],
+                    "title": "delegate target command name."
+                }
+            },
+            "required": [
+                "type",
+                "target"
+            ],
+            "title": "V2DelegateCommand",
             "type": "object"
         },
         "V2FileArgument": {
@@ -448,7 +520,7 @@
             "title": "V2FlagArgument",
             "type": "object"
         },
-        "V2PoristionalArgumentsCommand": {
+        "V2PositionalArgumentsCommand": {
             "additionalProperties": false,
             "properties": {
                 "description": {
@@ -518,57 +590,7 @@
             "required": [
                 "arguments"
             ],
-            "title": "V2PoristionalArgumentsCommand",
-            "type": "object"
-        },
-        "V2RelayCommand": {
-            "additionalProperties": false,
-            "description": "relay completion of other command.",
-            "properties": {
-                "description": {
-                    "anyOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "title": "description of the argument."
-                },
-                "alias": {
-                    "anyOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "items": {
-                                "type": "string"
-                            },
-                            "type": "array"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "title": "alias of the argument."
-                },
-                "type": {
-                    "const": "relay",
-                    "title": "relay completion of other command."
-                },
-                "target": {
-                    "title": "relay target.",
-                    "type": "string"
-                }
-            },
-            "required": [
-                "type",
-                "target"
-            ],
-            "title": "V2RelayCommand",
+            "title": "V2PositionalArgumentsCommand",
             "type": "object"
         },
         "V2SelectArgument": {
@@ -723,13 +745,13 @@
                     "additionalProperties": {
                         "anyOf": [
                             {
-                                "$ref": "#/$defs/V2PoristionalArgumentsCommand"
+                                "$ref": "#/$defs/V2PositionalArgumentsCommand"
                             },
                             {
                                 "$ref": "#/$defs/V2SubcommandsCommand"
                             },
                             {
-                                "$ref": "#/$defs/V2RelayCommand"
+                                "$ref": "#/$defs/V2DelegateCommand"
                             },
                             {
                                 "type": "null"

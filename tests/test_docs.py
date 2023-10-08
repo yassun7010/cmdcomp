@@ -5,7 +5,7 @@ import pytest
 from cmdcomp import config, model
 from cmdcomp.app import App
 from cmdcomp.v2.app_info import V2AppInfo
-from cmdcomp.v2.command import V2PoristionalArgumentsCommand, V2SubcommandsCommand
+from cmdcomp.v2.command import V2PositionalArgumentsCommand, V2SubcommandsCommand
 from cmdcomp.v2.command.argument.file_argument import V2FileArgument
 from tests.conftest import DATA_DIR
 
@@ -36,7 +36,7 @@ class TestAppHelp:
             "r",
         ) as file:
             model.load(
-                V2PoristionalArgumentsCommand,
+                V2PositionalArgumentsCommand,
                 file,
                 Argument=(
                     V2FileArgument(
@@ -59,7 +59,7 @@ class TestAppHelp:
                     ).model_dump_json()
                 ),
                 Command=(
-                    V2PoristionalArgumentsCommand(
+                    V2PositionalArgumentsCommand(
                         arguments=OrderedDict(),
                     ).model_dump_json()
                 ),
