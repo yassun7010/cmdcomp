@@ -1,7 +1,7 @@
 cmdcomp:
   version: "2"
 app:
-  name: "cliname"
+  name: "mycli"
 root:
   arguments:
     --verbose:
@@ -11,6 +11,22 @@ root:
       type: flag
       description: "print help."
   subcommands:
+    gcloud:
+      type: delegate
+      description: "gcloud command."
+      target: [gcloud]
+    gcs:
+      type: delegate
+      description: "gcs command."
+      target: [gcloud, storage]
+    composer-operation:
+      type: delegate
+      description: "composer operation command."
+      target: [gcloud, composer, operations]
+    git:
+      type: delegate
+      description: "git command."
+      target: [git]
     test:
       description: "test command."
       subcommands:
