@@ -1,10 +1,9 @@
 from functools import reduce
 from operator import add
-from typing import Annotated, NewType, OrderedDict
+from typing import Annotated, NewType, OrderedDict, assert_never
 
 from pydantic import ConfigDict, Field
 
-from cmdcomp.exception import NeverReach
 from cmdcomp.model import Model
 from cmdcomp.v1.command.option import V1OptionType, V1SpecificOptions, V1StrOption
 from cmdcomp.v1.command.option.command_option import V1CommandOption
@@ -89,6 +88,6 @@ def get_candidates(command: V1Command) -> V1Candidates:
             elif isinstance(command.options, V1FileOption):
                 return [{"file": command.options.base_path}]
             else:
-                raise NeverReach(command.options)
+                assert_never(command.options)
         case _:
-            raise NeverReach(command)
+            assert_never(command)

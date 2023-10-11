@@ -1,6 +1,3 @@
-from typing import Never
-
-
 class CmdcompError(Exception):
     pass
 
@@ -12,11 +9,3 @@ class FileExtensionError(CmdcompError):
 
     def __str__(self) -> str:
         return f'file extension "{self._extension}" of "{self._file}" is not supported.'
-
-
-class NeverReach(CmdcompError):
-    def __init__(self, value: Never) -> None:
-        self._value = value
-
-    def __str__(self) -> str:
-        return f"never reach: {self._value}"
