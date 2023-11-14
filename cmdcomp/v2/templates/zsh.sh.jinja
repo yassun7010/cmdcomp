@@ -54,7 +54,7 @@
       local -a _{{ scope|ident }}_subcmds
       _{{ scope|ident }}_subcmds=(
 {%- for subcmd_name, subcommand in command.subcommands.items() %}
-        {{ candidate(subcmd_name, subcommand) }}'{{ description(subcommand) }}'
+        {{ candidate(subcmd_name, subcommand) }}'{{ description(subcommand)|escape }}'
 {%- endfor %}
       )
 {% endif %}
@@ -65,7 +65,7 @@
 {%- endfor %}
       _arguments -C \
 {%- for kwd_name, keyword in command.keyword_arguments.items() %}
-        {{ candidate(kwd_name, keyword) }}'{{ description(keyword) }}{{ contents(kwd_name, keyword) }}' \
+        {{ candidate(kwd_name, keyword) }}'{{ description(keyword)|escape }}{{ contents(kwd_name, keyword) }}' \
 {%- endfor %}
 {%- for pos_name, positional in command.positional_arguments.items() %}
         '{{ pos_name }}{{ contents(pos_name, positional) }}' \
