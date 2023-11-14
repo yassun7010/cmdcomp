@@ -14,7 +14,7 @@ def generate_v2(shell: ShellType, config: V2Config) -> str:
         loader=FileSystemLoader(Path(__file__).parent / "templates"),
     )
     env.filters["ident"] = lambda x: re.sub(r"[\*\.,-]", "_", str(x))
-    env.filters["escape"] = lambda x: x.replace("'", "''")
+    env.filters["escape"] = lambda x: x.replace("'", "'\"'\"'")
     template = env.get_template(f"{shell.value}.sh.jinja")
 
     return template.render(
