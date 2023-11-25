@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "cmdcomp"
-version = "2.5.3"
+version = "2.5.4"
 description = "command shell completion file generator."
 authors = ["yassun7010 <yassun7010@outlook.com>"]
 homepage = "https://yassun7010.github.io/cmdcomp/"
