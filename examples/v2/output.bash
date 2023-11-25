@@ -283,7 +283,7 @@ _cliname() {
       COMP_WORDS=(gcloud storage "${COMP_WORDS[3, -1]}")
       COMP_CWORD=${#COMP_WORDS[@]}
 
-      _command_offset 0
+      [ -x "$(command -v _command_offset)" ] && _command_offset 0
 
       return 0
       ;;

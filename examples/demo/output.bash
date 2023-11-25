@@ -143,7 +143,7 @@ _mycli() {
       COMP_WORDS=(aws "${COMP_WORDS[4, -1]}")
       COMP_CWORD=${#COMP_WORDS[@]}
 
-      _command_offset 0
+      [ -x "$(command -v _command_offset)" ] && _command_offset 0
 
       return 0
       ;;
@@ -168,7 +168,7 @@ _mycli() {
       COMP_WORDS=(aws s3 "${COMP_WORDS[4, -1]}")
       COMP_CWORD=${#COMP_WORDS[@]}
 
-      _command_offset 0
+      [ -x "$(command -v _command_offset)" ] && _command_offset 0
 
       return 0
       ;;
@@ -193,7 +193,7 @@ _mycli() {
       COMP_WORDS=(gcloud "${COMP_WORDS[4, -1]}")
       COMP_CWORD=${#COMP_WORDS[@]}
 
-      _command_offset 0
+      [ -x "$(command -v _command_offset)" ] && _command_offset 0
 
       return 0
       ;;
@@ -218,7 +218,7 @@ _mycli() {
       COMP_WORDS=(gcloud storage "${COMP_WORDS[4, -1]}")
       COMP_CWORD=${#COMP_WORDS[@]}
 
-      _command_offset 0
+      [ -x "$(command -v _command_offset)" ] && _command_offset 0
 
       return 0
       ;;
@@ -243,7 +243,7 @@ _mycli() {
       COMP_WORDS=(gcloud composer operations "${COMP_WORDS[4, -1]}")
       COMP_CWORD=${#COMP_WORDS[@]}
 
-      _command_offset 0
+      [ -x "$(command -v _command_offset)" ] && _command_offset 0
 
       return 0
       ;;

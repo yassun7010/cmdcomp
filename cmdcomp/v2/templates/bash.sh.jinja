@@ -79,7 +79,7 @@ COMP_POINT=$((COMP_POINT + {{ command.targets | join(" ") | length + 1 }}))
 COMP_WORDS=({{ command.targets | join(" ") }} "${COMP_WORDS[{{ depth + 1 }}, -1]}")
 COMP_CWORD={{ "${#COMP_WORDS[@]}" }}
 
-_command_offset 0
+[ -x "$(command -v _command_offset)" ] && _command_offset 0
 {%- elif command.has_subcommands -%}
 if [[ ${COMP_WORDS[COMP_CWORD]} == -* ]] ; then
   opts="{{ command.keyword_names_with_alias|join(' ') }}"
