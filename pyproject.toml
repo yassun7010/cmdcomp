@@ -24,10 +24,12 @@ cmdcomp = "cmdcomp.__main__:main"
 [tool.taskipy.tasks]
 schema = "python -c 'import json;from cmdcomp.config import Config;print(json.dumps(Config.model_json_schema(),indent=4))' > docs/config.schema.json"
 test = "pytest"
-format = "black ."
-lint = "pyright cmdcomp/** tests/**"
+format = "ruff format ."
+lint = "ruff check ."
+typecheck = "pyright cmdcomp/** tests/**"
 docs-serve = "mkdocs serve"
 docs-deploy = "mkdocs gh-deploy"
+ci = "task format && task lint && task typecheck && task test"
 
 [tool.poetry.dependencies]
 python = "^3.11"
@@ -40,15 +42,13 @@ typing-extensions = "^4.7.1"
 rich-argparse = "^1.3.0"
 
 [tool.poetry.group.dev.dependencies]
-black = "^23.1.0"
-isort = "^5.12.0"
 pytest = "^7.4.1"
 pyright = "^1.1.325"
 taskipy = "^1.10.4"
 pytest-asyncio = "^0.21.0"
 ipython = "^8.15.0"
-ruff = ">=0.0.288,<0.1.6"
 mkdocs-material = "^9.1.21"
+ruff = "^0.1.6"
 
 [build-system]
 requires = ["poetry-core"]
