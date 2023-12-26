@@ -11,4 +11,4 @@
 - Simple, intuitive and declarative configuration file.
 - Support for multiple configuration file formats (`json`, `yaml`, `toml`).
 - Support multiple shell (`bash`, `zsh`).
-- Support for writing configuration files using `jinja`.
+- Support for writing configuration files using jinja`.
