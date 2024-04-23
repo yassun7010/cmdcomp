@@ -303,4 +303,4 @@ _mycli() {
   esac
 }
 
-complete -F _mycli -o bashdefault -o default mycli
+complete -F _mycli -o bashdefault mycli

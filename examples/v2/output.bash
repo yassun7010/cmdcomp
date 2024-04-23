@@ -86,7 +86,7 @@ _cliname() {
 
           --config)
             if [ $cword -eq $COMP_CWORD ] ; then
-              dir="$(echo ${COMP_WORDS[COMP_CWORD]} | grep -o ".*/")"
+              dir="$(echo ${COMP_WORDS[COMP_CWORD]} | grep -o ".*/" || true)"
               if test "${dir}" ;then
                   COMPREPLY=( $(compgen -W "$(ls -F "./${dir}" | sed -E "s@(.*)@${dir}\1@g")" -- "${COMP_WORDS[COMP_CWORD]}") )
               else
@@ -154,7 +154,7 @@ _cliname() {
       fi
       cword=$COMP_CWORD
       if [ $cword -eq $COMP_CWORD ] ; then
-        dir="$(echo ${COMP_WORDS[COMP_CWORD]} | grep -o ".*/")"
+        dir="$(echo ${COMP_WORDS[COMP_CWORD]} | grep -o ".*/" || true)"
         if test "${dir}" ;then
             COMPREPLY=( $(compgen -W "$(ls -F "./${dir}" | sed -E "s@(.*)@${dir}\1@g")" -- "${COMP_WORDS[COMP_CWORD]}") )
         else
@@ -188,7 +188,7 @@ _cliname() {
         case $(( COMP_CWORD - cmd_cword + 1)) in
           1)
             if [ $cword -eq $COMP_CWORD ] ; then
-            dir="$(echo ${COMP_WORDS[COMP_CWORD]} | grep -o ".*/")"
+            dir="$(echo ${COMP_WORDS[COMP_CWORD]} | grep -o ".*/" || true)"
             if test "${dir}" ;then
                 COMPREPLY=( $(compgen -W "$(ls -F "$HOME/${dir}" | sed -E "s@(.*)@${dir}\1@g")" -- "${COMP_WORDS[COMP_CWORD]}") )
             else
@@ -343,5 +343,5 @@ _cliname() {
   esac
 }
 
-complete -F _cliname -o bashdefault -o default cliname
-complete -F _cliname -o bashdefault -o default cliname2
+complete -F _cliname -o bashdefault cliname
+complete -F _cliname -o bashdefault cliname2

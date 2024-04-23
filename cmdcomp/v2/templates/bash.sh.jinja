@@ -109,7 +109,7 @@ cword=$COMP_CWORD
 
 {#- macro def -#}
 {%- macro file_completion(base_path) -%}
-dir="$(echo ${COMP_WORDS[COMP_CWORD]} | grep -o ".*/")"
+dir="$(echo ${COMP_WORDS[COMP_CWORD]} | grep -o ".*/" || true)"
 if test "${dir}" ;then
     COMPREPLY=( $(compgen -W "$(ls -F "{{ base_path }}/${dir}" | sed -E "s@(.*)@${dir}\1@g")" -- "${COMP_WORDS[COMP_CWORD]}") )
 else
@@ -173,7 +173,7 @@ fi
   esac
 }
 
-complete -F {{ func_name }} -o bashdefault -o default {{ app_name }}
+complete -F {{ func_name }} -o bashdefault {{ app_name }}
 {%- for alias in app_aliases %}
-complete -F {{ func_name }} -o bashdefault -o default {{ alias }}
+complete -F {{ func_name }} -o bashdefault {{ alias }}
 {%- endfor -%}
