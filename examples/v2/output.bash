@@ -86,12 +86,13 @@ _cliname() {
 
           --config)
             if [ $cword -eq $COMP_CWORD ] ; then
-              dir="$(echo ${COMP_WORDS[COMP_CWORD]} | grep -o ".*/" || true)"
-              if test "${dir}" ;then
-                  COMPREPLY=( $(compgen -W "$(ls -F "./${dir}" | sed -E "s@(.*)@${dir}\1@g")" -- "${COMP_WORDS[COMP_CWORD]}") )
-              else
-                  COMPREPLY=( $(compgen -W "$(ls -F "./")" -- "${COMP_WORDS[COMP_CWORD]}") )
-              fi
+              word="${COMP_WORDS[COMP_CWORD]}"
+              COMPREPLY=($(compgen -d -S / -- "$word"))
+              for file in $(compgen -f -- "$word"); do
+                [ ! -d $file ] && COMPREPLY+=("$file")
+              done
+
+              IFS=$'\n' COMPREPLY=($(sort <<<"${COMPREPLY[*]}"))
 
               return 0
             else
@@ -154,12 +155,13 @@ _cliname() {
       fi
       cword=$COMP_CWORD
       if [ $cword -eq $COMP_CWORD ] ; then
-        dir="$(echo ${COMP_WORDS[COMP_CWORD]} | grep -o ".*/" || true)"
-        if test "${dir}" ;then
-            COMPREPLY=( $(compgen -W "$(ls -F "./${dir}" | sed -E "s@(.*)@${dir}\1@g")" -- "${COMP_WORDS[COMP_CWORD]}") )
-        else
-            COMPREPLY=( $(compgen -W "$(ls -F "./")" -- "${COMP_WORDS[COMP_CWORD]}") )
-        fi
+        word="${COMP_WORDS[COMP_CWORD]}"
+        COMPREPLY=($(compgen -d -S / -- "$word"))
+        for file in $(compgen -f -- "$word"); do
+          [ ! -d $file ] && COMPREPLY+=("$file")
+        done
+
+        IFS=$'\n' COMPREPLY=($(sort <<<"${COMPREPLY[*]}"))
 
         return 0
       else
@@ -188,12 +190,13 @@ _cliname() {
         case $(( COMP_CWORD - cmd_cword + 1)) in
           1)
             if [ $cword -eq $COMP_CWORD ] ; then
-            dir="$(echo ${COMP_WORDS[COMP_CWORD]} | grep -o ".*/" || true)"
-            if test "${dir}" ;then
-                COMPREPLY=( $(compgen -W "$(ls -F "$HOME/${dir}" | sed -E "s@(.*)@${dir}\1@g")" -- "${COMP_WORDS[COMP_CWORD]}") )
-            else
-                COMPREPLY=( $(compgen -W "$(ls -F "$HOME/")" -- "${COMP_WORDS[COMP_CWORD]}") )
-            fi
+            word="$HOME/${COMP_WORDS[COMP_CWORD]}"
+            COMPREPLY=($(compgen -d -S / -- "$word"))
+            for file in $(compgen -f -- "$word"); do
+              [ ! -d $file ] && COMPREPLY+=("$file")
+            done
+
+            IFS=$'\n' COMPREPLY=($(sort <<<"${COMPREPLY[*]}"))
 
             return 0
           else

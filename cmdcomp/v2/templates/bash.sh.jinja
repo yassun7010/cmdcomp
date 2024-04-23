@@ -13,7 +13,17 @@ else
 fi
 {%- elif argument.type == "file" -%}
 if [ $cword -eq $COMP_CWORD ] ; then
-  {{ file_completion(argument.base_path or ".")|indent(2) }}
+{%- if argument.base_path is none %}
+  word="${COMP_WORDS[COMP_CWORD]}"
+{%- else %}
+  word="{{ argument.base_path }}/${COMP_WORDS[COMP_CWORD]}"
+{%- endif %}
+  COMPREPLY=($(compgen -d -S / -- "$word"))
+  for file in $(compgen -f -- "$word"); do
+    [ ! -d $file ] && COMPREPLY+=("$file")
+  done
+
+  IFS=$'\n' COMPREPLY=($(sort <<<"${COMPREPLY[*]}"))
 
   return 0
 else
@@ -107,15 +117,6 @@ cword=$COMP_CWORD
 {%- endif %}
 {%- endmacro -%}
 
-{#- macro def -#}
-{%- macro file_completion(base_path) -%}
-dir="$(echo ${COMP_WORDS[COMP_CWORD]} | grep -o ".*/" || true)"
-if test "${dir}" ;then
-    COMPREPLY=( $(compgen -W "$(ls -F "{{ base_path }}/${dir}" | sed -E "s@(.*)@${dir}\1@g")" -- "${COMP_WORDS[COMP_CWORD]}") )
-else
-    COMPREPLY=( $(compgen -W "$(ls -F "{{ base_path }}/")" -- "${COMP_WORDS[COMP_CWORD]}") )
-fi
-{%- endmacro -%}
 
 #!/bin/bash
 #
