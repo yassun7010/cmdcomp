@@ -36,7 +36,11 @@ if [ $cword -eq $COMP_CWORD ] ; then
     [ ! -d $file ] && COMPREPLY+=("$file")
   done
 
+{%- if argument.base_path is none %}
   IFS=$'\n' COMPREPLY=($(sort <<<"${COMPREPLY[*]}"))
+{%- else %}
+  IFS=$'\n' COMPREPLY=($(sort <<<"${COMPREPLY[*]#{{ argument.base_path }}/}"))
+{%- endif %}
   {{- output_log(logfile) }}
   return 0
 else

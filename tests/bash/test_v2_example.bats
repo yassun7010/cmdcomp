@@ -1,6 +1,8 @@
 #!/usr/bin/env bats
 
-log_filename=test.log
+log_filename=_test.log
+result_filename=_result.log
+expected_filename=_expected.log
 
 output_state() {
     echo COMP_LINE=${COMP_LINE}
@@ -31,10 +33,8 @@ assert_eq() {
     local result=${COMPREPLY[@]}
     local expected="$@"
 
-    echo "Result: $result" >>$log_filename
-    echo >>$log_filename
-    echo "Expected: $expected" >>$log_filename
-    echo >>$log_filename
+    echo "$result" >$result_filename
+    echo "$expected" >$expected_filename
 
     [[ "$result" == "$expected" ]] && {
         echo Success >>$log_filename
@@ -67,7 +67,7 @@ assert_eq() {
 @test "completion command file option" {
     calc_completion cliname --config
 
-    assert_eq $(ls -Ap | cat)
+    assert_eq $(ls -Ap | sort | cat)
 }
 
 @test "completion command select option" {
@@ -79,7 +79,7 @@ assert_eq() {
 @test "completion subcommand" {
     calc_completion cliname list
 
-    assert_eq $(ls -Ap | cat)
+    assert_eq $(ls -Ap | sort | cat)
 }
 
 @test "completion subcommand with flag" {
@@ -92,4 +92,10 @@ assert_eq() {
     COMP_CWORD=2 calc_completion cliname --config examples/v2/config.cmdcomp.
 
     assert_eq examples/v2/config.cmdcomp.toml examples/v2/config.cmdcomp.yaml
+}
+
+@test "completion file arg with base_path" {
+    COMP_CWORD=2 calc_completion cliname cd
+
+    assert_eq $(ls -Ap $HOME | sort | cat)
 }

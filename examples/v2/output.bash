@@ -94,7 +94,6 @@ _cliname() {
               for file in $(compgen -f -- "$word"); do
                 [ ! -d $file ] && COMPREPLY+=("$file")
               done
-
               IFS=$'\n' COMPREPLY=($(sort <<<"${COMPREPLY[*]}"))
               return 0
             else
@@ -163,7 +162,6 @@ _cliname() {
         for file in $(compgen -f -- "$word"); do
           [ ! -d $file ] && COMPREPLY+=("$file")
         done
-
         IFS=$'\n' COMPREPLY=($(sort <<<"${COMPREPLY[*]}"))
         return 0
       else
@@ -199,8 +197,7 @@ _cliname() {
             for file in $(compgen -f -- "$word"); do
               [ ! -d $file ] && COMPREPLY+=("$file")
             done
-
-            IFS=$'\n' COMPREPLY=($(sort <<<"${COMPREPLY[*]}"))
+            IFS=$'\n' COMPREPLY=($(sort <<<"${COMPREPLY[*]#$HOME/}"))
             return 0
           else
             cmd_cword=$(( cmd_cword + 2 ))
