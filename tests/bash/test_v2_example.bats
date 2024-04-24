@@ -99,3 +99,9 @@ assert_eq() {
 
     assert_eq $(ls -Ap $HOME | sort | cat)
 }
+
+@test "completion subsubcommand" {
+    calc_completion cliname test
+
+    assert_eq rubocop pytest
+}
