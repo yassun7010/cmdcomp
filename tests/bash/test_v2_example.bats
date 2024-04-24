@@ -64,3 +64,21 @@ assert_eq() {
 
     assert_eq $(ls -Ap | cat)
 }
+
+@test "completion command select option" {
+    calc_completion cliname --type
+
+    assert_eq json toml
+}
+
+@test "completion subcommand" {
+    calc_completion cliname list
+
+    assert_eq $(ls -Ap | cat)
+}
+
+@test "completion subcommand with kwarg" {
+    calc_completion cliname list '-'
+
+    assert_eq $(ls -Ap | cat)
+}
