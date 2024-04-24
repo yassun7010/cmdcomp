@@ -82,6 +82,12 @@ assert_eq() {
     assert_eq $(ls -Ap | cat)
 }
 
+@test "completion subcommand with flag" {
+    COMP_CWORD=2 calc_completion cliname list --
+
+    assert_eq --all
+}
+
 @test "completion subcommand with kwarg" {
     COMP_CWORD=2 calc_completion cliname --config examples/v2/config.cmdcomp.
 
