@@ -16,10 +16,10 @@ calc_completion() {
     COMPREPLY=()
     COMP_WORDBREAKS="
 \"'><=;|&(:"
-    COMP_WORDS=("$@")
     COMP_LINE="$@"
-    COMP_POINT=$((${#COMP_LINE} + 1))
-    COMP_CWORD=${#COMP_WORDS[@]}
+    COMP_WORDS=("$@")
+    COMP_POINT=${COMP_POINT:-${#COMP_LINE}}
+    COMP_CWORD=${COMP_CWORD:-${#COMP_WORDS[@]}}
 
     echo Before: >$log_filename
     output_state >>$log_filename
@@ -28,15 +28,20 @@ calc_completion() {
 }
 
 assert_eq() {
-    local expected=$@
+    local result=${COMPREPLY[@]}
+    local expected="$@"
 
-    [[ "${COMPREPLY[@]}" == "$expected" ]] || {
+    echo "Result: $result" >>$log_filename
+    echo >>$log_filename
+    echo "Expected: $expected" >>$log_filename
+    echo >>$log_filename
+
+    [[ "$result" == "$expected" ]] && {
+        echo Success >>$log_filename
+        return 0
+    } || {
         echo Error: >>$log_filename
         output_state >>$log_filename
-
-        echo "Expected:" >>$log_filename
-        echo "$expected" >>$log_filename
-
         return 1
     }
 }
@@ -78,7 +83,7 @@ assert_eq() {
 }
 
 @test "completion subcommand with kwarg" {
-    calc_completion cliname list '-'
+    COMP_CWORD=2 calc_completion cliname --config examples/v2/config.cmdcomp.
 
-    assert_eq $(ls -Ap | cat)
+    assert_eq cmdcomp.log cmdcomp/
 }

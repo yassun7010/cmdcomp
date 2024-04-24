@@ -1,3 +1,4 @@
+import os
 import re
 from pathlib import Path
 from typing import Any
@@ -22,6 +23,7 @@ def generate_v2(shell: ShellType, config: V2Config) -> str:
         app_aliases=config.app.aliases + config.root.aliases,
         commands={config.app.name: config.root},
         append_key_tag=_append_key_tag,
+        logfile=os.getenv("CMDCOMP_LOGFILE"),
         version=__version__,
     )
 

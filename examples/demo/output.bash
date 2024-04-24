@@ -100,7 +100,6 @@ _mycli() {
         COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
         return 0
       fi
-
       return 0
       ;;
 
@@ -119,7 +118,6 @@ _mycli() {
         COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
         return 0
       fi
-
       return 0
       ;;
 
@@ -144,7 +142,6 @@ _mycli() {
       COMP_CWORD=${#COMP_WORDS[@]}
 
       [ -x "$(command -v _command_offset)" ] && _command_offset 0
-
       return 0
       ;;
 
@@ -169,7 +166,6 @@ _mycli() {
       COMP_CWORD=${#COMP_WORDS[@]}
 
       [ -x "$(command -v _command_offset)" ] && _command_offset 0
-
       return 0
       ;;
 
@@ -194,7 +190,6 @@ _mycli() {
       COMP_CWORD=${#COMP_WORDS[@]}
 
       [ -x "$(command -v _command_offset)" ] && _command_offset 0
-
       return 0
       ;;
 
@@ -219,7 +214,6 @@ _mycli() {
       COMP_CWORD=${#COMP_WORDS[@]}
 
       [ -x "$(command -v _command_offset)" ] && _command_offset 0
-
       return 0
       ;;
 
@@ -244,7 +238,6 @@ _mycli() {
       COMP_CWORD=${#COMP_WORDS[@]}
 
       [ -x "$(command -v _command_offset)" ] && _command_offset 0
-
       return 0
       ;;
 
@@ -263,7 +256,6 @@ _mycli() {
         COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
         return 0
       fi
-
       return 0
       ;;
 
@@ -284,7 +276,6 @@ _mycli() {
 
       opts="--auto-correct -A"
       COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
-
       return 0
       ;;
 
@@ -296,7 +287,6 @@ _mycli() {
 
       opts=""
       COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
-
       return 0
       ;;
 

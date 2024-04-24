@@ -93,7 +93,6 @@ _cliname() {
               done
 
               IFS=$'\n' COMPREPLY=($(sort <<<"${COMPREPLY[*]}"))
-
               return 0
             else
               cmd_cword=$(( cmd_cword + 2 ))
@@ -103,7 +102,6 @@ _cliname() {
           --type)
             if [ $cword -eq $COMP_CWORD ] ; then
               COMPREPLY=( $(compgen -W "json toml" -- "${COMP_WORDS[COMP_CWORD]}") )
-
               return 0
             else
               cmd_cword=$(( cmd_cword + 1 ))
@@ -129,7 +127,6 @@ _cliname() {
         COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
         return 0
       fi
-
       return 0
       ;;
 
@@ -162,12 +159,10 @@ _cliname() {
         done
 
         IFS=$'\n' COMPREPLY=($(sort <<<"${COMPREPLY[*]}"))
-
         return 0
       else
         cmd_cword=$(( cmd_cword + 2 ))
       fi
-
       return 0
       ;;
 
@@ -197,7 +192,6 @@ _cliname() {
             done
 
             IFS=$'\n' COMPREPLY=($(sort <<<"${COMPREPLY[*]}"))
-
             return 0
           else
             cmd_cword=$(( cmd_cword + 2 ))
@@ -211,7 +205,6 @@ _cliname() {
         COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
         return 0
       fi
-
       return 0
       ;;
 
@@ -230,7 +223,6 @@ _cliname() {
         COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
         return 0
       fi
-
       return 0
       ;;
 
@@ -257,12 +249,10 @@ _cliname() {
       cword=$COMP_CWORD
       if [ $cword -eq $COMP_CWORD ] ; then
         COMPREPLY=( $(compgen -W "$(echo 'script1.sh script2.sh script3.sh')" -- "${COMP_WORDS[COMP_CWORD]}") )
-
         return 0
       else
         cmd_cword=$(( cmd_cword + 2 ))
       fi
-
       return 0
       ;;
 
@@ -287,7 +277,6 @@ _cliname() {
       COMP_CWORD=${#COMP_WORDS[@]}
 
       [ -x "$(command -v _command_offset)" ] && _command_offset 0
-
       return 0
       ;;
 
@@ -306,7 +295,6 @@ _cliname() {
         COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
         return 0
       fi
-
       return 0
       ;;
 
@@ -327,7 +315,6 @@ _cliname() {
 
       opts="--auto-correct -A"
       COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
-
       return 0
       ;;
 
@@ -339,7 +326,6 @@ _cliname() {
 
       opts=""
       COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
-
       return 0
       ;;
 

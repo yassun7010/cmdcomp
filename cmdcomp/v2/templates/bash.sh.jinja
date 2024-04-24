@@ -2,11 +2,21 @@
 {%- set scope = "" -%}
 
 {#- macro def -#}
+{%- macro output_log(logfile) -%}
+{%- if logfile is not none %}
+  echo "COMP_LINE: $COMP_LINE" >> {{ logfile }}
+  echo "COMP_POINT: $COMP_POINT" >> {{ logfile }}
+  echo "COMP_CWORD: $COMP_CWORD" >> {{ logfile }}
+  echo "COMP_WORDS: ${COMP_WORDS[@]}" >> {{ logfile }}
+  echo "COMPREPLY: ${COMPREPLY[@]}" >> {{ logfile }}
+  echo >> {{ logfile }}
+{%- endif %}
+{%- endmacro -%}
 {%- macro argument_completion(argument) -%}
 {% if argument.type == "select" -%}
 if [ $cword -eq $COMP_CWORD ] ; then
   COMPREPLY=( $(compgen -W "{{ argument.options|join(" ") }}" -- "${COMP_WORDS[COMP_CWORD]}") )
-
+  {{- output_log(logfile) }}
   return 0
 else
   cmd_cword=$(( cmd_cword + 1 ))
@@ -24,7 +34,7 @@ if [ $cword -eq $COMP_CWORD ] ; then
   done
 
   IFS=$'\n' COMPREPLY=($(sort <<<"${COMPREPLY[*]}"))
-
+  {{- output_log(logfile) }}
   return 0
 else
   cmd_cword=$(( cmd_cword + 2 ))
@@ -32,7 +42,7 @@ fi
 {%- elif argument.type == "command" -%}
 if [ $cword -eq $COMP_CWORD ] ; then
   COMPREPLY=( $(compgen -W "$({{ argument.execute }})" -- "${COMP_WORDS[COMP_CWORD]}") )
-
+  {{- output_log(logfile) }}
   return 0
 else
   cmd_cword=$(( cmd_cword + 2 ))
@@ -94,16 +104,19 @@ COMP_CWORD={{ "${#COMP_WORDS[@]}" }}
 if [[ ${COMP_WORDS[COMP_CWORD]} == -* ]] ; then
   opts="{{ command.keyword_names_with_alias|join(' ') }}"
   COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
+  {{- output_log(logfile) }}
   return 0
 elif [ $cword -eq $COMP_CWORD ] ; then
   opts="{{ command.subcommand_names_with_alias|join(' ') }}"
   COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
+  {{- output_log(logfile) }}
   return 0
 fi
 {%- elif command.has_positional_arguments or command.has_positional_wildcard_argument -%}
 if [[ ${COMP_WORDS[COMP_CWORD]} == -* ]] ; then
   opts="{{ command.keyword_names_with_alias|join(' ') }}"
   COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
+  {{- output_log(logfile) }}
   return 0
 fi
 {%- else -%}
@@ -159,14 +172,14 @@ cword=$COMP_CWORD
   case "${cmd}" in
     {{ func_name }})
       {{ command_completion(commands[app_name], 1)|indent(6) }}
-
+      {{- output_log(logfile) }}
       return 0
       ;;
 {% for (tag, command_name), subcommand in append_key_tag(commands[app_name].subcommands, func_name).items() recursive %}
 {%- set new_tag = tag + "_" + command_name|ident %}
     {{ new_tag }})
       {{ command_completion(subcommand, loop.depth + 1)|indent(6) }}
-
+      {{- output_log(logfile) }}
       return 0
       ;;
 {{ loop(append_key_tag(subcommand.subcommands, new_tag).items()) -}}
