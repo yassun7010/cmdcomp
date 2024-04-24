@@ -87,7 +87,10 @@ _cliname() {
           --config)
             if [ $cword -eq $COMP_CWORD ] ; then
               word="${COMP_WORDS[COMP_CWORD]}"
-              COMPREPLY=($(compgen -d -S / -- "$word"))
+              COMPREPLY=()
+              for dir in $(compgen -d -S / -- "$word"); do
+                COMPREPLY+=("$dir")
+              done
               for file in $(compgen -f -- "$word"); do
                 [ ! -d $file ] && COMPREPLY+=("$file")
               done
@@ -153,7 +156,10 @@ _cliname() {
       cword=$COMP_CWORD
       if [ $cword -eq $COMP_CWORD ] ; then
         word="${COMP_WORDS[COMP_CWORD]}"
-        COMPREPLY=($(compgen -d -S / -- "$word"))
+        COMPREPLY=()
+        for dir in $(compgen -d -S / -- "$word"); do
+          COMPREPLY+=("$dir")
+        done
         for file in $(compgen -f -- "$word"); do
           [ ! -d $file ] && COMPREPLY+=("$file")
         done
@@ -186,7 +192,10 @@ _cliname() {
           1)
             if [ $cword -eq $COMP_CWORD ] ; then
             word="$HOME/${COMP_WORDS[COMP_CWORD]}"
-            COMPREPLY=($(compgen -d -S / -- "$word"))
+            COMPREPLY=()
+            for dir in $(compgen -d -S / -- "$word"); do
+              COMPREPLY+=("$dir")
+            done
             for file in $(compgen -f -- "$word"); do
               [ ! -d $file ] && COMPREPLY+=("$file")
             done

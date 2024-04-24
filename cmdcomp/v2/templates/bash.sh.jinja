@@ -28,7 +28,10 @@ if [ $cword -eq $COMP_CWORD ] ; then
 {%- else %}
   word="{{ argument.base_path }}/${COMP_WORDS[COMP_CWORD]}"
 {%- endif %}
-  COMPREPLY=($(compgen -d -S / -- "$word"))
+  COMPREPLY=()
+  for dir in $(compgen -d -S / -- "$word"); do
+    COMPREPLY+=("$dir")
+  done
   for file in $(compgen -f -- "$word"); do
     [ ! -d $file ] && COMPREPLY+=("$file")
   done

@@ -85,5 +85,5 @@ assert_eq() {
 @test "completion subcommand with kwarg" {
     COMP_CWORD=2 calc_completion cliname --config examples/v2/config.cmdcomp.
 
-    assert_eq cmdcomp.log cmdcomp/
+    assert_eq examples/v2/config.cmdcomp.toml examples/v2/config.cmdcomp.yaml
 }
