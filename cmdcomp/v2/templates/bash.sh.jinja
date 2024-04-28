@@ -92,19 +92,12 @@ fi
 {%- endif %}
 
 {% if command.type == "delegate" -%}
-for ((i = 0; i < {{ depth }}; i++)); do
-  for ((j = 0; j <= {{ "${#COMP_LINE}" }}; j++)); do
-    [[ $COMP_LINE == "${COMP_WORDS[i]}"* ]] && break
-    COMP_LINE=${COMP_LINE:1}
-    ((COMP_POINT--))
-  done
-  COMP_LINE={{ '${COMP_LINE#"${COMP_WORDS[i]}"}' }}
-  ((COMP_POINT -= {{ '${#COMP_WORDS[i]}' }}))
-done
-COMP_LINE="{{ command.targets | join(' ') }} $COMP_LINE"
-COMP_POINT=$((COMP_POINT + {{ command.targets | join(" ") | length + 1 }}))
-COMP_WORDS=({{ command.targets | join(" ") }} "${COMP_WORDS[{{ depth + 1 }}, -1]}")
-COMP_CWORD={{ "${#COMP_WORDS[@]}" }}
+local word=${COMP_WORDS[@]::{{depth}}}
+COMP_POINT=$((COMP_POINT + {{ command.targets | join(" ") | length }} - {{ "${#word}" }} ))
+COMP_LINE="{{ command.targets | join(' ') }} ${COMP_WORDS[@]:{{ depth }}}"
+COMP_WORDS=($COMP_LINE)
+COMP_CWORD=$(( {{ "${#COMP_WORDS[@]}" }} - 1 ))
+(( COMP_CWORD < 1 )) && COMP_CWORD=1
 
 [ -x "$(command -v _command_offset)" ] && _command_offset 0
 {%- elif command.has_subcommands -%}

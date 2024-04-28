@@ -47,7 +47,11 @@ assert_eq() {
     echo "$result" >$result_filename
     echo "$expected" >$expected_filename
 
-    git diff --no-index --color=always "$expected_filename" "$result_filename"
+    git diff --no-index --color=always "$expected_filename" "$result_filename" || {
+        echo After: >>$log_filename
+        output_state >>$log_filename
+        return 1
+    }
 }
 
 @test "completion command only" {
@@ -98,11 +102,11 @@ assert_eq() {
     assert_eq examples/v2/config.cmdcomp.toml examples/v2/config.cmdcomp.yaml
 }
 
-# @test "completion file arg with base_path" {
-#     COMP_CWORD=2 calc_completion cliname cd
+@test "completion file arg with base_path" {
+    COMP_CWORD=2 calc_completion cliname cd
 
-#     assert_eq "$(ls -Ap $HOME)"
-# }
+    assert_eq "$(ls -Ap $HOME | sed 's/bash_completion.d/bash_completion.d\//g')"
+}
 
 @test "completion subsubcommand" {
     calc_completion cliname test
@@ -116,3 +120,13 @@ assert_eq() {
 
     assert_eq add am archive bisect branch bundle checkout cherry-pick citool clean clone commit describe diff fetch format-patch gc grep gui init log maintenance merge mv notes pull push range-diff rebase reset restore revert rm shortlog show sparse-checkout stash status submodule switch tag worktree gitk scalar credential-gcloud credential-gcloud.sh lfs open apply blame cherry config difftool fsck help instaweb mergetool prune reflog remote repack replace request-pull send-email show-branch stage whatchanged
 }
+
+# bash_completion を利用するとエラーになる。
+#
+# @test "completion delegate" {
+#     source /opt/homebrew/share/bash-completion/bash_completion
+#     source ~/.bash_completion.d/git-completion.bash
+#     calc_completion cliname git a
+
+#     assert_eq add am archive bisect branch bundle checkout cherry-pick citool clean clone commit describe diff fetch format-patch gc grep gui init log maintenance merge mv notes pull push range-diff rebase reset restore revert rm shortlog show sparse-checkout stash status submodule switch tag worktree gitk scalar credential-gcloud credential-gcloud.sh lfs open apply blame cherry config difftool fsck help instaweb mergetool prune reflog remote repack replace request-pull send-email show-branch stage whatchanged
+# }

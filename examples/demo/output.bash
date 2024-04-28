@@ -127,19 +127,12 @@ _mycli() {
         cword=$(( cword + 1 ))
       done
 
-      for ((i = 0; i < 3; i++)); do
-        for ((j = 0; j <= ${#COMP_LINE}; j++)); do
-          [[ $COMP_LINE == "${COMP_WORDS[i]}"* ]] && break
-          COMP_LINE=${COMP_LINE:1}
-          ((COMP_POINT--))
-        done
-        COMP_LINE=${COMP_LINE#"${COMP_WORDS[i]}"}
-        ((COMP_POINT -= ${#COMP_WORDS[i]}))
-      done
-      COMP_LINE="aws $COMP_LINE"
-      COMP_POINT=$((COMP_POINT + 4))
-      COMP_WORDS=(aws "${COMP_WORDS[4, -1]}")
-      COMP_CWORD=${#COMP_WORDS[@]}
+      local word=${COMP_WORDS[@]::3}
+      COMP_POINT=$((COMP_POINT + 3 - ${#word} ))
+      COMP_LINE="aws ${COMP_WORDS[@]:3}"
+      COMP_WORDS=($COMP_LINE)
+      COMP_CWORD=$(( ${#COMP_WORDS[@]} - 1 ))
+      (( COMP_CWORD < 1 )) && COMP_CWORD=1
 
       [ -x "$(command -v _command_offset)" ] && _command_offset 0
       return 0
@@ -151,19 +144,12 @@ _mycli() {
         cword=$(( cword + 1 ))
       done
 
-      for ((i = 0; i < 3; i++)); do
-        for ((j = 0; j <= ${#COMP_LINE}; j++)); do
-          [[ $COMP_LINE == "${COMP_WORDS[i]}"* ]] && break
-          COMP_LINE=${COMP_LINE:1}
-          ((COMP_POINT--))
-        done
-        COMP_LINE=${COMP_LINE#"${COMP_WORDS[i]}"}
-        ((COMP_POINT -= ${#COMP_WORDS[i]}))
-      done
-      COMP_LINE="aws s3 $COMP_LINE"
-      COMP_POINT=$((COMP_POINT + 7))
-      COMP_WORDS=(aws s3 "${COMP_WORDS[4, -1]}")
-      COMP_CWORD=${#COMP_WORDS[@]}
+      local word=${COMP_WORDS[@]::3}
+      COMP_POINT=$((COMP_POINT + 6 - ${#word} ))
+      COMP_LINE="aws s3 ${COMP_WORDS[@]:3}"
+      COMP_WORDS=($COMP_LINE)
+      COMP_CWORD=$(( ${#COMP_WORDS[@]} - 1 ))
+      (( COMP_CWORD < 1 )) && COMP_CWORD=1
 
       [ -x "$(command -v _command_offset)" ] && _command_offset 0
       return 0
@@ -175,19 +161,12 @@ _mycli() {
         cword=$(( cword + 1 ))
       done
 
-      for ((i = 0; i < 3; i++)); do
-        for ((j = 0; j <= ${#COMP_LINE}; j++)); do
-          [[ $COMP_LINE == "${COMP_WORDS[i]}"* ]] && break
-          COMP_LINE=${COMP_LINE:1}
-          ((COMP_POINT--))
-        done
-        COMP_LINE=${COMP_LINE#"${COMP_WORDS[i]}"}
-        ((COMP_POINT -= ${#COMP_WORDS[i]}))
-      done
-      COMP_LINE="gcloud $COMP_LINE"
-      COMP_POINT=$((COMP_POINT + 7))
-      COMP_WORDS=(gcloud "${COMP_WORDS[4, -1]}")
-      COMP_CWORD=${#COMP_WORDS[@]}
+      local word=${COMP_WORDS[@]::3}
+      COMP_POINT=$((COMP_POINT + 6 - ${#word} ))
+      COMP_LINE="gcloud ${COMP_WORDS[@]:3}"
+      COMP_WORDS=($COMP_LINE)
+      COMP_CWORD=$(( ${#COMP_WORDS[@]} - 1 ))
+      (( COMP_CWORD < 1 )) && COMP_CWORD=1
 
       [ -x "$(command -v _command_offset)" ] && _command_offset 0
       return 0
@@ -199,19 +178,12 @@ _mycli() {
         cword=$(( cword + 1 ))
       done
 
-      for ((i = 0; i < 3; i++)); do
-        for ((j = 0; j <= ${#COMP_LINE}; j++)); do
-          [[ $COMP_LINE == "${COMP_WORDS[i]}"* ]] && break
-          COMP_LINE=${COMP_LINE:1}
-          ((COMP_POINT--))
-        done
-        COMP_LINE=${COMP_LINE#"${COMP_WORDS[i]}"}
-        ((COMP_POINT -= ${#COMP_WORDS[i]}))
-      done
-      COMP_LINE="gcloud storage $COMP_LINE"
-      COMP_POINT=$((COMP_POINT + 15))
-      COMP_WORDS=(gcloud storage "${COMP_WORDS[4, -1]}")
-      COMP_CWORD=${#COMP_WORDS[@]}
+      local word=${COMP_WORDS[@]::3}
+      COMP_POINT=$((COMP_POINT + 14 - ${#word} ))
+      COMP_LINE="gcloud storage ${COMP_WORDS[@]:3}"
+      COMP_WORDS=($COMP_LINE)
+      COMP_CWORD=$(( ${#COMP_WORDS[@]} - 1 ))
+      (( COMP_CWORD < 1 )) && COMP_CWORD=1
 
       [ -x "$(command -v _command_offset)" ] && _command_offset 0
       return 0
@@ -223,19 +195,12 @@ _mycli() {
         cword=$(( cword + 1 ))
       done
 
-      for ((i = 0; i < 3; i++)); do
-        for ((j = 0; j <= ${#COMP_LINE}; j++)); do
-          [[ $COMP_LINE == "${COMP_WORDS[i]}"* ]] && break
-          COMP_LINE=${COMP_LINE:1}
-          ((COMP_POINT--))
-        done
-        COMP_LINE=${COMP_LINE#"${COMP_WORDS[i]}"}
-        ((COMP_POINT -= ${#COMP_WORDS[i]}))
-      done
-      COMP_LINE="gcloud composer operations $COMP_LINE"
-      COMP_POINT=$((COMP_POINT + 27))
-      COMP_WORDS=(gcloud composer operations "${COMP_WORDS[4, -1]}")
-      COMP_CWORD=${#COMP_WORDS[@]}
+      local word=${COMP_WORDS[@]::3}
+      COMP_POINT=$((COMP_POINT + 26 - ${#word} ))
+      COMP_LINE="gcloud composer operations ${COMP_WORDS[@]:3}"
+      COMP_WORDS=($COMP_LINE)
+      COMP_CWORD=$(( ${#COMP_WORDS[@]} - 1 ))
+      (( COMP_CWORD < 1 )) && COMP_CWORD=1
 
       [ -x "$(command -v _command_offset)" ] && _command_offset 0
       return 0

@@ -268,19 +268,12 @@ _cliname() {
         cword=$(( cword + 1 ))
       done
 
-      for ((i = 0; i < 2; i++)); do
-        for ((j = 0; j <= ${#COMP_LINE}; j++)); do
-          [[ $COMP_LINE == "${COMP_WORDS[i]}"* ]] && break
-          COMP_LINE=${COMP_LINE:1}
-          ((COMP_POINT--))
-        done
-        COMP_LINE=${COMP_LINE#"${COMP_WORDS[i]}"}
-        ((COMP_POINT -= ${#COMP_WORDS[i]}))
-      done
-      COMP_LINE="gcloud storage $COMP_LINE"
-      COMP_POINT=$((COMP_POINT + 15))
-      COMP_WORDS=(gcloud storage "${COMP_WORDS[3, -1]}")
-      COMP_CWORD=${#COMP_WORDS[@]}
+      local word=${COMP_WORDS[@]::2}
+      COMP_POINT=$((COMP_POINT + 3 - ${#word} ))
+      COMP_LINE="git ${COMP_WORDS[@]:2}"
+      COMP_WORDS=($COMP_LINE)
+      COMP_CWORD=$(( ${#COMP_WORDS[@]} - 1 ))
+      (( COMP_CWORD < 1 )) && COMP_CWORD=1
 
       [ -x "$(command -v _command_offset)" ] && _command_offset 0
       return 0
