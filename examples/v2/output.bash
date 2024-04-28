@@ -282,6 +282,15 @@ _cliname() {
         esac
       done
 
+      local has_keyword_splitter=false
+      for word in ${COMP_WORDS[@]::$COMP_CWORD}; do
+        [ "$word" == "--" ] && has_keyword_splitter=true && break
+      done
+      if [[ $has_keyword_splitter = false && ${COMP_WORDS[COMP_CWORD]} == -* ]] ; then
+        opts="--envname"
+        COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
+        return 0
+      fi
       local word=${COMP_WORDS[@]::$cmd_cword}
       COMP_POINT=$((COMP_POINT + 3 - ${#word} ))
       COMP_LINE="git ${COMP_WORDS[@]:$cmd_cword}"

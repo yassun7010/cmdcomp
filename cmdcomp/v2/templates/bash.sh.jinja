@@ -92,6 +92,18 @@ fi
 {%- endif %}
 
 {% if command.type == "delegate" -%}
+{%- if command.has_keyword_arguments -%}
+local has_keyword_splitter=false
+for word in ${COMP_WORDS[@]::$COMP_CWORD}; do
+  [ "$word" == "--" ] && has_keyword_splitter=true && break
+done
+if [[ $has_keyword_splitter = false && ${COMP_WORDS[COMP_CWORD]} == -* ]] ; then
+  opts="{{ command.keyword_names_with_alias|join(' ') }}"
+  COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
+  {{- output_log(logfile) }}
+  return 0
+fi
+{% endif -%}
 local word=${COMP_WORDS[@]::$cmd_cword}
 COMP_POINT=$((COMP_POINT + {{ command.targets | join(" ") | length }} - {{ "${#word}" }} ))
 COMP_LINE="{{ command.targets | join(' ') }} ${COMP_WORDS[@]:$cmd_cword}"
