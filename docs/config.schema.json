@@ -409,6 +409,41 @@
                         ]
                     ],
                     "title": "delegate target command name."
+                },
+                "arguments": {
+                    "description": "argment key allow keyword string (like \"--f\", \"-f\") only.",
+                    "patternProperties": {
+                        "^--?[a-zA-Z0-9_-]+$": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "items": {
+                                        "type": "string"
+                                    },
+                                    "type": "array"
+                                },
+                                {
+                                    "$ref": "#/$defs/V2SelectArgument"
+                                },
+                                {
+                                    "$ref": "#/$defs/V2FileArgument"
+                                },
+                                {
+                                    "$ref": "#/$defs/V2CommandArgument"
+                                },
+                                {
+                                    "$ref": "#/$defs/V2FlagArgument"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ]
+                        }
+                    },
+                    "title": "arguments of the command.",
+                    "type": "object"
                 }
             },
             "required": [
