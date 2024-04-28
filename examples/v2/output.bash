@@ -268,14 +268,14 @@ _cliname() {
         cword=$(( cword + 1 ))
       done
 
-      local word=${COMP_WORDS[@]::2}
+      local word=${COMP_WORDS[@]::$cmd_cword}
       COMP_POINT=$((COMP_POINT + 3 - ${#word} ))
-      COMP_LINE="git ${COMP_WORDS[@]:2}"
+      COMP_LINE="git ${COMP_WORDS[@]:$cmd_cword}"
       COMP_WORDS=($COMP_LINE)
       COMP_CWORD=$(( ${#COMP_WORDS[@]} - 1 ))
       (( COMP_CWORD < 1 )) && COMP_CWORD=1
 
-      [ -x "$(command -v _command_offset)" ] && _command_offset 0
+      type "_command_offset" > /dev/null 2>&1 && _command_offset 0
       return 0
       ;;
 

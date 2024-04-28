@@ -127,14 +127,14 @@ _mycli() {
         cword=$(( cword + 1 ))
       done
 
-      local word=${COMP_WORDS[@]::3}
+      local word=${COMP_WORDS[@]::$cmd_cword}
       COMP_POINT=$((COMP_POINT + 3 - ${#word} ))
-      COMP_LINE="aws ${COMP_WORDS[@]:3}"
+      COMP_LINE="aws ${COMP_WORDS[@]:$cmd_cword}"
       COMP_WORDS=($COMP_LINE)
       COMP_CWORD=$(( ${#COMP_WORDS[@]} - 1 ))
       (( COMP_CWORD < 1 )) && COMP_CWORD=1
 
-      [ -x "$(command -v _command_offset)" ] && _command_offset 0
+      type "_command_offset" > /dev/null 2>&1 && _command_offset 0
       return 0
       ;;
 
@@ -144,14 +144,14 @@ _mycli() {
         cword=$(( cword + 1 ))
       done
 
-      local word=${COMP_WORDS[@]::3}
+      local word=${COMP_WORDS[@]::$cmd_cword}
       COMP_POINT=$((COMP_POINT + 6 - ${#word} ))
-      COMP_LINE="aws s3 ${COMP_WORDS[@]:3}"
+      COMP_LINE="aws s3 ${COMP_WORDS[@]:$cmd_cword}"
       COMP_WORDS=($COMP_LINE)
       COMP_CWORD=$(( ${#COMP_WORDS[@]} - 1 ))
       (( COMP_CWORD < 1 )) && COMP_CWORD=1
 
-      [ -x "$(command -v _command_offset)" ] && _command_offset 0
+      type "_command_offset" > /dev/null 2>&1 && _command_offset 0
       return 0
       ;;
 
@@ -161,14 +161,14 @@ _mycli() {
         cword=$(( cword + 1 ))
       done
 
-      local word=${COMP_WORDS[@]::3}
+      local word=${COMP_WORDS[@]::$cmd_cword}
       COMP_POINT=$((COMP_POINT + 6 - ${#word} ))
-      COMP_LINE="gcloud ${COMP_WORDS[@]:3}"
+      COMP_LINE="gcloud ${COMP_WORDS[@]:$cmd_cword}"
       COMP_WORDS=($COMP_LINE)
       COMP_CWORD=$(( ${#COMP_WORDS[@]} - 1 ))
       (( COMP_CWORD < 1 )) && COMP_CWORD=1
 
-      [ -x "$(command -v _command_offset)" ] && _command_offset 0
+      type "_command_offset" > /dev/null 2>&1 && _command_offset 0
       return 0
       ;;
 
@@ -178,14 +178,14 @@ _mycli() {
         cword=$(( cword + 1 ))
       done
 
-      local word=${COMP_WORDS[@]::3}
+      local word=${COMP_WORDS[@]::$cmd_cword}
       COMP_POINT=$((COMP_POINT + 14 - ${#word} ))
-      COMP_LINE="gcloud storage ${COMP_WORDS[@]:3}"
+      COMP_LINE="gcloud storage ${COMP_WORDS[@]:$cmd_cword}"
       COMP_WORDS=($COMP_LINE)
       COMP_CWORD=$(( ${#COMP_WORDS[@]} - 1 ))
       (( COMP_CWORD < 1 )) && COMP_CWORD=1
 
-      [ -x "$(command -v _command_offset)" ] && _command_offset 0
+      type "_command_offset" > /dev/null 2>&1 && _command_offset 0
       return 0
       ;;
 
@@ -195,14 +195,14 @@ _mycli() {
         cword=$(( cword + 1 ))
       done
 
-      local word=${COMP_WORDS[@]::3}
+      local word=${COMP_WORDS[@]::$cmd_cword}
       COMP_POINT=$((COMP_POINT + 26 - ${#word} ))
-      COMP_LINE="gcloud composer operations ${COMP_WORDS[@]:3}"
+      COMP_LINE="gcloud composer operations ${COMP_WORDS[@]:$cmd_cword}"
       COMP_WORDS=($COMP_LINE)
       COMP_CWORD=$(( ${#COMP_WORDS[@]} - 1 ))
       (( COMP_CWORD < 1 )) && COMP_CWORD=1
 
-      [ -x "$(command -v _command_offset)" ] && _command_offset 0
+      type "_command_offset" > /dev/null 2>&1 && _command_offset 0
       return 0
       ;;
 

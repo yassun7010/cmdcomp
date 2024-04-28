@@ -92,14 +92,14 @@ fi
 {%- endif %}
 
 {% if command.type == "delegate" -%}
-local word=${COMP_WORDS[@]::{{depth}}}
+local word=${COMP_WORDS[@]::$cmd_cword}
 COMP_POINT=$((COMP_POINT + {{ command.targets | join(" ") | length }} - {{ "${#word}" }} ))
-COMP_LINE="{{ command.targets | join(' ') }} ${COMP_WORDS[@]:{{ depth }}}"
+COMP_LINE="{{ command.targets | join(' ') }} ${COMP_WORDS[@]:$cmd_cword}"
 COMP_WORDS=($COMP_LINE)
 COMP_CWORD=$(( {{ "${#COMP_WORDS[@]}" }} - 1 ))
 (( COMP_CWORD < 1 )) && COMP_CWORD=1
 
-[ -x "$(command -v _command_offset)" ] && _command_offset 0
+type "_command_offset" > /dev/null 2>&1 && _command_offset 0
 {%- elif command.has_subcommands -%}
 if [[ ${COMP_WORDS[COMP_CWORD]} == -* ]] ; then
   opts="{{ command.keyword_names_with_alias|join(' ') }}"
