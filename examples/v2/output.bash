@@ -106,7 +106,7 @@ _cliname() {
               COMPREPLY=( $(compgen -W "json toml" -- "${COMP_WORDS[COMP_CWORD]}") )
               return 0
             else
-              cmd_cword=$(( cmd_cword + 1 ))
+              cmd_cword=$(( cmd_cword + 2 ))
             fi
             ;;
 
@@ -266,6 +266,20 @@ _cliname() {
       cmd_cword=$cword
       while [ $cword -lt $COMP_CWORD ] ; do
         cword=$(( cword + 1 ))
+        case "${COMP_WORDS[cword-1]}" in
+          --envname)
+            if [ $cword -eq $COMP_CWORD ] ; then
+              COMPREPLY=( $(compgen -W "dev prd" -- "${COMP_WORDS[COMP_CWORD]}") )
+              return 0
+            else
+              cmd_cword=$(( cmd_cword + 2 ))
+            fi
+            ;;
+
+          *)
+            break
+            ;;
+        esac
       done
 
       local word=${COMP_WORDS[@]::$cmd_cword}

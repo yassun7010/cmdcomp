@@ -67,6 +67,10 @@ root:
       type: delegate
       description: git command.
       target: [git]
+      arguments:
+        --envname:
+          - dev
+          - prd
     test:
       description: "test command."
       subcommands:

@@ -63,3 +63,8 @@ class V2DelegateCommand(V2EmptyCommand):
                 if isinstance(k, str)
             ]
         )
+
+    @property
+    @override
+    def has_keyword_arguments(self) -> bool:
+        return len(self.keyword_arguments) > 0

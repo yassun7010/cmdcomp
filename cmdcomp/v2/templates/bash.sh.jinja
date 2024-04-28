@@ -19,7 +19,7 @@ if [ $cword -eq $COMP_CWORD ] ; then
   {{- output_log(logfile) }}
   return 0
 else
-  cmd_cword=$(( cmd_cword + 1 ))
+  cmd_cword=$(( cmd_cword + 2 ))
 fi
 {%- elif argument.type == "file" -%}
 if [ $cword -eq $COMP_CWORD ] ; then

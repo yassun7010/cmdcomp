@@ -77,6 +77,10 @@ type = "delegate"
 description = "git command."
 target = ["git"]
 
+[root.subcommands.git.arguments.--envname]
+type = "select"
+options = ["dev", "prd"]
+
 [root.subcommands.test]
 description = "test command."
 
