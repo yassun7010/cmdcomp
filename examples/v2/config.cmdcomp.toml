@@ -72,10 +72,10 @@ type = "command"
 description = "run script."
 execute = "echo 'script1.sh script2.sh script3.sh'"
 
-[root.subcommands.gcloud]
+[root.subcommands.git]
 type = "delegate"
-description = "gcloud command."
-target = ["gcloud", "storage"]
+description = "git command."
+target = ["git"]
 
 [root.subcommands.test]
 description = "test command."

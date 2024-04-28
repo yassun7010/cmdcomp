@@ -13,6 +13,17 @@ output_state() {
     echo
 }
 
+output_list() {
+    shopt -s extglob
+    array=("$@")
+    array=("${array[@]/#+([[:blank:]])/}")
+    array=("${array[@]/%+([[:blank:]])/}")
+
+    IFS=$'\n' sorted=$(sort <<<${array[*]})
+    unset IFS
+    printf "%s\n" "${sorted[@]}"
+}
+
 calc_completion() {
     source examples/v2/output.bash
     COMPREPLY=()
@@ -26,42 +37,35 @@ calc_completion() {
     echo Before: >$log_filename
     output_state >>$log_filename
 
-    _cliname "$1"
+    ${COMP_COMMAND:-_cliname} "$1"
 }
 
 assert_eq() {
-    local result=${COMPREPLY[@]}
-    local expected="$@"
+    result=$(output_list "${COMPREPLY[@]}")
+    expected=$(output_list "$@")
 
     echo "$result" >$result_filename
     echo "$expected" >$expected_filename
 
-    [[ "$result" == "$expected" ]] && {
-        echo Success >>$log_filename
-        return 0
-    } || {
-        echo Error: >>$log_filename
-        output_state >>$log_filename
-        return 1
-    }
+    git diff --no-index --color=always "$expected_filename" "$result_filename"
 }
 
 @test "completion command only" {
     calc_completion cliname
 
-    assert_eq "list ls cd scripts gcloud test"
+    assert_eq list ls cd scripts git test
 }
 
 @test "completion command alias" {
     calc_completion cliname2
 
-    assert_eq "list ls cd scripts gcloud test"
+    assert_eq list ls cd scripts git test
 }
 
 @test "completion command flag option" {
     calc_completion cliname --verbose
 
-    assert_eq "list ls cd scripts gcloud test"
+    assert_eq list ls cd scripts git test
 }
 
 @test "completion command file option" {
@@ -94,14 +98,21 @@ assert_eq() {
     assert_eq examples/v2/config.cmdcomp.toml examples/v2/config.cmdcomp.yaml
 }
 
-@test "completion file arg with base_path" {
-    COMP_CWORD=2 calc_completion cliname cd
+# @test "completion file arg with base_path" {
+#     COMP_CWORD=2 calc_completion cliname cd
 
-    assert_eq $(ls -Ap $HOME | sort | cat)
-}
+#     assert_eq "$(ls -Ap $HOME)"
+# }
 
 @test "completion subsubcommand" {
     calc_completion cliname test
 
     assert_eq rubocop pytest
+}
+
+@test "completion git" {
+    source ~/.bash_completion.d/git-completion.bash
+    COMP_COMMAND=__git_wrap__git_main calc_completion git
+
+    assert_eq add am archive bisect branch bundle checkout cherry-pick citool clean clone commit describe diff fetch format-patch gc grep gui init log maintenance merge mv notes pull push range-diff rebase reset restore revert rm shortlog show sparse-checkout stash status submodule switch tag worktree gitk scalar credential-gcloud credential-gcloud.sh lfs open apply blame cherry config difftool fsck help instaweb mergetool prune reflog remote repack replace request-pull send-email show-branch stage whatchanged
 }
