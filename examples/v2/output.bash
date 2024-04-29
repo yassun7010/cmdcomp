@@ -45,6 +45,11 @@ _cliname() {
         cword=$(( cword + opts_cword + 1 ))
         ;;
 
+      _cliname,gcs)
+        cmd="_cliname_gcs"
+        cword=$(( cword + opts_cword + 1 ))
+        ;;
+
       _cliname,test)
         cmd="_cliname_test"
         cword=$(( cword + opts_cword + 1 ))
@@ -125,7 +130,7 @@ _cliname() {
         COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
         return 0
       elif [ $cword -eq $COMP_CWORD ] ; then
-        opts="list ls cd scripts git test"
+        opts="list ls cd scripts git gcs test"
         COMPREPLY=( $(compgen -W "${opts}" -- "${COMP_WORDS[COMP_CWORD]}") )
         return 0
       fi
@@ -294,6 +299,23 @@ _cliname() {
       local word=${COMP_WORDS[@]::$cmd_cword}
       COMP_POINT=$((COMP_POINT + 3 - ${#word} ))
       COMP_LINE="git ${COMP_WORDS[@]:$cmd_cword}"
+      COMP_WORDS=($COMP_LINE)
+      COMP_CWORD=$(( ${#COMP_WORDS[@]} - 1 ))
+      (( COMP_CWORD < 1 )) && COMP_CWORD=1
+
+      type "_command_offset" > /dev/null 2>&1 && _command_offset 0
+      return 0
+      ;;
+
+    _cliname_gcs)
+      cmd_cword=$cword
+      while [ $cword -lt $COMP_CWORD ] ; do
+        cword=$(( cword + 1 ))
+      done
+
+      local word=${COMP_WORDS[@]::$cmd_cword}
+      COMP_POINT=$((COMP_POINT + 14 - ${#word} ))
+      COMP_LINE="gcloud storage ${COMP_WORDS[@]:$cmd_cword}"
       COMP_WORDS=($COMP_LINE)
       COMP_CWORD=$(( ${#COMP_WORDS[@]} - 1 ))
       (( COMP_CWORD < 1 )) && COMP_CWORD=1

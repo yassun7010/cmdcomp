@@ -81,6 +81,11 @@ target = ["git"]
 type = "select"
 options = ["dev", "prd"]
 
+[root.subcommands.gcs]
+type = "delegate"
+description = "gcs command."
+target = ["gcloud", "storage"]
+
 [root.subcommands.test]
 description = "test command."
 

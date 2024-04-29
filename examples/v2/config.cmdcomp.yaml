@@ -71,6 +71,10 @@ root:
         --envname:
           - dev
           - prd
+    gcs:
+      type: delegate
+      description: gcs command.
+      target: [gcloud, storage]
     test:
       description: "test command."
       subcommands:

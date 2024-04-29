@@ -18,6 +18,7 @@ _cliname() {
         cd'[cd project directory.]'
         scripts'[operate scripts.]'
         git'[git command.]'
+        gcs'[gcs command.]'
         test'[test command.]'
       )
 
@@ -82,6 +83,12 @@ _cliname() {
             git)
               words=(git "${words[2, -1]}")
               ((CURRENT += 0))
+              _normal
+              ;;
+
+            gcs)
+              words=(gcloud storage "${words[2, -1]}")
+              ((CURRENT += 1))
               _normal
               ;;
 
