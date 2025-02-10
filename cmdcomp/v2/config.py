@@ -1,9 +1,10 @@
 from pydantic import ConfigDict
 
 from cmdcomp.model import Model
-from cmdcomp.v2.app_info import V2AppInfo
-from cmdcomp.v2.cmdcomp_info import V2CmdCompInfo
-from cmdcomp.v2.command import V2Command
+
+from .app_info import V2AppInfo
+from .cmdcomp_info import V2CmdCompInfo
+from .command import V2Command
 
 
 class V2Config(Model):
