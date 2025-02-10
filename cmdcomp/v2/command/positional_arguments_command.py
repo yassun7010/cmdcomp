@@ -1,4 +1,3 @@
-from functools import cached_property
 from typing import TYPE_CHECKING, Annotated, Literal, OrderedDict
 
 from pydantic import Field
@@ -38,7 +37,7 @@ class V2PositionalArgumentsCommand(V2BaseCommand):
     def subcommands(self) -> OrderedDict[SubcommandName, "V2Command"]:
         return OrderedDict()
 
-    @cached_property
+    @property
     @override
     def positional_arguments(self) -> OrderedDict[Position, V2Argument]:
         return OrderedDict(
@@ -49,7 +48,7 @@ class V2PositionalArgumentsCommand(V2BaseCommand):
             ]
         )
 
-    @cached_property
+    @property
     @override
     def positional_wildcard_argument(self) -> V2Argument | None:
         if "*" in self.arguments:
@@ -57,7 +56,7 @@ class V2PositionalArgumentsCommand(V2BaseCommand):
         else:
             return None
 
-    @cached_property
+    @property
     @override
     def keyword_arguments(self) -> OrderedDict[Keyword, V2Argument]:
         return OrderedDict(

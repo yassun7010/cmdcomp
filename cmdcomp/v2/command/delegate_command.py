@@ -1,4 +1,3 @@
-from functools import cached_property
 from typing import Annotated, Literal, OrderedDict
 
 from pydantic import Field
@@ -53,7 +52,7 @@ class V2DelegateCommand(V2EmptyCommand):
         else:
             return self.target
 
-    @cached_property
+    @property
     @override
     def keyword_arguments(self) -> OrderedDict[Keyword, V2Argument]:
         return OrderedDict(
