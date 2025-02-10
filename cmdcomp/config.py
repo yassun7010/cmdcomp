@@ -3,8 +3,9 @@ from typing import IO
 from pydantic import RootModel
 
 from cmdcomp import model
-from cmdcomp.v1.config import V1Config
-from cmdcomp.v2.config import V2Config
+
+from .v1.config import V1Config
+from .v2.config import V2Config
 
 
 class Config(RootModel):

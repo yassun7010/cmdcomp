@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, OrderedDict
+from typing import TYPE_CHECKING, OrderedDict, Self
 
 from pydantic import Field
 from typing_extensions import override
@@ -11,6 +11,8 @@ from cmdcomp.v2.command.base_command import (
     V2BaseCommand,
     convert_argument,
 )
+from cmdcomp.v2.command.delegate_command import V2DelegateCommand
+from cmdcomp.v2.command.positional_arguments_command import V2PositionalArgumentsCommand
 
 from .argument import V2Argument
 
@@ -25,7 +27,10 @@ class V2SubcommandsCommand(V2BaseCommand):
         default_factory=OrderedDict,
     )
 
-    raw_subcommands: OrderedDict[SubcommandName, "V2Command | None"] = Field(
+    raw_subcommands: OrderedDict[
+        SubcommandName,
+        V2PositionalArgumentsCommand | Self | V2DelegateCommand | None,
+    ] = Field(
         title="subcommands of the command.",
         alias="subcommands",
         default_factory=OrderedDict,
@@ -54,7 +59,7 @@ class V2SubcommandsCommand(V2BaseCommand):
 
     @property
     @override
-    def subcommands(self) -> OrderedDict[SubcommandName, "V2Command"]:
+    def subcommands(self) -> "OrderedDict[SubcommandName, V2Command]":
         return OrderedDict(
             [
                 (

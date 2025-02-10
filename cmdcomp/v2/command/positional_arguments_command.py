@@ -34,7 +34,7 @@ class V2PositionalArgumentsCommand(V2BaseCommand):
 
     @property
     @override
-    def subcommands(self) -> OrderedDict[SubcommandName, "V2Command"]:
+    def subcommands(self) -> "OrderedDict[SubcommandName, V2Command]":
         return OrderedDict()
 
     @property

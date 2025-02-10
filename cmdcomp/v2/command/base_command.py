@@ -53,7 +53,7 @@ class V2BaseCommand(HasAlias, Model, metaclass=ABCMeta):
 
     @property
     @abstractmethod
-    def subcommands(self) -> OrderedDict[SubcommandName, "V2Command"]: ...
+    def subcommands(self) -> "OrderedDict[SubcommandName, V2Command]": ...
 
     @property
     @abstractmethod

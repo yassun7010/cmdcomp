@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 class V2EmptyCommand(V2BaseCommand):
     @property
     @override
-    def subcommands(self) -> OrderedDict[SubcommandName, "V2Command"]:
+    def subcommands(self) -> "OrderedDict[SubcommandName, V2Command]":
         return OrderedDict()
 
     @property
