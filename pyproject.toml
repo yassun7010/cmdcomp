@@ -68,8 +68,3 @@ profile = "black"
 exclude = ["**/__pycache__"]
 reportPrivateImportUsage = "none"
 reportUnusedImport = true
-
-[tool.mypy]
-[[tool.mypy.overrides]]
-ignore_missing_imports = true
-module = []
