@@ -8,14 +8,14 @@ readme = "README.md"
 license = "BSD-3-Clause"
 repository = "https://github.com/yassun7010/cmdcomp"
 classifiers = [
-    "Development Status :: 5 - Production/Stable",
-    "Topic :: Software Development",
-    "Typing :: Typed",
-    "Intended Audience :: Developers",
-    "License :: OSI Approved :: BSD License",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3 :: Only",
+  "Development Status :: 5 - Production/Stable",
+  "Topic :: Software Development",
+  "Typing :: Typed",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: BSD License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3 :: Only",
 ]
 
 [tool.poetry.scripts]
@@ -56,7 +56,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.black]
 line-length = 88
-target-version = ['py310']
+target-version = ["py310"]
 
 [tool.isort]
 # make it compatible with black
